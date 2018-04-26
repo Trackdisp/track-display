@@ -29,7 +29,7 @@ gem 'spring'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 gem 'versionist'
-gem 'webpacker', github: 'rails/webpacker'
+gem 'webpacker'
 
 group :production do
   gem 'heroku-stage'
