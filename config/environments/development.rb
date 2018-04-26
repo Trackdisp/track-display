@@ -1,6 +1,6 @@
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the project's package.json
-config.webpacker.check_yarn_integrity = true
+  config.webpacker.check_yarn_integrity = true
 
   config.active_job.queue_adapter = :async
   config.cache_classes = false
