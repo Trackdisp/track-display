@@ -1,2 +1,39 @@
 es-CL:
-  hello: "Hola mundo"
+  activerecord:
+    models:
+      admin_user:
+        one: Administrador
+        other: Administradores
+      company:
+        one: Empresa
+        other: Empresas
+      user:
+        one: Usuario
+        other: Usuarios
+    attributes:
+      timestamps: &timestamps
+        created_at: Fecha de Creación
+        updated_at: Fecha de Actualización
+      common: &common
+        <<: *timestamps
+        id: ID
+        name: Nombre
+      login_common: &login
+        current_sign_in_at: Fecha de Ingreso Actual
+        current_sign_in_io: IP de Ingreso Actual
+        last_sign_in_at: Fecha de Último Ingreso
+        last_sign_in_ip: IP de Último Ingreso
+        sign_in_count: Cantidad de Ingresos
+        password: Contraseña
+        password_confirmation: Confirmar Password
+        email: Email
+      admin_user:
+        <<: *common
+        <<: *login
+      company:
+        <<: *common
+      user:
+        <<: *common
+        <<: *login
+        company: Empresa
+
