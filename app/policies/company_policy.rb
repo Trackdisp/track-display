@@ -1,6 +1,6 @@
-class AdminUserPolicy < ApplicationPolicy
+class CompanyPolicy < ApplicationPolicy
   def index?
-    user.is_a?(AdminUser)
+    true
   end
 
   def show?
