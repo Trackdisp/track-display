@@ -7,6 +7,9 @@ es-CL:
       company:
         one: Empresa
         other: Empresas
+      device:
+        one: Dispositivo
+        other: Dispositivos
       user:
         one: Usuario
         other: Usuarios
@@ -32,6 +35,9 @@ es-CL:
         <<: *login
       company:
         <<: *common
+      device:
+        <<: *common
+        company: Empresa
       user:
         <<: *common
         <<: *login
