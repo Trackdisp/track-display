@@ -1,0 +1,29 @@
+@import './base';
+@import './devise';
+
+.app {
+  background-color: $main-bg-color;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: $white;
+  height: 64px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__logo-text {
+    font-family: $main-font;
+    font-size: 20px;
+    font-weight: 700;
+    margin-left: 5px;
+  }
+}
