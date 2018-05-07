@@ -1,6 +1,19 @@
 <div class="app">
   <%= render 'shared/hearder' %>
-  <div class="login">
-    Iniciar sesion
+  <div class="sign-in">
+    <div class="sign-in__container">
+      <%= form_tag user_session_path, class: 'sign-in__form' do %>
+        <div class="sign-in__form-title">
+          <%= t('messages.sign_in.title') %>
+        </div>
+        <div class="sign-in__inputs-container user-inputs">
+          <%= email_field_tag 'user[email]', '', class: 'user-inputs__input', placeholder: t('messages.sign_in.placeholders.email') %>
+          <%= password_field_tag 'user[password]', '', class: 'user-inputs__input', placeholder: t('messages.sign_in.placeholders.password') %>
+        </div>
+        <div class="sign-in__submit-container">
+          <%= submit_tag t('messages.sign_in.submit_text'), class: 'sign-in__submit-btn' %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>

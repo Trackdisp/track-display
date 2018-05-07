@@ -42,4 +42,10 @@ es-CL:
         <<: *common
         <<: *login
         company: Empresa
-
+  messages:
+    sign_in:
+      title: Ingresa aquí
+      submit_text: Ingresar
+      placeholders:
+        email: Correo Electrónico
+        password: Contraseña
