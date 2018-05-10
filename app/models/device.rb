@@ -1,5 +1,6 @@
 class Device < ApplicationRecord
   belongs_to :company, optional: true
+  has_many :measures, dependent: :destroy
 
   validates :serial, presence: true
 end
