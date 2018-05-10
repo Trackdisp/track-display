@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180502205239) do
+ActiveRecord::Schema.define(version: 20180510185332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,22 @@ ActiveRecord::Schema.define(version: 20180502205239) do
     t.index ["company_id"], name: "index_devices_on_company_id"
   end
 
+  create_table "measures", force: :cascade do |t|
+    t.bigint "device_id"
+    t.datetime "measured_at"
+    t.integer "people_count"
+    t.integer "views_over_5"
+    t.integer "views_over_15"
+    t.integer "views_over_30"
+    t.integer "male_count"
+    t.integer "female_count"
+    t.integer "avg_age"
+    t.integer "happy_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["device_id"], name: "index_measures_on_device_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -80,4 +96,5 @@ ActiveRecord::Schema.define(version: 20180502205239) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "measures", "devices"
 end
