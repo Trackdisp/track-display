@@ -31,6 +31,8 @@
 
 en:
   messages:
+    header:
+      logout: Logout
     sign_in:
       title: Enter here
       submit_text: Login

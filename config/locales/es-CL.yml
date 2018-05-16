@@ -43,6 +43,8 @@ es-CL:
         <<: *login
         company: Empresa
   messages:
+    header:
+      logout: Cerrar Sesión
     sign_in:
       title: Ingresa aquí
       submit_text: Ingresar

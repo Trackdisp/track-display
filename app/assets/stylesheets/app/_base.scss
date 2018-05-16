@@ -1,5 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Condensed:300');
 
 $white: #fff;
-$main-font: 'Roboto';
+$main-font: 'Qanelas';
 $main-bg-color: #f7f9fb;
+$header-company-color: #a0b3b8;
+$header-menu-bd-color: #bdd4da;
+
+@font-face {
+  font-family: 'Qanelas';
+  src: font-url('Qanelas-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Qanelas';
+  src: font-url('Qanelas-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
