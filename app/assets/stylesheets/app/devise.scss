@@ -50,8 +50,8 @@
     height: 48px;
     width: 124px;
     border-radius: 6px;
-    background-color: #00C46C;
-    color: white;
+    background-color: $primary-btn-color;
+    color: $white;
     cursor: pointer;
     font-size: 14px;
   }
@@ -65,13 +65,13 @@
     height: 40px;
     opacity: .23;
     border-radius: 10px;
-    background-color: #EBEBEB;
+    background-color: $signin-input-color;
     border: 0;
     padding-left: 10px;
     margin-bottom: 10px;
 
     &::placeholder {
-      color: black;
+      color: $black;
       opacity: 1;
     }
   }
