@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Condensed:300');
+
+$white: #fff;
+$black: #000;
+$main-font: 'Qanelas';
+$primary-btn-color: #00c46c;
+$main-bg-color: #f7f9fb;
+$signin-input-color: #ebebeb;
+$header-company-color: #a0b3b8;
+$header-menu-bd-color: #bdd4da;
+
+@font-face {
+  font-family: 'Qanelas';
+  src: font-url('Qanelas-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Qanelas';
+  src: font-url('Qanelas-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}

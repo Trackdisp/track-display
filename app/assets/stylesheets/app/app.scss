@@ -1,0 +1,59 @@
+@import './base';
+@import './devise';
+
+.app {
+  background-color: $main-bg-color;
+  min-height: 100vh;
+}
+
+.header {
+  background-color: $white;
+  height: 64px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--signed-in {
+    justify-content: space-around;
+  }
+
+  &__logo-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &--signed-in &__logo-container {
+    flex-grow: 1;
+  }
+
+  &--signed-in &__logo-image {
+    margin-left: 64px;
+  }
+
+  &__menu-section {
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &__logout-container {
+    flex-basis: 64px;
+    height: 100%;
+    border-left: solid 1px $header-menu-bd-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__company-name {
+    color: $header-company-color;
+    font-family: $main-font;
+    font-size: 17px;
+    margin-right: 31px;
+  }
+}
