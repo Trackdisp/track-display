@@ -18,6 +18,11 @@ class Measure < ApplicationRecord
       allow_nil: true
     }
   )
+
+  validates :measured_at, presence: true
+
+  delegate :name, :serial, to: :device, allow_nil: true, prefix: true
+  delegate :company_name, to: :device, allow_nil: true, prefix: false
 end
 
 # == Schema Information

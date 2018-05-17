@@ -9,4 +9,10 @@ RSpec.describe Device, type: :model do
     it { should have_many(:measures) }
     it { should belong_to(:campaign) }
   end
+
+  describe "#delegate" do
+    subject { create(:device) }
+
+    it { expect(subject.company_name).to eq(subject.company.name) }
+  end
 end
