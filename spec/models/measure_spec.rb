@@ -53,5 +53,15 @@ RSpec.describe Measure, type: :model do
                                                    .only_integer
                                                    .allow_nil
     end
+
+    it { should validate_presence_of(:measured_at) }
+  end
+
+  describe "#delegate" do
+    subject { create(:measure) }
+
+    it { expect(subject.device_name).to eq(subject.device.name) }
+    it { expect(subject.device_serial).to eq(subject.device.serial) }
+    it { expect(subject.company_name).to eq(subject.device.company.name) }
   end
 end

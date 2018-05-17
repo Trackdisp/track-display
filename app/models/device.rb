@@ -4,6 +4,8 @@ class Device < ApplicationRecord
   has_many :measures, dependent: :destroy
 
   validates :serial, presence: true
+
+  delegate :name, to: :company, prefix: true, allow_nil: true
 end
 
 # == Schema Information
