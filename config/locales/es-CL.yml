@@ -10,6 +10,9 @@ es-CL:
       device:
         one: Dispositivo
         other: Dispositivos
+      measure:
+        one: Medición
+        other: Mediciones
       user:
         one: Usuario
         other: Usuarios
@@ -42,6 +45,18 @@ es-CL:
         <<: *common
         <<: *login
         company: Empresa
+      measure:
+        <<: *common
+        avg_age: Edad Promedio
+        device: Dispositivo
+        happy_count: Felices
+        female_count: Mujeres
+        male_count: Hombres
+        measured_at: Fecha Medido
+        people_count: Total Personas
+        views_over_5: Vistas sobre 5
+        views_over_15: Vistas sobre 15
+        views_over_30: Vistas sobre 30
   messages:
     header:
       logout: Cerrar Sesión
