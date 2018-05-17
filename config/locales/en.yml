@@ -39,3 +39,8 @@ en:
       placeholders:
         email: Email
         password: Password
+    campaign_dashboard:
+      details_title: Details
+      total_views: Contact Points
+      total_people: Flow of People
+      effectiveness: '% Effectiveness'
