@@ -1,9 +1,23 @@
 @import './base';
 @import './devise';
+@import './graphs';
+@import './home';
 
 .app {
   background-color: $main-bg-color;
   min-height: 100vh;
+  text-align: center;
+
+  &__container {
+    text-align: left;
+    margin: 0 auto;
+    width: 1024px;
+  }
+
+  &__details-title {
+    font-family: $main-font;
+    font-weight: bold;
+  }
 }
 
 .header {

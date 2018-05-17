@@ -1,4 +1,25 @@
 <div class="app">
   <%= render 'shared/header' %>
-  <h1>Bienvenido</h1>
+  <div class="app__container" %>
+    <h2 class="app__details-title"%><%= t('messages.campaign_dashboard.details_title') %></h2>
+    <div class="summary-graph app__graph">
+      <div class="summary-graph__summary-container">
+        <div class="summary-graph__total-views">
+          <span class="summary-graph__total-views-count"><%= @total_views_count %></span>
+          <%= t('messages.campaign_dashboard.total_views') %>
+        </div>
+        <div class="summary-graph__total-people">
+          <span class="summary-graph__total-people-count"><%= @total_people_count %></span>
+          <%= t('messages.campaign_dashboard.total_people') %>
+        </div>
+        <div class="summary-graph__effectiveness">
+          <span class="summary-graph__effectiveness-count"><%= @effectiveness %></span>
+          <%= t('messages.campaign_dashboard.effectiveness') %>
+        </div>
+      </div>
+      <div class="summary-graph__graph">
+        <%= line_chart [{ name: 'Total People', data: @graphs_data[:total_people]}, { name: 'Views Over 5', data: @graphs_data[:views_over_5] }], legend: false, colors: %w(#11B0FC #00FA89)%>
+      </div>
+    </div>
+  </div>
 </div>

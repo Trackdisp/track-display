@@ -66,3 +66,8 @@ es-CL:
       placeholders:
         email: Correo Electrónico
         password: Contraseña
+    campaign_dashboard:
+      details_title: Detalles
+      total_views: Puntos de Contacto
+      total_people: Flujo de Personas
+      effectiveness: '% Efectividad'
