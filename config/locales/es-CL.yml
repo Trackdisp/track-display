@@ -4,6 +4,9 @@ es-CL:
       admin_user:
         one: Administrador
         other: Administradores
+      campaign:
+        one: Campaña
+        other: Campañas
       company:
         one: Empresa
         other: Empresas
@@ -36,6 +39,10 @@ es-CL:
       admin_user:
         <<: *common
         <<: *login
+      campaign:
+        <<: *common
+        start_date: Fecha Inicio
+        end_date: Fecha Fin
       company:
         <<: *common
       device:
