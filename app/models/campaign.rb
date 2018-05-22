@@ -1,5 +1,6 @@
 class Campaign < ApplicationRecord
   belongs_to :company
+  has_many :devices
 
   validates_presence_of :name
 end

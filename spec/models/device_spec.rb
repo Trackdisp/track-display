@@ -7,5 +7,6 @@ RSpec.describe Device, type: :model do
 
   describe '#Relationships' do
     it { should have_many(:measures) }
+    it { should belong_to(:campaign) }
   end
 end

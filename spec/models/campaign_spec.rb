@@ -7,5 +7,6 @@ RSpec.describe Campaign, type: :model do
 
   describe '#Relationships' do
     it { should belong_to(:company) }
+    it { should have_many(:devices) }
   end
 end

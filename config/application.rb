@@ -14,6 +14,7 @@ module TrackDisplay
           methods: [:get, :post, :delete, :put, :options]
       end
     end
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**/*.{rb,yml}').to_s]
     config.i18n.default_locale = 'es-CL'
     config.i18n.fallbacks = [:es, :en]
 
