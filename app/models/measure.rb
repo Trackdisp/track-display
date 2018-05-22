@@ -1,5 +1,6 @@
 class Measure < ApplicationRecord
   include Elastic::MeasureIndex
+  include PowerTypes::Observable
 
   belongs_to :device
 
