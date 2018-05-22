@@ -43,6 +43,7 @@ group :production do
 end
 
 group :test do
+  gem 'elasticsearch-extensions', git: 'git://github.com/elasticsearch/elasticsearch-ruby.git'
   gem 'rspec_junit_formatter', '0.2.2'
   gem 'shoulda-matchers', require: false
 end

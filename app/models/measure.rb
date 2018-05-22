@@ -1,4 +1,6 @@
 class Measure < ApplicationRecord
+  include Elastic::MeasureIndex
+
   belongs_to :device
 
   scope :by_company, ->(company_id) { joins(:device).where(devices: { company_id: company_id }) }
