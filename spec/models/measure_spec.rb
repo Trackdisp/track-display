@@ -98,14 +98,12 @@ RSpec.describe Measure, type: :model do
       let(:device) { create(:device) }
 
       before do
-        @prev_device_name = measure.device_name
         measure.device = device
         measure.save!
         update_index(measure)
       end
 
       it { expect(doc["device_name"]).to eq(device.name) }
-      it { expect(doc["device_name"]).not_to eq(@prev_device_name) }
       it { expect(search.results.count).to eq(1) }
     end
 

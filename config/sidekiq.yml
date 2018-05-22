@@ -1,7 +1,10 @@
 production:
-  :concurrency: 5
+  :concurrency: <%= ENV.fetch("SIDEKIQ_CONCURRENCY") %>
 :queues:
   - default
+  - es_index
+:limits:
+  es_index: 1
 :schedule:
   #  an_scheduled_task:
   #    cron: '0 * * * * *'  # Runs once per minute
