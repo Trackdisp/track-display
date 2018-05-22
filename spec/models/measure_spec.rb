@@ -67,32 +67,70 @@ RSpec.describe Measure, type: :model do
 
   describe "MeasureIndex", elasticsearch: true do
     def search
-      described_class.es_search(device.company_name)
+      described_class.es_search("*")
     end
 
-    let(:device) { create(:device) }
-    let!(:m1) { create(:measure, device: device) }
-    let!(:m2) { create(:measure, device: device) }
+    def doc
+      search.results.first.to_hash["_source"]
+    end
 
-    before { described_class.refresh_index! }
+    def update_index(measure)
+      Measure.update_document(measure.id)
+      described_class.refresh_index!
+    end
+
+    let(:measure) { create(:measure) }
+
+    before { update_index(measure) }
 
     it { expect(described_class.index_name).to eq("track_display_application-test-measure") }
-    it { expect(search.records.count).to eq(2) }
+    it { expect(search.results.count).to eq(1) }
 
     it "holds valid document's structure" do
-      record = search.results.first.to_hash["_source"]
-      expect(record["id"]).to eq(m1.id)
-      expect(record["device_name"]).to eq(device.name)
-      expect(record["device_serial"]).to eq(device.serial)
-      expect(record["company_name"]).to eq(device.company_name)
+      record = doc
+      expect(record["device_name"]).to eq(measure.device_name)
+      expect(record["device_serial"]).to eq(measure.device_serial)
+      expect(record["company_name"]).to eq(measure.company_name)
       expect(record["measured_at"]).not_to be_nil
+    end
+
+    context "changing attributes" do
+      let(:device) { create(:device) }
+
+      before do
+        @prev_device_name = measure.device_name
+        measure.device = device
+        measure.save!
+        update_index(measure)
+      end
+
+      it { expect(doc["device_name"]).to eq(device.name) }
+      it { expect(doc["device_name"]).not_to eq(@prev_device_name) }
+      it { expect(search.results.count).to eq(1) }
+    end
+
+    context "deleting document" do
+      before do
+        measure.destroy!
+        update_index(measure)
+      end
+
+      it { expect(search.results.count).to eq(0) }
+    end
+
+    context "adding a new document" do
+      let!(:other_measure) { create(:measure) }
+
+      before { update_index(other_measure) }
+
+      it { expect(search.results.count).to eq(2) }
     end
 
     context "deleting index" do
       before { described_class.destroy_index! }
 
       it "raises not found index error" do
-        expect { described_class.es_search("X").records.count }.to(
+        expect { described_class.es_search("X").results.count }.to(
           raise_error(Elasticsearch::Transport::Transport::Errors::NotFound)
         )
       end

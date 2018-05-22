@@ -3,9 +3,8 @@ module Elastic
     extend ActiveSupport::Concern
 
     included do
-      extend Elastic::Indexable
+      include Elastic::Indexable
       include Elasticsearch::Model
-      include Elasticsearch::Model::Callbacks
 
       index_name([Rails.application.engine_name, Rails.env, model_name.param_key].join('-'))
 
