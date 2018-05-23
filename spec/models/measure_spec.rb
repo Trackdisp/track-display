@@ -63,6 +63,7 @@ RSpec.describe Measure, type: :model do
     it { expect(subject.device_name).to eq(subject.device.name) }
     it { expect(subject.device_serial).to eq(subject.device.serial) }
     it { expect(subject.company_name).to eq(subject.device.campaign.company.name) }
+    it { expect(subject.campaign_name).to eq(subject.device.campaign.name) }
   end
 
   describe "MeasureIndex", elasticsearch: true do
@@ -90,6 +91,7 @@ RSpec.describe Measure, type: :model do
       record = doc
       expect(record["device_name"]).to eq(measure.device_name)
       expect(record["device_serial"]).to eq(measure.device_serial)
+      expect(record["campaign_name"]).to eq(measure.campaign_name)
       expect(record["company_name"]).to eq(measure.company_name)
       expect(record["measured_at"]).not_to be_nil
     end

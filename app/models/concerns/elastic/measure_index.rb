@@ -12,12 +12,13 @@ module Elastic
         mappings do
           indexes :device_name, type: 'text'
           indexes :device_serial, type: 'text'
+          indexes :campaign_name, type: 'text'
           indexes :company_name, type: 'text'
         end
       end
 
       def as_indexed_json(_options = {})
-        as_json(methods: [:device_name, :device_serial, :company_name])
+        as_json(methods: [:device_name, :device_serial, :campaign_name, :company_name])
       end
     end
   end
