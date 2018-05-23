@@ -29,6 +29,33 @@ module FakeDataLoader
 
   def self.load
     load_admin
+    Company.destroy_all
+    create_companies
+  end
+
+  def self.create_companies
+    5.times do
+      company = create(:company)
+      create_campaigns(company)
+    end
+  end
+
+  def self.create_campaigns(company)
+    rand(5).times do
+      campaign = create(:campaign, company: company)
+      create_devices(campaign)
+    end
+  end
+
+  def self.create_devices(campaign)
+    rand(5).times do
+      device = create(:device, campaign: campaign)
+      create_measures(device)
+    end
+  end
+
+  def self.create_measures(device)
+    rand(30).times { create(:measure, device: device) }
   end
 
   def self.load_admin
