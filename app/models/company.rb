@@ -1,4 +1,6 @@
 class Company < ApplicationRecord
+  include PowerTypes::Observable
+
   has_many :users, dependent: :destroy
   has_many :campaigns, dependent: :destroy
   has_many :devices, through: :campaigns, dependent: :destroy
