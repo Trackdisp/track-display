@@ -1,9 +1,13 @@
 class Campaign < ApplicationRecord
   extend FriendlyId
   belongs_to :company
-  has_many :devices
+  has_many :devices, dependent: :destroy
+  has_many :measures, through: :devices, dependent: :destroy
 
   validates_presence_of :name, :start_date, :end_date
+  validates_presence_of :name
+
+  delegate :name, to: :company, prefix: true, allow_nil: true
 
   friendly_id :name, use: :slugged
 

@@ -62,7 +62,7 @@ RSpec.describe Measure, type: :model do
 
     it { expect(subject.device_name).to eq(subject.device.name) }
     it { expect(subject.device_serial).to eq(subject.device.serial) }
-    it { expect(subject.company_name).to eq(subject.device.company.name) }
+    it { expect(subject.company_name).to eq(subject.device.campaign.company.name) }
   end
 
   describe "MeasureIndex", elasticsearch: true do

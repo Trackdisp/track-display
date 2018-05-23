@@ -66,12 +66,10 @@ ActiveRecord::Schema.define(version: 20180524010254) do
   create_table "devices", force: :cascade do |t|
     t.string "name"
     t.string "serial"
-    t.bigint "company_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "campaign_id"
     t.index ["campaign_id"], name: "index_devices_on_campaign_id"
-    t.index ["company_id"], name: "index_devices_on_company_id"
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
