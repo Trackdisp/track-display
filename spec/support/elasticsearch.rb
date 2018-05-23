@@ -3,32 +3,32 @@ require 'elasticsearch/extensions/test/cluster'
 ELASTIC_SEARCH_TEST_PORT = 9250
 
 RSpec.configure do |config|
-  def stop_elastic
-    Elasticsearch::Extensions::Test::Cluster.stop(
-      port: ELASTIC_SEARCH_TEST_PORT,
-      number_of_nodes: 1
-    )
-  rescue Errno::ECONNREFUSED
-    nil
-  end
-
-  def start_elastic
-    Elasticsearch::Extensions::Test::Cluster.start(
-      port: ELASTIC_SEARCH_TEST_PORT,
-      number_of_nodes: 1,
-      timeout: 120
-    )
-  end
-
-  # Start an in-memory cluster for Elasticsearch as needed
-  config.before :all, elasticsearch: true do
-    start_elastic
-  end
-
-  # Stop elasticsearch cluster after test run
-  config.after :suite do
-    stop_elastic
-  end
+  # def stop_elastic
+  #   Elasticsearch::Extensions::Test::Cluster.stop(
+  #     port: ELASTIC_SEARCH_TEST_PORT,
+  #     number_of_nodes: 1
+  #   )
+  # rescue Errno::ECONNREFUSED
+  #   nil
+  # end
+  #
+  # def start_elastic
+  #   Elasticsearch::Extensions::Test::Cluster.start(
+  #     port: ELASTIC_SEARCH_TEST_PORT,
+  #     number_of_nodes: 1,
+  #     timeout: 120
+  #   )
+  # end
+  #
+  # # Start an in-memory cluster for Elasticsearch as needed
+  # config.before :all, elasticsearch: true do
+  #   start_elastic
+  # end
+  #
+  # # Stop elasticsearch cluster after test run
+  # config.after :suite do
+  #   stop_elastic
+  # end
 
   # Create indexes for all elastic searchable models
   config.before :each, elasticsearch: true do

@@ -57,7 +57,12 @@ tests(){
     RSPEC_JUNIT_ARGS="-r rspec_junit_formatter --format RspecJunitFormatter -o $HOME/.rspec_reports/junit.xml"
     RSPEC_FORMAT_ARGS="--format progress --no-color"
   }
+  docker-compose $DOCKER_COMPOSE_ARGS run -d elasticsearch
+  sleep 50
   docker-compose $DOCKER_COMPOSE_ARGS run test bundle exec rspec spec $RSPEC_FORMAT_ARGS $RSPEC_JUNIT_ARGS
+  RETURN=$?
+  docker-compose $DOCKER_COMPOSE_ARGS stop elasticsearch
+  echo $RETURN
 }
 
 # Run the complete ci build
