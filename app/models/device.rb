@@ -1,4 +1,6 @@
 class Device < ApplicationRecord
+  include PowerTypes::Observable
+
   belongs_to :campaign, optional: true
   has_many :measures, dependent: :destroy
 
