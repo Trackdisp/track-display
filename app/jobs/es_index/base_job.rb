@@ -12,8 +12,4 @@ class EsIndex::BaseJob < ApplicationJob
   def self.delayed
     set(queue: :es_index, wait: INDEX_UPDATE_TIME)
   end
-
-  def index_updater
-    @index_updater ||= MeasureIndexUpdaterService.new
-  end
 end
