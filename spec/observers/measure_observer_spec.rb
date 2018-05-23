@@ -8,7 +8,7 @@ describe MeasureObserver do
   end
 
   def expect_update_es_index
-    expect_any_instance_of(MeasureIndexUpdaterService).to(
+    expect(Elastic::IndexUpdater).to(
       receive(:queue_update_measure).with(object.id)
     )
   end

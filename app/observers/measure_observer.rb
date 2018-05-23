@@ -3,12 +3,6 @@ class MeasureObserver < PowerTypes::Observer
   after_destroy :update_es_index
 
   def update_es_index
-    index_updater.queue_update_measure(object.id)
-  end
-
-  private
-
-  def index_updater
-    @index_updater ||= MeasureIndexUpdaterService.new
+    Elastic::IndexUpdater.queue_update_measure(object.id)
   end
 end
