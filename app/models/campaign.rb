@@ -1,8 +1,11 @@
 class Campaign < ApplicationRecord
   belongs_to :company
-  has_many :devices
+  has_many :devices, dependent: :destroy
+  has_many :measures, through: :devices, dependent: :destroy
 
   validates_presence_of :name
+
+  delegate :name, to: :company, prefix: true, allow_nil: true
 end
 
 # == Schema Information

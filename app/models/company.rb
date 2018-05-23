@@ -1,6 +1,8 @@
 class Company < ApplicationRecord
-  has_many :users
-  has_many :campaigns
+  has_many :users, dependent: :destroy
+  has_many :campaigns, dependent: :destroy
+  has_many :devices, through: :campaigns, dependent: :destroy
+  has_many :measures, through: :devices, dependent: :destroy
 
   validates :name, presence: true
 end
