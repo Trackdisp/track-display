@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="summary-graph__graph">
-        <%= line_chart [{ name: 'Total People', data: @graphs_data[:total_people]}, { name: 'Views Over 5', data: @graphs_data[:views_over_5] }], legend: false, colors: %w(#11B0FC #00FA89), library: { chart: { zoomType: 'x' } }%>
+        <%= campaign_graph(@graphs_data) %>
       </div>
     </div>
   </div>
