@@ -30,11 +30,44 @@ describe Elastic::IndexUpdater do
     let!(:m3) { create(:measure) }
     let(:perform) { described_class.update_device_measures(device.id) }
 
-    before do
-      expect(described_class).to receive(:queue_update_measure).with(m1.id).and_return(true)
-      expect(described_class).to receive(:queue_update_measure).with(m2.id).and_return(true)
+    context "with found device" do
+      before do
+        expect(described_class).to receive(:queue_update_measure).with(m1.id).and_return(true)
+        expect(described_class).to receive(:queue_update_measure).with(m2.id).and_return(true)
+      end
+
+      it { expect(perform).to be_a(Device) }
     end
 
-    it { expect(perform).to be_a(Device) }
+    context "with device not found" do
+      before { device.destroy }
+
+      it { expect(perform).to be_nil }
+    end
+  end
+
+  describe "#update_company_measures" do
+    let!(:company) { create(:company) }
+    let!(:campaign) { create(:campaign, company: company) }
+    let!(:device) { create(:device, campaign: campaign) }
+    let!(:m1) { create(:measure, device: device) }
+    let!(:m2) { create(:measure, device: device) }
+    let!(:m3) { create(:measure) }
+    let(:perform) { described_class.update_company_measures(company.id) }
+
+    context "with found company" do
+      before do
+        expect(described_class).to receive(:queue_update_measure).with(m1.id).and_return(true)
+        expect(described_class).to receive(:queue_update_measure).with(m2.id).and_return(true)
+      end
+
+      it { expect(perform).to be_a(Company) }
+    end
+
+    context "with device not found" do
+      before { company.destroy }
+
+      it { expect(perform).to be_nil }
+    end
   end
 end

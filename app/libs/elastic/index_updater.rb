@@ -4,13 +4,21 @@ module Elastic::IndexUpdater
   end
 
   def self.update_device_measures(device_id)
-    device = Device.find_by(id: device_id)
-    return unless device
-    device.measures.find_each { |measure| queue_update_measure(measure.id) }
-    device
+    update_object_measures(Device, device_id)
+  end
+
+  def self.update_company_measures(company_id)
+    update_object_measures(Company, company_id)
   end
 
   def self.update_measure(measure_id)
     Measure.update_document(measure_id)
+  end
+
+  private_class_method def self.update_object_measures(klass, object_id)
+    object = klass.find_by(id: object_id)
+    return unless object
+    object.measures.find_each { |measure| queue_update_measure(measure.id) }
+    object
   end
 end
