@@ -22,4 +22,19 @@ describe Elastic::IndexUpdater do
 
     it { expect(perform).to eq(true) }
   end
+
+  describe "#update_device_measures" do
+    let!(:device) { create(:device) }
+    let!(:m1) { create(:measure, device: device) }
+    let!(:m2) { create(:measure, device: device) }
+    let!(:m3) { create(:measure) }
+    let(:perform) { described_class.update_device_measures(device.id) }
+
+    before do
+      expect(described_class).to receive(:queue_update_measure).with(m1.id).and_return(true)
+      expect(described_class).to receive(:queue_update_measure).with(m2.id).and_return(true)
+    end
+
+    it { expect(perform).to be_a(Device) }
+  end
 end
