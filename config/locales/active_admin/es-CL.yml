@@ -1,0 +1,6 @@
+es-CL:
+  active_admin:
+    devices:
+      zero: Sin Disp.
+      one: 1 Disp.
+      other: '%{count} Disp.'

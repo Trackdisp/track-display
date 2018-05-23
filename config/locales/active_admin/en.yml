@@ -1,0 +1,6 @@
+en:
+  active_admin:
+    devices:
+      zero: Unasigned.
+      one: 1 Device.
+      other: '%{count} Devices.'

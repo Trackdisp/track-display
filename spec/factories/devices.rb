@@ -7,5 +7,6 @@ FactoryBot.define do
       "serial#{n}"
     end
     association :company
+    association :campaign
   end
 end
