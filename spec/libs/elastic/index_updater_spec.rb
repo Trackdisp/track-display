@@ -70,4 +70,28 @@ describe Elastic::IndexUpdater do
       it { expect(perform).to be_nil }
     end
   end
+
+  describe "#update_campaign_measures" do
+    let!(:campaign) { create(:campaign) }
+    let!(:device) { create(:device, campaign: campaign) }
+    let!(:m1) { create(:measure, device: device) }
+    let!(:m2) { create(:measure, device: device) }
+    let!(:m3) { create(:measure) }
+    let(:perform) { described_class.update_campaign_measures(campaign.id) }
+
+    context "with found campaign" do
+      before do
+        expect(described_class).to receive(:queue_update_measure).with(m1.id).and_return(true)
+        expect(described_class).to receive(:queue_update_measure).with(m2.id).and_return(true)
+      end
+
+      it { expect(perform).to be_a(Campaign) }
+    end
+
+    context "with device not found" do
+      before { campaign.destroy }
+
+      it { expect(perform).to be_nil }
+    end
+  end
 end

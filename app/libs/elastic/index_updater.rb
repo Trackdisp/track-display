@@ -11,6 +11,10 @@ module Elastic::IndexUpdater
     update_object_measures(Company, company_id)
   end
 
+  def self.update_campaign_measures(campaign_id)
+    update_object_measures(Campaign, campaign_id)
+  end
+
   def self.update_measure(measure_id)
     Measure.update_document(measure_id)
   end
