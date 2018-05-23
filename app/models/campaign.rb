@@ -1,5 +1,7 @@
 class Campaign < ApplicationRecord
+  include PowerTypes::Observable
   extend FriendlyId
+
   belongs_to :company
   has_many :devices, dependent: :destroy
   has_many :measures, through: :devices, dependent: :destroy
