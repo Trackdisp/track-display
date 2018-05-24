@@ -1,4 +1,5 @@
 @import './base';
+@import './campaigns';
 @import './devise';
 @import './graphs';
 @import './home';
@@ -14,9 +15,10 @@
     width: 1024px;
   }
 
-  &__details-title {
+  &__title {
     font-family: $main-font;
     font-weight: bold;
+    color: $primary-font-color;
   }
 }
 

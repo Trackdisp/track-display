@@ -1,0 +1,77 @@
+@import './base';
+
+.campaign-option {
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  margin-bottom: 8px;
+  background-color: $content-bg-color;
+  flex-basis: 100%;
+  border: $app-content-border;
+  border-radius: $app-content-border-radius;
+  text-decoration: none;
+
+  &:hover {
+    border: $app-content-hover-border;
+  }
+
+  &__title {
+    margin: 0 0 6px;
+    font-family: $main-font;
+    font-weight: bold;
+    letter-spacing: $app-spacing-letter;
+    color: $primary-font-color;
+    line-height: 36px;
+    font-size: 24px;
+  }
+
+  &__date-range {
+    margin: 0 0 21px;
+    font-family: $main-font;
+    font-weight: bold;
+    letter-spacing: $app-spacing-letter;
+    color: $secondary-font-color;
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  &__stats-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__stat {
+    margin-right: 40px;
+  }
+}
+
+.campaign-stat {
+  display: flex;
+  flex-direction: row;
+
+  &__icon {
+    margin: 10px 17px 10px 0;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__value {
+    font-family: $main-font;
+    color: $stats-value-color;
+    letter-spacing: $app-spacing-letter;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 29px;
+  }
+
+  &__label {
+    font-family: $main-font;
+    color: $primary-font-color;
+    letter-spacing: $app-spacing-letter;
+    font-size: 12px;
+    line-height: 14px;
+  }
+}

@@ -3,9 +3,21 @@ class Campaign < ApplicationRecord
   belongs_to :company
   has_many :devices
 
-  validates_presence_of :name
+  validates_presence_of :name, :start_date, :end_date
 
   friendly_id :name, use: :slugged
+
+  def date_range
+    (start_date..end_date)
+  end
+
+  def total_views
+    Measure.by_campaign(id).sum(:views_over_5)
+  end
+
+  def total_people
+    Measure.by_campaign(id).sum(:people_count)
+  end
 end
 
 # == Schema Information

@@ -73,6 +73,11 @@ es-CL:
       placeholders:
         email: Correo Electrónico
         password: Contraseña
+    campaigns:
+      index:
+        title: Campañas
+      total_views: Veces visto
+      total_people: Flujo de gente
     campaign_dashboard:
       details_title: Detalles
       total_views: Puntos de Contacto

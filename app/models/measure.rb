@@ -2,6 +2,9 @@ class Measure < ApplicationRecord
   belongs_to :device
 
   scope :by_company, ->(company_id) { joins(:device).where(devices: { company_id: company_id }) }
+  scope :by_campaign, ->(campaign_id) do
+    joins(:device).where(devices: { campaign_id: campaign_id })
+  end
 
   validates(
     :people_count,

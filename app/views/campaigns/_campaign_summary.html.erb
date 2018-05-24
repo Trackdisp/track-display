@@ -1,0 +1,22 @@
+<a href="<%= campaign_path(campaign) %>" class="campaign-option" >
+  <h2 class="campaign-option__title"><%= campaign.name %></h2>
+  <h5 class="campaign-option__date-range">
+    <%= campaign_date_range(campaign) %>
+  </h5>
+  <div class="campaign-option__stats-container">
+    <div class="campaign-stat campaign-option__stat">
+      <%= image_tag 'campaigns-seen.svg', class: 'campaign-stat__icon' %>
+      <div class="campaign-stat__content">
+        <div class="campaign-stat__value"><%= campaign.total_views %></div>
+        <span class="campaign-stat__label"><%= t('messages.campaigns.total_views') %></span>
+      </div>
+    </div>
+    <div class="campaign-stat campaign-option__stat">
+      <%= image_tag 'campaigns-contact-points.svg', class: 'campaign-stat__icon' %>
+      <div class="campaign-stat__content">
+        <div class="campaign-stat__value"><%= campaign.total_people %></div>
+        <span class="campaign-stat__label"><%= t('messages.campaigns.total_people') %></span>
+      </div>
+    </div>
+  </div>
+</a>
