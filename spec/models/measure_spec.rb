@@ -66,73 +66,118 @@ RSpec.describe Measure, type: :model do
     it { expect(subject.campaign_name).to eq(subject.device.campaign.name) }
   end
 
-  describe "MeasureIndex", elasticsearch: true do
-    def search
-      described_class.es_search("*")
+  describe "MeasureIndex" do
+    let(:result) { double }
+    let(:index_name) { double(:index_name) }
+    let(:indices) { double(:indices) }
+    let(:client) { double(:client, indices: indices) }
+    let(:mappings) { {} }
+    let(:settings) { {} }
+
+    let(:elastic) do
+      double(
+        :elastic,
+        client: client,
+        index_name: index_name,
+        mappings: mappings,
+        settings: settings
+      )
     end
 
-    def doc
-      search.results.first.to_hash["_source"]
-    end
+    before { allow(described_class).to receive(:__elasticsearch__).and_return(elastic) }
 
-    def update_index(measure)
-      Measure.update_document(measure.id)
-      described_class.refresh_index!
-    end
+    describe "#create_index!" do
+      let(:indices) { double(:indices, create: result) }
+      let(:options) { {} }
+      let(:perform) { described_class.create_index!(options) }
 
-    let(:measure) { create(:measure) }
-
-    before { update_index(measure) }
-
-    it { expect(described_class.index_name).to eq("track_display_application-test-measure") }
-    it { expect(search.results.count).to eq(1) }
-
-    it "holds valid document's structure" do
-      record = doc
-      expect(record["device_name"]).to eq(measure.device_name)
-      expect(record["device_serial"]).to eq(measure.device_serial)
-      expect(record["campaign_name"]).to eq(measure.campaign_name)
-      expect(record["company_name"]).to eq(measure.company_name)
-      expect(record["measured_at"]).not_to be_nil
-    end
-
-    context "changing attributes" do
-      let(:device) { create(:device) }
-
-      before do
-        measure.device = device
-        measure.save!
-        update_index(measure)
+      let(:expected_params) do
+        {
+          index: index_name,
+          body: {
+            settings: settings.to_hash,
+            mappings: mappings.to_hash
+          }
+        }
       end
 
-      it { expect(doc["device_name"]).to eq(device.name) }
-      it { expect(search.results.count).to eq(1) }
-    end
+      context "with empty options" do
+        before do
+          expect(described_class).not_to receive(:destroy_index!)
+          expect(indices).to receive(:create).with(expected_params).and_return(result)
+        end
 
-    context "deleting document" do
-      before do
-        measure.destroy!
-        update_index(measure)
+        it { expect(perform).to eq(result) }
       end
 
-      it { expect(search.results.count).to eq(0) }
+      context "with force option" do
+        let(:options) do
+          {
+            force: true
+          }
+        end
+
+        before do
+          expect(described_class).to receive(:destroy_index!).and_return(true)
+          expect(indices).to receive(:create).with(expected_params).and_return(result)
+        end
+
+        it { expect(perform).to eq(result) }
+      end
     end
 
-    context "adding a new document" do
-      let!(:other_measure) { create(:measure) }
+    describe "#destroy_index!" do
+      let(:indices) { double(:indices, delete: result) }
+      let(:perform) { described_class.destroy_index! }
 
-      before { update_index(other_measure) }
+      before { expect(indices).to receive(:delete).with(index: index_name).and_return(result) }
 
-      it { expect(search.results.count).to eq(2) }
+      it { expect(perform).to eq(result) }
     end
 
-    context "deleting index" do
-      before { described_class.destroy_index! }
+    describe "#refresh_index!" do
+      let(:indices) { double(:indices, refresh: result) }
+      let(:perform) { described_class.refresh_index! }
 
-      it "raises not found index error" do
-        expect { described_class.es_search("X").results.count }.to(
-          raise_error(Elasticsearch::Transport::Transport::Errors::NotFound)
-        )
+      before { expect(indices).to receive(:refresh).with(no_args).and_return(result) }
+
+      it { expect(perform).to eq(result) }
+    end
+
+    describe "#update_document" do
+      let!(:object) { create(:measure) }
+      let(:object_id) { object.id }
+      let(:perform) { described_class.update_document(object_id) }
+
+      context "with a new document" do
+        before do
+          expect_any_instance_of(Measure).to receive(:update_document).and_return(false)
+          expect_any_instance_of(Measure).to receive(:index_document).and_return(true)
+          expect_any_instance_of(Measure).not_to receive(:delete_document)
+        end
+
+        it { expect(perform).to be_nil }
+      end
+
+      context "with a modified document" do
+        before do
+          expect_any_instance_of(Measure).to receive(:update_document).and_return(true)
+          expect_any_instance_of(Measure).not_to receive(:index_document)
+          expect_any_instance_of(Measure).not_to receive(:delete_document)
+        end
+
+        it { expect(perform).to be_nil }
+      end
+
+      context "with a deleted document" do
+        before do
+          object.destroy
+          expect_any_instance_of(Measure).not_to receive(:update_document)
+          expect_any_instance_of(Measure).not_to receive(:index_document)
+          expect_any_instance_of(Measure).to receive(:delete_document).and_return(true)
+        end
+
+        it { expect(perform).to eq(true) }
       end
     end
   end
