@@ -67,9 +67,18 @@
   }
 
   &__company-name {
-    color: $header-company-color;
+    color: $header-name-color;
     font-family: $main-font;
     font-size: 17px;
     margin-right: 31px;
+    letter-spacing: $app-spacing-letter;
+  }
+
+  &__campaign-name {
+    color: $header-name-color;
+    font-family: $main-font;
+    letter-spacing: $app-spacing-letter;
+    font-size: 24px;
+    line-height: 29px;
   }
 }

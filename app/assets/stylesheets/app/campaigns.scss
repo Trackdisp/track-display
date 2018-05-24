@@ -59,6 +59,7 @@
   }
 
   &__value {
+    display: inline-block;
     font-family: $main-font;
     color: $stats-value-color;
     letter-spacing: $app-spacing-letter;
