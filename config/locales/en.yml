@@ -39,6 +39,11 @@ en:
       placeholders:
         email: Email
         password: Password
+    campaigns:
+      index:
+        title: Campaign
+      total_views: Views
+      total_people: People Flow
     campaign_dashboard:
       details_title: Details
       total_views: Contact Points

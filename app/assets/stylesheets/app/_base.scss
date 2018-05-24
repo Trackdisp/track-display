@@ -5,13 +5,22 @@ $black: #000;
 $main-font: 'Qanelas';
 $primary-btn-color: #00c46c;
 $main-bg-color: #f7f9fb;
+$primary-font-color: #343434;
+$secondary-font-color: #a0b3b8;
+$content-bg-color: #fff;
 $signin-input-color: #ebebeb;
-$header-company-color: #a0b3b8;
+$header-name-color: #a0b3b8;
 $header-menu-bd-color: #bdd4da;
 
 $app-content-border: 	1px solid rgba(189, 212, 218, .34);
+$app-content-hover-border: 1px solid #00d976;
+$app-content-border-radius: 4px;
 $graph-views-color: #00d976;
 $graph-people-color: #11b0fc;
+$stats-value-color: #00d976;
+
+$app-spacing-letter: .8px;
+
 
 @font-face {
   font-family: 'Qanelas';

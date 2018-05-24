@@ -1,8 +1,13 @@
 <div class="header <%= 'header--signed-in' if user_signed_in? %>">
-  <div class="header__logo-container">
+  <a class="header__logo-container" href="<%= root_path %>">
     <%= image_tag "alt-logo.svg", class: 'header__logo-image' %>
-  </div>
+  </a>
   <% if user_signed_in? %>
+    <% if defined?(@campaign) %>
+      <div class="header__campaign-container">
+        <p class="header__campaign-name"><%= @campaign.name %></p>
+      </div>
+    <% end %>
     <div class="header__menu-section">
       <p class="header__company-name"><%= current_user&.company.name %> </p>
       <div class="header__logout-container">

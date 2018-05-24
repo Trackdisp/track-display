@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   devise_for :users
   mount Sidekiq::Web => '/queue'
 
-  root to: 'home#index'
+  resources :campaigns, only: [:index, :show], param: :slug
+
+  root to: 'campaigns#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

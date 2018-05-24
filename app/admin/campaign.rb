@@ -1,6 +1,10 @@
 ActiveAdmin.register Campaign do
   permit_params :name, :company_id, :start_date, :end_date, device_ids: []
 
+  controller do
+    defaults finder: :find_by_slug
+  end
+
   filter :name
   filter :company
 

@@ -1,0 +1,25 @@
+<div class="app">
+  <%= render 'shared/header' %>
+  <div class="app__container" %>
+    <h2 class="app__title"%><%= t('messages.campaign_dashboard.details_title') %></h2>
+    <div class="summary-graph app__graph">
+      <div class="summary-graph__summary-container">
+        <div class="summary-graph__total-views">
+          <span class="summary-graph__total-views-count"><%= @total_views_count %></span>
+          <%= t('messages.campaign_dashboard.total_views') %>
+        </div>
+        <div class="summary-graph__total-people">
+          <span class="summary-graph__total-people-count"><%= @total_people_count %></span>
+          <%= t('messages.campaign_dashboard.total_people') %>
+        </div>
+        <div class="summary-graph__effectiveness">
+          <span class="summary-graph__effectiveness-count"><%= @effectiveness %></span>
+          <%= t('messages.campaign_dashboard.effectiveness') %>
+        </div>
+      </div>
+      <div class="summary-graph__graph">
+        <%= campaign_graph(@graphs_data) %>
+      </div>
+    </div>
+  </div>
+</div>

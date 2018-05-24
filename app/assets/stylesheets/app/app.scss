@@ -1,4 +1,5 @@
 @import './base';
+@import './campaigns';
 @import './devise';
 @import './graphs';
 @import './home';
@@ -14,9 +15,10 @@
     width: 1024px;
   }
 
-  &__details-title {
+  &__title {
     font-family: $main-font;
     font-weight: bold;
+    color: $primary-font-color;
   }
 }
 
@@ -65,9 +67,18 @@
   }
 
   &__company-name {
-    color: $header-company-color;
+    color: $header-name-color;
     font-family: $main-font;
     font-size: 17px;
     margin-right: 31px;
+    letter-spacing: $app-spacing-letter;
+  }
+
+  &__campaign-name {
+    color: $header-name-color;
+    font-family: $main-font;
+    letter-spacing: $app-spacing-letter;
+    font-size: 24px;
+    line-height: 29px;
   }
 }
