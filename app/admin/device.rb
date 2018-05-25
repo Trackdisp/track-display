@@ -1,5 +1,5 @@
 ActiveAdmin.register Device do
-  belongs_to :campaign, optional: true
+  belongs_to :campaign, optional: true, finder: :find_by_slug
   permit_params :name, :serial, :company_id, :campaign_id
 
   filter :company
