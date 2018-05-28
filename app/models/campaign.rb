@@ -7,7 +7,6 @@ class Campaign < ApplicationRecord
   has_many :measures, through: :devices, dependent: :destroy
 
   validates_presence_of :name, :start_date, :end_date
-  validates_presence_of :name
 
   delegate :name, to: :company, prefix: true, allow_nil: true
 
