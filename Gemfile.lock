@@ -192,6 +192,7 @@ GEM
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
+    migration_data (0.3.0)
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
@@ -413,6 +414,7 @@ DEPENDENCIES
   guard-rspec
   heroku-stage
   jbuilder (~> 2.5)
+  migration_data
   pg
   power-types
   pry-byebug
@@ -444,4 +446,4 @@ DEPENDENCIES
   webpacker
 
 BUNDLED WITH
-   1.16.0
+   1.16.2
