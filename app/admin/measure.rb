@@ -10,12 +10,9 @@ ActiveAdmin.register Measure do
   index do
     selectable_column
     id_column
-    column :device_id
+    column :device
     column :measured_at
     column :people_count
-    column :views_over_5
-    column :views_over_15
-    column :views_over_30
     column :male_count
     column :female_count
     column :avg_age

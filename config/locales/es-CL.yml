@@ -27,6 +27,12 @@ es-CL:
         <<: *timestamps
         id: ID
         name: Nombre
+        company: Empresa
+        company_id: Empresa
+        device: Dispositivo
+        device_id: Dispositivo
+        campaign: Campaña
+        campaign_id: Campaña
       login_common: &login
         current_sign_in_at: Fecha de Ingreso Actual
         current_sign_in_io: IP de Ingreso Actual

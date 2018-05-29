@@ -1,4 +1,7 @@
 class Measure < ApplicationRecord
+  include Elastic::MeasureIndex
+  include PowerTypes::Observable
+
   belongs_to :device
 
   scope :by_company, ->(company_id) { joins(:device).where(devices: { company_id: company_id }) }
@@ -21,6 +24,11 @@ class Measure < ApplicationRecord
       allow_nil: true
     }
   )
+
+  validates :measured_at, presence: true
+
+  delegate :name, :serial, to: :device, allow_nil: true, prefix: true
+  delegate :campaign_name, :company_name, to: :device, allow_nil: true, prefix: false
 end
 
 # == Schema Information

@@ -109,8 +109,18 @@ To schedule recurring work at particular times or dates, this project uses [Side
 
 For managing tasks in the background, this project uses [Sidekiq](https://github.com/mperham/sidekiq)
 
+### Elastic Search
+
+- The first time, you need to create an ES index: `Measure.create_index!(force: true)`
+- If you change the `MeasureIndex` structure, you need to refresh the index: `Measure.refresh_index!`
+- If you have old `Measure` objects and want to added to ES, you need to execute: `Measure.import`
+- If you want to delete the index, ypu need to execute: `Measure.destroy_index!`
+- If you want to sync a particular Measure instance with ES, you can: `Measure.update_document(measure_instance)`
+- To get all the ES documents without filters you can do: `search = Measure.es_search("*")` (10 is the default limit)
+- To get the ActiveRecord objects: `search.records`
+- To get the ES documents: `search.results`
+
 ## Seeds
 
 To populate your database with initial data you can add, inside the `/db/seeds.rb` file, the code to generate **only the necessary data** to run the application.
 If you need to generate data with **development purposes**, you can customize the `lib/fake_data_loader.rb` module and then to run the `rake load_fake_data` task from your terminal.
-
