@@ -4,6 +4,9 @@ es-CL:
       admin_user:
         one: Administrador
         other: Administradores
+      brand:
+        one: Cadena
+        other: Cadenas
       campaign:
         one: Campaña
         other: Campañas
@@ -45,6 +48,9 @@ es-CL:
       admin_user:
         <<: *common
         <<: *login
+      brand:
+        <<: *common
+        channel: Canal
       campaign:
         <<: *common
         start_date: Fecha Inicio
@@ -53,10 +59,6 @@ es-CL:
         <<: *common
       device:
         <<: *common
-        company: Empresa
-      user:
-        <<: *common
-        <<: *login
         company: Empresa
       measure:
         <<: *common
@@ -70,6 +72,16 @@ es-CL:
         views_over_5: Vistas sobre 5
         views_over_15: Vistas sobre 15
         views_over_30: Vistas sobre 30
+      user:
+        <<: *common
+        <<: *login
+        company: Empresa
+  enumerize:
+    brand:
+      channel:
+        traditional: Tradicional
+        supermarket: Supermercado
+        local_consumption: Consumo Local
   messages:
     header:
       logout: Cerrar Sesión
