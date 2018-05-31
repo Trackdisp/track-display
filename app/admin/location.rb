@@ -1,15 +1,16 @@
-ActiveAdmin.register Brand do
-  permit_params :name, :channel
+ActiveAdmin.register Location do
+  belongs_to :brand, optional: true
+  permit_params :name, :brand_id, :channel, :commune_id, :street, :number
 
   index do
     selectable_column
     id_column
     column :name
+    column :brand
     tag_column :channel
-    column :locations do |brand|
-      link_to t('active_admin.locations', count: brand.locations.count),
-        admin_brand_locations_path(brand)
-    end
+    column :commune
+    column :street
+    column :number
     column :created_at
     actions
   end
@@ -17,11 +18,11 @@ ActiveAdmin.register Brand do
   show do
     attributes_table do
       row :name
+      row :brand
       row :channel, &:channel_text
-      row :locations do |brand|
-        link_to t('active_admin.locations', count: brand.locations.count),
-          admin_brand_locations_path(brand)
-      end
+      row :commune
+      row :street
+      row :number
       row :created_at
       row :updated_at
     end
@@ -30,7 +31,11 @@ ActiveAdmin.register Brand do
   form do |f|
     f.inputs do
       f.input :name
+      f.input :brand
       f.input :channel, &:channel_text
+      f.input :commune
+      f.input :street
+      f.input :number
     end
     f.actions
   end

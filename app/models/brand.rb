@@ -1,5 +1,6 @@
 class Brand < ApplicationRecord
   extend Enumerize
+  has_many :locations
   validates_presence_of :name, :channel
 
   CHANNEL_TYPES = %i(traditional supermaket local_consumption)

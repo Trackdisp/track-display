@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531013809) do
+ActiveRecord::Schema.define(version: 20180531024148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,6 +97,19 @@ ActiveRecord::Schema.define(version: 20180531013809) do
     t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
     t.index ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id"
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.string "channel"
+    t.string "street"
+    t.integer "number"
+    t.bigint "commune_id"
+    t.bigint "brand_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_locations_on_brand_id"
+    t.index ["commune_id"], name: "index_locations_on_commune_id"
   end
 
   create_table "measures", force: :cascade do |t|

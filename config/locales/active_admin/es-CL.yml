@@ -4,3 +4,7 @@ es-CL:
       zero: Sin Disp.
       one: 1 Disp.
       other: '%{count} Disp.'
+    locations:
+      zero: Sin Locales
+      one: 1 Local
+      other: '%{count} Locs.'

@@ -5,4 +5,8 @@ RSpec.describe Brand, type: :model do
     it { should validate_presence_of :name }
     it { should validate_presence_of :channel }
   end
+
+  describe '#Relations' do
+    it { should have_many(:locations) }
+  end
 end
