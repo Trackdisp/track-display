@@ -1,9 +1,12 @@
 namespace :fake_data do
+  FAKE_COMMUNES_COUNT = 5
   FAKE_COMPANIES_COUNT = 2
-  FAKE_USERS_COUNT = 5
   FAKE_DEVICES_COUNT = 5
   FAKE_MEASURES_COUNT = 40
   FAKE_PASSWORD = 'password'
+  FAKE_REGION_COUNT = 3
+  FAKE_USERS_COUNT = 5
+
 
   desc "Create fake companies"
   task create_companies: :environment do
@@ -56,5 +59,28 @@ namespace :fake_data do
     end
 
     puts 'Measures creation complete'
+  end
+
+  desc "Create fake regions"
+  task create_regions: :environment do
+    puts 'Creating regions ...'
+    (1..FAKE_REGION_COUNT).each do |num|
+      Region.create!(name: "Fake Region #{num}")
+    end
+    puts 'Regions creation complete'
+  end
+
+  desc "Create fake communes"
+  task create_communes: :environment do
+    puts 'Creating communes ...'
+    Region.all.each do |region|
+      (1..FAKE_COMMUNES_COUNT).each do |num|
+        Commune.create!(
+          name: "Fake Commune #{region.id}-#{num}",
+          region: region
+        )
+      end
+    end
+    puts 'Communes creation complete'
   end
 end
