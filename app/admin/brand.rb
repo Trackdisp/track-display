@@ -1,5 +1,5 @@
 ActiveAdmin.register Brand do
-  permit_params :name, :channel
+  permit_params :name, :channel, location_ids: []
 
   index do
     selectable_column
@@ -31,6 +31,7 @@ ActiveAdmin.register Brand do
     f.inputs do
       f.input :name
       f.input :channel, &:channel_text
+      f.input :locations
     end
     f.actions
   end
