@@ -3,11 +3,14 @@ class Measure < ApplicationRecord
   include PowerTypes::Observable
 
   belongs_to :device
+  belongs_to :campaign, optional: true
 
-  scope :by_company, ->(company_id) { joins(:device).where(devices: { company_id: company_id }) }
-  scope :by_campaign, ->(campaign_id) do
-    joins(:device).where(devices: { campaign_id: campaign_id })
+  before_create :set_campaign
+
+  scope :by_company, ->(company_id) do
+    joins(:campaign).where(campaigns: { company_id: company_id })
   end
+  scope :by_campaign, ->(campaign_id) { where(campaign_id: campaign_id) }
 
   validates(
     :people_count,
@@ -29,6 +32,10 @@ class Measure < ApplicationRecord
 
   delegate :name, :serial, to: :device, allow_nil: true, prefix: true
   delegate :campaign_name, :company_name, to: :device, allow_nil: true, prefix: false
+
+  def set_campaign
+    self.campaign = device.campaign if device.present?
+  end
 end
 
 # == Schema Information
@@ -48,10 +55,12 @@ end
 #  happy_count   :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  campaign_id   :bigint(8)
 #
 # Indexes
 #
-#  index_measures_on_device_id  (device_id)
+#  index_measures_on_campaign_id  (campaign_id)
+#  index_measures_on_device_id    (device_id)
 #
 # Foreign Keys
 #

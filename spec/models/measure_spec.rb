@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Measure, type: :model do
   describe '#Relationships' do
     it { should belong_to(:device) }
+    it { should belong_to(:campaign) }
   end
 
   describe '#Validations' do
