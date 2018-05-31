@@ -1,6 +1,10 @@
 en:
   active_admin:
     devices:
-      zero: Unasigned.
-      one: 1 Device.
-      other: '%{count} Devices.'
+      zero: Unasigned
+      one: 1 Device
+      other: '%{count} Devices'
+    locations:
+      zero: Unasigned
+      one: 1 Loc.
+      other: '%{count} Locs.'

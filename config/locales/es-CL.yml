@@ -10,15 +10,24 @@ es-CL:
       campaign:
         one: Campaña
         other: Campañas
+      commune:
+        one: Comuna
+        other: Comunas
       company:
         one: Empresa
         other: Empresas
       device:
         one: Dispositivo
         other: Dispositivos
+      location:
+        one: Local
+        other: Locales
       measure:
         one: Medición
         other: Mediciones
+      region:
+        one: Región
+        other: Regiones
       user:
         one: Usuario
         other: Usuarios
@@ -51,15 +60,27 @@ es-CL:
       brand:
         <<: *common
         channel: Canal
+        locations: Locales
       campaign:
         <<: *common
         start_date: Fecha Inicio
         end_date: Fecha Fin
+      commune:
+        <<: *common
+        region: Región
       company:
         <<: *common
       device:
         <<: *common
         company: Empresa
+      location:
+        <<: *common
+        brand: Cadena
+        channel: Canal
+        commune: Comuna
+        number: Número
+        region: Región
+        street: Calle
       measure:
         <<: *common
         avg_age: Edad Promedio
@@ -72,16 +93,17 @@ es-CL:
         views_over_5: Vistas sobre 5
         views_over_15: Vistas sobre 15
         views_over_30: Vistas sobre 30
+      region:
+        <<: *common
       user:
         <<: *common
         <<: *login
         company: Empresa
   enumerize:
-    brand:
-      channel:
-        traditional: Tradicional
-        supermarket: Supermercado
-        local_consumption: Consumo Local
+    channel:
+      traditional: Tradicional
+      supermarket: Supermercado
+      local_consumption: Consumo Local
   messages:
     header:
       logout: Cerrar Sesión

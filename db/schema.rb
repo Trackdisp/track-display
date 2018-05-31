@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180530140750) do
+ActiveRecord::Schema.define(version: 20180531024148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,14 @@ ActiveRecord::Schema.define(version: 20180530140750) do
     t.index ["company_id"], name: "index_campaigns_on_company_id"
   end
 
+  create_table "communes", force: :cascade do |t|
+    t.string "name"
+    t.bigint "region_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["region_id"], name: "index_communes_on_region_id"
+  end
+
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -91,6 +99,19 @@ ActiveRecord::Schema.define(version: 20180530140750) do
     t.index ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type"
   end
 
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.string "channel"
+    t.string "street"
+    t.integer "number"
+    t.bigint "commune_id"
+    t.bigint "brand_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_locations_on_brand_id"
+    t.index ["commune_id"], name: "index_locations_on_commune_id"
+  end
+
   create_table "measures", force: :cascade do |t|
     t.bigint "device_id"
     t.datetime "measured_at"
@@ -105,6 +126,12 @@ ActiveRecord::Schema.define(version: 20180530140750) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["device_id"], name: "index_measures_on_device_id"
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
