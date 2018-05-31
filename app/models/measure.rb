@@ -4,13 +4,15 @@ class Measure < ApplicationRecord
 
   belongs_to :device
   belongs_to :campaign, optional: true
+  belongs_to :location, optional: true
 
-  before_create :set_campaign
+  before_create :set_campaign_and_location
 
   scope :by_company, ->(company_id) do
     joins(:campaign).where(campaigns: { company_id: company_id })
   end
   scope :by_campaign, ->(campaign_id) { where(campaign_id: campaign_id) }
+  scope :by_location, ->(location_id) { where(location_id: location_id) }
 
   validates(
     :people_count,
@@ -33,8 +35,9 @@ class Measure < ApplicationRecord
   delegate :name, :serial, to: :device, allow_nil: true, prefix: true
   delegate :campaign_name, :company_name, to: :device, allow_nil: true, prefix: false
 
-  def set_campaign
-    self.campaign = device.campaign if device.present?
+  def set_campaign_and_location
+    self.campaign = device.campaign
+    self.location = device.location
   end
 end
 
@@ -56,11 +59,13 @@ end
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  campaign_id   :bigint(8)
+#  location_id   :bigint(8)
 #
 # Indexes
 #
 #  index_measures_on_campaign_id  (campaign_id)
 #  index_measures_on_device_id    (device_id)
+#  index_measures_on_location_id  (location_id)
 #
 # Foreign Keys
 #

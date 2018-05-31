@@ -4,6 +4,7 @@ RSpec.describe Measure, type: :model do
   describe '#Relationships' do
     it { should belong_to(:device) }
     it { should belong_to(:campaign) }
+    it { should belong_to(:location) }
   end
 
   describe '#Validations' do

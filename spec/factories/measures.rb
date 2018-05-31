@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :measure do
     device
     campaign
+    location
     measured_at "2018-05-10 15:53:32"
     people_count 1
     views_over_5 1

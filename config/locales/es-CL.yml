@@ -90,6 +90,7 @@ es-CL:
         device: Dispositivo
         happy_count: Felices
         female_count: Mujeres
+        location: Local
         male_count: Hombres
         measured_at: Fecha Medido
         people_count: Total Personas
