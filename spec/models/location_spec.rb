@@ -10,5 +10,6 @@ RSpec.describe Location, type: :model do
   describe '#Relations' do
     it { should belong_to(:brand) }
     it { should belong_to(:commune) }
+    it { should have_many(:devices) }
   end
 end
