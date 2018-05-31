@@ -72,7 +72,9 @@ es-CL:
         <<: *common
       device:
         <<: *common
+        campaign: Campaña
         company: Empresa
+        location: Local
       location:
         <<: *common
         brand: Cadena

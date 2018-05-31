@@ -1,6 +1,6 @@
 ActiveAdmin.register Location do
   belongs_to :brand, optional: true
-  permit_params :name, :brand_id, :channel, :commune_id, :street, :number
+  permit_params :name, :brand_id, :channel, :commune_id, :street, :number, device_ids: []
 
   index do
     selectable_column
@@ -11,6 +11,10 @@ ActiveAdmin.register Location do
     column :commune
     column :street
     column :number
+    column :devices do |location|
+      link_to t('active_admin.devices', count: location.devices.count),
+        admin_location_devices_path(location)
+    end
     column :created_at
     actions
   end
@@ -23,6 +27,10 @@ ActiveAdmin.register Location do
       row :commune
       row :street
       row :number
+      row :devices do |location|
+        link_to t('active_admin.devices', count: location.devices.count),
+          admin_location_devices_path(location)
+      end
       row :created_at
       row :updated_at
     end
@@ -36,6 +44,7 @@ ActiveAdmin.register Location do
       f.input :commune
       f.input :street
       f.input :number
+      f.input :devices, collection: Device.all.map { |dev| [dev.name || dev.serial, dev.id] }
     end
     f.actions
   end

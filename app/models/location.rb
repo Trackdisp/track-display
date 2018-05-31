@@ -2,6 +2,7 @@ class Location < ApplicationRecord
   extend Enumerize
   belongs_to :brand, optional: true
   belongs_to :commune
+  has_many :devices
 
   validates_presence_of :name, :street, :number
 
