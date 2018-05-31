@@ -4,6 +4,7 @@ ActiveAdmin.register Measure do
 
   filter :device
   filter :campaign
+  filter :campaign_company_id, as: :select, collection: -> { Company.all }
   filter :measured_at
   filter :people_count
   filter :views_over_5
