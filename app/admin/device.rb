@@ -1,6 +1,5 @@
 ActiveAdmin.register Device do
   belongs_to :campaign, optional: true, finder: :find_by_slug
-  belongs_to :location, optional: true
   permit_params :name, :serial, :campaign_id, :location_id
 
   filter :campaign
