@@ -1,4 +1,5 @@
 class Brand < ApplicationRecord
+  include PowerTypes::Observable
   extend Enumerize
   has_many :locations
   has_many :measures, through: :locations
