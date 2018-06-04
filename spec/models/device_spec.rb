@@ -14,7 +14,19 @@ RSpec.describe Device, type: :model do
   describe "#delegate" do
     subject { create(:device) }
 
-    it { expect(subject.company_name).to eq(subject.campaign.company.name) }
-    it { expect(subject.campaign_name).to eq(subject.campaign.name) }
+    it 'brand_name' do
+      expect(subject.brand_name).to eq(subject.location.brand.name)
+    end
+
+    it 'campaign_name' do
+      expect(subject.campaign_name).to eq(subject.campaign.name)
+    end
+    it 'company_name' do
+      expect(subject.company_name).to eq(subject.campaign.company.name)
+    end
+
+    it 'location_name' do
+      expect(subject.location_name).to eq(subject.location.name)
+    end
   end
 end

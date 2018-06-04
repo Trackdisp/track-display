@@ -8,5 +8,6 @@ RSpec.describe Brand, type: :model do
 
   describe '#Relations' do
     it { should have_many(:locations) }
+    it { should have_many(:measures) }
   end
 end

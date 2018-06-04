@@ -62,10 +62,29 @@ RSpec.describe Measure, type: :model do
   describe "#delegate" do
     subject { create(:measure) }
 
-    it { expect(subject.device_name).to eq(subject.device.name) }
-    it { expect(subject.device_serial).to eq(subject.device.serial) }
-    it { expect(subject.company_name).to eq(subject.device.campaign.company.name) }
-    it { expect(subject.campaign_name).to eq(subject.device.campaign.name) }
+    it 'brand_name' do
+      expect(subject.brand_name).to eq(subject.device.location.brand.name)
+    end
+
+    it 'campaign_name' do
+      expect(subject.campaign_name).to eq(subject.device.campaign.name)
+    end
+
+    it 'company_name' do
+      expect(subject.company_name).to eq(subject.device.campaign.company.name)
+    end
+
+    it 'device_name' do
+      expect(subject.device_name).to eq(subject.device.name)
+    end
+
+    it 'device_serial' do
+      expect(subject.device_serial).to eq(subject.device.serial)
+    end
+
+    it 'location_name' do
+      expect(subject.location_name).to eq(subject.device.location.name)
+    end
   end
 
   describe "MeasureIndex" do

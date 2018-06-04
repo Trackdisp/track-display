@@ -33,7 +33,8 @@ class Measure < ApplicationRecord
   validates :measured_at, presence: true
 
   delegate :name, :serial, to: :device, allow_nil: true, prefix: true
-  delegate :campaign_name, :company_name, to: :device, allow_nil: true, prefix: false
+  delegate :brand_name, :campaign_name, :company_name, :location_name,
+    to: :device, allow_nil: true, prefix: false
 
   def set_campaign_and_location
     self.campaign = device.campaign
