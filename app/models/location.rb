@@ -1,4 +1,5 @@
 class Location < ApplicationRecord
+  include PowerTypes::Observable
   extend Enumerize
   belongs_to :brand, optional: true
   belongs_to :commune
