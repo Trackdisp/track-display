@@ -40,7 +40,10 @@ describe Elastic::IndexUpdater do
     end
 
     context "with device not found" do
-      before { device.destroy }
+      before do
+        device.destroy
+        expect(described_class).not_to receive(:queue_update_measure)
+      end
 
       it { expect(perform).to be_nil }
     end
@@ -64,8 +67,11 @@ describe Elastic::IndexUpdater do
       it { expect(perform).to be_a(Company) }
     end
 
-    context "with device not found" do
-      before { company.destroy }
+    context "with company not found" do
+      before do
+        company.destroy
+        expect(described_class).not_to receive(:queue_update_measure)
+      end
 
       it { expect(perform).to be_nil }
     end
@@ -88,8 +94,66 @@ describe Elastic::IndexUpdater do
       it { expect(perform).to be_a(Campaign) }
     end
 
-    context "with device not found" do
-      before { campaign.destroy }
+    context "with campaign not found" do
+      before do
+        campaign.destroy
+        expect(described_class).not_to receive(:queue_update_measure)
+      end
+
+      it { expect(perform).to be_nil }
+    end
+  end
+
+  describe "#update_location_measures" do
+    let!(:location) { create(:location) }
+    let!(:device) { create(:device, location: location) }
+    let!(:m1) { create(:measure, device: device) }
+    let!(:m2) { create(:measure, device: device) }
+    let!(:m3) { create(:measure) }
+    let(:perform) { described_class.update_location_measures(location.id) }
+
+    context "with found location" do
+      before do
+        expect(described_class).to receive(:queue_update_measure).with(m1.id).and_return(true)
+        expect(described_class).to receive(:queue_update_measure).with(m2.id).and_return(true)
+      end
+
+      it { expect(perform).to be_a(Location) }
+    end
+
+    context "with location not found" do
+      before do
+        location.destroy
+        expect(described_class).not_to receive(:queue_update_measure)
+      end
+
+      it { expect(perform).to be_nil }
+    end
+  end
+
+  describe "#update_brand_measures" do
+    let!(:brand) { create(:brand) }
+    let!(:location) { create(:location, brand: brand) }
+    let!(:device) { create(:device, location: location) }
+    let!(:m1) { create(:measure, device: device) }
+    let!(:m2) { create(:measure, device: device) }
+    let!(:m3) { create(:measure) }
+    let(:perform) { described_class.update_brand_measures(brand.id) }
+
+    context "with found brand" do
+      before do
+        expect(described_class).to receive(:queue_update_measure).with(m1.id).and_return(true)
+        expect(described_class).to receive(:queue_update_measure).with(m2.id).and_return(true)
+      end
+
+      it { expect(perform).to be_a(Brand) }
+    end
+
+    context "with brand not found" do
+      before do
+        brand.destroy
+        expect(described_class).not_to receive(:queue_update_measure)
+      end
 
       it { expect(perform).to be_nil }
     end

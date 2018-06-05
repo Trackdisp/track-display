@@ -7,7 +7,14 @@ RSpec.describe Campaign, type: :model do
 
   describe '#Relationships' do
     it { should belong_to(:company) }
-    it { should have_many(:devices).dependent(:destroy) }
+    it { should have_many(:devices) }
     it { should have_many(:measures).dependent(:destroy) }
+  end
+
+  describe '#delegate' do
+    subject { create(:campaign) }
+    it 'company_name' do
+      expect(subject.company_name).to be(subject.company.name)
+    end
   end
 end

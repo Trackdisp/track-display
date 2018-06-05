@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531142501) do
+ActiveRecord::Schema.define(version: 20180531154947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -127,7 +127,11 @@ ActiveRecord::Schema.define(version: 20180531142501) do
     t.integer "happy_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "campaign_id"
+    t.bigint "location_id"
+    t.index ["campaign_id"], name: "index_measures_on_campaign_id"
     t.index ["device_id"], name: "index_measures_on_device_id"
+    t.index ["location_id"], name: "index_measures_on_location_id"
   end
 
   create_table "regions", force: :cascade do |t|

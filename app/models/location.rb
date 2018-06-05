@@ -1,10 +1,14 @@
 class Location < ApplicationRecord
+  include PowerTypes::Observable
   extend Enumerize
   belongs_to :brand, optional: true
   belongs_to :commune
   has_many :devices
+  has_many :measures
 
   validates_presence_of :name, :street, :number
+
+  delegate :name, to: :brand, prefix: true, allow_nil: true
 
   CHANNEL_TYPES = %i(traditional supermaket local_consumption)
   enumerize :channel, in: CHANNEL_TYPES

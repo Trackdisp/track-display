@@ -31,6 +31,14 @@ module FakeDataLoader
     load_admin
     Company.destroy_all
     create_companies
+    create_brands
+  end
+
+  def self.create_brands
+    5.times do
+      brand = create(:brand)
+      create_locations(brand)
+    end
   end
 
   def self.create_companies
@@ -44,6 +52,12 @@ module FakeDataLoader
     rand(5).times do
       campaign = create(:campaign, company: company)
       create_devices(campaign)
+    end
+  end
+
+  def self.create_locations(brand)
+    rand(5).times do
+      create(:location, brand: brand)
     end
   end
 

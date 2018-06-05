@@ -14,11 +14,14 @@ module Elastic
           indexes :device_serial, type: 'text'
           indexes :campaign_name, type: 'text'
           indexes :company_name, type: 'text'
+          indexes :location_name, type: 'text'
+          indexes :brand_name, type: 'text'
         end
       end
 
       def as_indexed_json(_options = {})
-        as_json(methods: [:device_name, :device_serial, :campaign_name, :company_name])
+        as_json(methods: [:device_name, :device_serial, :campaign_name, :company_name,
+                          :location_name, :brand_name])
       end
     end
   end

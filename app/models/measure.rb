@@ -3,11 +3,16 @@ class Measure < ApplicationRecord
   include PowerTypes::Observable
 
   belongs_to :device
+  belongs_to :campaign, optional: true
+  belongs_to :location, optional: true
 
-  scope :by_company, ->(company_id) { joins(:device).where(devices: { company_id: company_id }) }
-  scope :by_campaign, ->(campaign_id) do
-    joins(:device).where(devices: { campaign_id: campaign_id })
+  before_create :set_campaign_and_location
+
+  scope :by_company, ->(company_id) do
+    joins(:campaign).where(campaigns: { company_id: company_id })
   end
+  scope :by_campaign, ->(campaign_id) { where(campaign_id: campaign_id) }
+  scope :by_location, ->(location_id) { where(location_id: location_id) }
 
   validates(
     :people_count,
@@ -28,7 +33,13 @@ class Measure < ApplicationRecord
   validates :measured_at, presence: true
 
   delegate :name, :serial, to: :device, allow_nil: true, prefix: true
-  delegate :campaign_name, :company_name, to: :device, allow_nil: true, prefix: false
+  delegate :brand_name, :campaign_name, :company_name, :location_name,
+    to: :device, allow_nil: true, prefix: false
+
+  def set_campaign_and_location
+    self.campaign = device.campaign
+    self.location = device.location
+  end
 end
 
 # == Schema Information
@@ -48,10 +59,14 @@ end
 #  happy_count   :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  campaign_id   :bigint(8)
+#  location_id   :bigint(8)
 #
 # Indexes
 #
-#  index_measures_on_device_id  (device_id)
+#  index_measures_on_campaign_id  (campaign_id)
+#  index_measures_on_device_id    (device_id)
+#  index_measures_on_location_id  (location_id)
 #
 # Foreign Keys
 #

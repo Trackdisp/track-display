@@ -3,6 +3,9 @@ ActiveAdmin.register Measure do
     :views_over_30, :male_count, :female_count, :avg_age, :happy_count
 
   filter :device
+  filter :campaign
+  filter :campaign_company_id, as: :select, collection: -> { Company.all }
+  filter :location
   filter :measured_at
   filter :people_count
   filter :views_over_5
@@ -11,6 +14,8 @@ ActiveAdmin.register Measure do
     selectable_column
     id_column
     column :device
+    column :campaign
+    column :location
     column :measured_at
     column :people_count
     column :male_count
@@ -22,6 +27,8 @@ ActiveAdmin.register Measure do
   show do
     attributes_table do
       row :device
+      row :campaign
+      row :location
       row :measured_at
       row :people_count
       row :views_over_5

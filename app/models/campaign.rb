@@ -3,8 +3,8 @@ class Campaign < ApplicationRecord
   extend FriendlyId
 
   belongs_to :company
-  has_many :devices, dependent: :destroy
-  has_many :measures, through: :devices, dependent: :destroy
+  has_many :devices
+  has_many :measures, dependent: :destroy
 
   validates_presence_of :name, :start_date, :end_date
 

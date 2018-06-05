@@ -86,9 +86,11 @@ es-CL:
       measure:
         <<: *common
         avg_age: Edad Promedio
+        campaign_company_id: Empresa
         device: Dispositivo
         happy_count: Felices
         female_count: Mujeres
+        location: Local
         male_count: Hombres
         measured_at: Fecha Medido
         people_count: Total Personas

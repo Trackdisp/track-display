@@ -8,7 +8,7 @@ RSpec.describe Company, type: :model do
   describe '#Relationships' do
     it { should have_many(:users).dependent(:destroy) }
     it { should have_many(:campaigns).dependent(:destroy) }
-    it { should have_many(:devices).dependent(:destroy) }
+    it { should have_many(:devices) }
     it { should have_many(:measures).dependent(:destroy) }
   end
 end

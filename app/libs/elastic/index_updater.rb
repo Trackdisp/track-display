@@ -3,16 +3,24 @@ module Elastic::IndexUpdater
     EsIndex::UpdateMeasureJob.delayed.perform_later(measure_id)
   end
 
-  def self.update_device_measures(device_id)
-    update_object_measures(Device, device_id)
+  def self.update_brand_measures(brand_id)
+    update_object_measures(Brand, brand_id)
+  end
+
+  def self.update_campaign_measures(campaign_id)
+    update_object_measures(Campaign, campaign_id)
   end
 
   def self.update_company_measures(company_id)
     update_object_measures(Company, company_id)
   end
 
-  def self.update_campaign_measures(campaign_id)
-    update_object_measures(Campaign, campaign_id)
+  def self.update_device_measures(device_id)
+    update_object_measures(Device, device_id)
+  end
+
+  def self.update_location_measures(location_id)
+    update_object_measures(Location, location_id)
   end
 
   def self.update_measure(measure_id)

@@ -8,6 +8,8 @@ class Device < ApplicationRecord
   validates :serial, presence: true
 
   delegate :name, to: :campaign, prefix: true, allow_nil: true
+  delegate :name, to: :location, prefix: true, allow_nil: true
+  delegate :brand_name, to: :location, prefix: false, allow_nil: true
   delegate :company_name, to: :campaign, prefix: false, allow_nil: true
 end
 
