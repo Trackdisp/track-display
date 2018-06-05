@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180531154947) do
+ActiveRecord::Schema.define(version: 20180605002111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,18 +117,16 @@ ActiveRecord::Schema.define(version: 20180531154947) do
   create_table "measures", force: :cascade do |t|
     t.bigint "device_id"
     t.datetime "measured_at"
-    t.integer "people_count"
-    t.integer "views_over_5"
-    t.integer "views_over_15"
-    t.integer "views_over_30"
-    t.integer "male_count"
-    t.integer "female_count"
-    t.integer "avg_age"
-    t.integer "happy_count"
+    t.decimal "avg_age", precision: 4, scale: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "campaign_id"
     t.bigint "location_id"
+    t.string "w_id"
+    t.decimal "presence_duration", precision: 4, scale: 1
+    t.decimal "contact_duration", precision: 4, scale: 1
+    t.decimal "happiness", precision: 4, scale: 3
+    t.string "gender"
     t.index ["campaign_id"], name: "index_measures_on_campaign_id"
     t.index ["device_id"], name: "index_measures_on_device_id"
     t.index ["location_id"], name: "index_measures_on_location_id"

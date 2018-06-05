@@ -1,6 +1,7 @@
 class Measure < ApplicationRecord
   include Elastic::MeasureIndex
   include PowerTypes::Observable
+  extend Enumerize
 
   belongs_to :device
   belongs_to :campaign, optional: true
@@ -15,22 +16,20 @@ class Measure < ApplicationRecord
   scope :by_location, ->(location_id) { where(location_id: location_id) }
 
   validates(
-    :people_count,
-    :views_over_5,
-    :views_over_15,
-    :views_over_30,
-    :male_count,
-    :female_count,
     :avg_age,
-    :happy_count,
+    :presence_duration,
+    :contact_duration,
     numericality: {
-      only_integer: true,
-      greater_than_or_equal_to: 0,
-      allow_nil: true
+      greater_than_or_equal_to: 0
     }
   )
 
-  validates :measured_at, presence: true
+  validates_numericality_of :happiness, greater_than_or_equal_to: 0, less_than_or_equal_to: 1
+
+  GENDER_TYPES = %i(undefined male female)
+  enumerize :gender, in: GENDER_TYPES, default: :undefined
+
+  validates_presence_of :measured_at, :w_id, :gender
 
   delegate :name, :serial, to: :device, allow_nil: true, prefix: true
   delegate :brand_name, :campaign_name, :company_name, :location_name,
@@ -46,21 +45,19 @@ end
 #
 # Table name: measures
 #
-#  id            :bigint(8)        not null, primary key
-#  device_id     :bigint(8)
-#  measured_at   :datetime
-#  people_count  :integer
-#  views_over_5  :integer
-#  views_over_15 :integer
-#  views_over_30 :integer
-#  male_count    :integer
-#  female_count  :integer
-#  avg_age       :integer
-#  happy_count   :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  campaign_id   :bigint(8)
-#  location_id   :bigint(8)
+#  id                :bigint(8)        not null, primary key
+#  device_id         :bigint(8)
+#  measured_at       :datetime
+#  avg_age           :decimal(4, 1)
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  campaign_id       :bigint(8)
+#  location_id       :bigint(8)
+#  w_id              :string
+#  presence_duration :decimal(4, 1)
+#  contact_duration  :decimal(4, 1)
+#  happiness         :decimal(4, 3)
+#  gender            :string
 #
 # Indexes
 #
