@@ -16,12 +16,19 @@ module Elastic
           indexes :company_name, type: 'text'
           indexes :location_name, type: 'text'
           indexes :brand_name, type: 'text'
+          indexes :measured_at, type: 'date'
+          indexes :avg_age, type: 'half_float'
+          indexes :presence_duration, type: 'half_float'
+          indexes :contact_duration, type: 'half_float'
+          indexes :happiness, type: 'half_float'
+          indexes :gender, type: 'keyword'
         end
       end
 
       def as_indexed_json(_options = {})
         as_json(methods: [:device_name, :device_serial, :campaign_name, :company_name,
-                          :location_name, :brand_name])
+                          :location_name, :brand_name, :measured_at, :avg_age, :presence_duration,
+                          :contact_duration, :happiness, :gender])
       end
     end
   end
