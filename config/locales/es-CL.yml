@@ -87,16 +87,14 @@ es-CL:
         <<: *common
         avg_age: Edad Promedio
         campaign_company_id: Empresa
+        contact_duration: Duración Contacto
         device: Dispositivo
-        happy_count: Felices
-        female_count: Mujeres
+        gender: Género
+        happiness: Felicidad
         location: Local
-        male_count: Hombres
         measured_at: Fecha Medido
-        people_count: Total Personas
-        views_over_5: Vistas sobre 5
-        views_over_15: Vistas sobre 15
-        views_over_30: Vistas sobre 30
+        presence_duration: Duración Presencia
+        w_id: ID Wolke
       region:
         <<: *common
       user:

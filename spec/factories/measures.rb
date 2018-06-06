@@ -4,13 +4,11 @@ FactoryBot.define do
     campaign
     location
     measured_at "2018-05-10 15:53:32"
-    people_count 1
-    views_over_5 1
-    views_over_15 1
-    views_over_30 1
-    male_count 1
-    female_count 1
     avg_age 1
-    happy_count 1
+    w_id 'dsfsafs12'
+    presence_duration 8
+    contact_duration 5
+    happiness 0.3
+    gender :female
   end
 end
