@@ -1,15 +1,21 @@
 class CampaignsController < BaseController
-  def index; end
+  def index
+    @stats = {}
+    current_user.company.campaigns.each do |campaign|
+      stats = ObtainCampaignStats.for(campaign: campaign)
+      @stats[campaign.id] = {
+        total_views: stats[:summation][:contacts],
+        total_people: stats[:summation][:total]
+      }
+    end
+  end
 
   def show
-    measures = Measure.by_campaign(campaign.id)
-    @graphs_data = {
-      total_people: measures.group_by_week(:measured_at).sum(:people_count),
-      views_over_5: measures.group_by_week(:measured_at).sum(:views_over_5)
-    }
-    @total_views_count = measures.sum(:views_over_5)
-    @total_people_count = measures.sum(:people_count)
-    @effectiveness = if @total_people_count
+    stats = ObtainCampaignStats.for(campaign: campaign)
+    @graphs_data = stats[:graph_data]
+    @total_views_count = stats[:summation][:contacts]
+    @total_people_count = stats[:summation][:total]
+    @effectiveness = if @total_people_count != 0
                        (100 * @total_views_count) / @total_people_count
                      else
                        0

@@ -50,8 +50,8 @@ namespace :fake_data do
           measured_at: Faker::Date.between(3.month.ago, Date.today),
           avg_age: Faker::Number.between(10, 40),
           w_id: Faker::Code.imei,
-          presence_duration: Faker::Number.decimal(3, 1).to_f,
-          contact_duration: Faker::Number.decimal(3, 1).to_f,
+          presence_duration: Faker::Number.decimal(2, 1).to_f,
+          contact_duration: Faker::Number.decimal(1, 1).to_f,
           happiness: Faker::Number.decimal(0, 3).to_f,
           gender: Measure::GENDER_TYPES[Faker::Number.between(0, 2)]
         )

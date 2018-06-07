@@ -118,7 +118,7 @@ es-CL:
     campaigns:
       index:
         title: Campañas
-      total_views: Veces visto
+      contacts: Contactos
       total_people: Flujo de gente
     campaign_dashboard:
       details_title: Detalles

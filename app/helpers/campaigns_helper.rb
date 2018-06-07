@@ -2,8 +2,8 @@ module CampaignsHelper
   def campaign_graph(graphs_data)
     line_chart(
       [
-        { name: 'Total People', data: graphs_data[:total_people] },
-        { name: 'Views Over 5', data: graphs_data[:views_over_5] }
+        { name: 'Total People', data: graphs_data[:total] },
+        { name: 'Views Over 5', data: graphs_data[:contacts] }
       ],
       legend: false,
       colors: %w(#11B0FC #00D976),

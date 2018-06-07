@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   scope path: '/api' do
     api_version(module: "Api::V1", path: { value: "v1" }, defaults: { format: 'json' }) do
+      resources :campaigns, only: [] do
+        resources :stats, only: [:index]
+      end
     end
   end
   devise_for :admin_users, ActiveAdmin::Devise.config

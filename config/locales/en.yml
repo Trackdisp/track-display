@@ -42,7 +42,7 @@ en:
     campaigns:
       index:
         title: Campaign
-      total_views: Views
+      contacts: Contacts
       total_people: People Flow
     campaign_dashboard:
       details_title: Details
