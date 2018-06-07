@@ -433,6 +433,7 @@ DEPENDENCIES
   enumerize
   factory_bot_rails
   faker
+  faraday
   friendly_id (~> 5.1.0)
   groupdate
   guard-rspec
