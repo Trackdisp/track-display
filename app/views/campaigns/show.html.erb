@@ -18,7 +18,15 @@
         </div>
       </div>
       <div class="summary-graph__graph">
-        <%= campaign_graph(@graphs_data) %>
+        <%= line_chart(
+              [
+                { name: t('messages.campaigns.total_people'), data: @graphs_data[:total] },
+                { name: t('messages.campaigns.contacts'), data: @graphs_data[:contacts] }
+              ],
+              legend: false,
+              colors: %w(#11B0FC #00D976),
+              library: { chart: { zoomType: 'x' } }
+            ) %>
       </div>
     </div>
   </div>

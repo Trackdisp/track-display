@@ -7,14 +7,14 @@
     <div class="campaign-stat campaign-option__stat">
       <%= image_tag 'campaigns-seen.svg', class: 'campaign-stat__icon' %>
       <div class="campaign-stat__content">
-        <span class="campaign-stat__value"><%= campaign.total_views %></span>
+        <span class="campaign-stat__value"><%= stats[:total_views] %></span>
         <span class="campaign-stat__label"><%= t('messages.campaigns.total_views') %></span>
       </div>
     </div>
     <div class="campaign-stat campaign-option__stat">
       <%= image_tag 'campaigns-contact-points.svg', class: 'campaign-stat__icon' %>
       <div class="campaign-stat__content">
-        <span class="campaign-stat__value"><%= campaign.total_people %></span>
+        <span class="campaign-stat__value"><%= stats[:total_people] %></span>
         <span class="campaign-stat__label"><%= t('messages.campaigns.total_people') %></span>
       </div>
     </div>
