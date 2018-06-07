@@ -14,6 +14,7 @@ class Measure < ApplicationRecord
   end
   scope :by_campaign, ->(campaign_id) { where(campaign_id: campaign_id) }
   scope :by_location, ->(location_id) { where(location_id: location_id) }
+  scope :has_contact, -> { where('contact_duration > ?', 5) }
 
   validates(
     :avg_age,
