@@ -16,7 +16,7 @@ class CampaignsController < BaseController
     @total_views_count = stats[:summation][:contacts]
     @total_people_count = stats[:summation][:total]
     @effectiveness = if @total_people_count != 0
-                       (100 * @total_views_count) / @total_people_count
+                       ((100 * @total_views_count) / @total_people_count.to_f).round
                      else
                        0
                      end
