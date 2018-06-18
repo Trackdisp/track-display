@@ -16,7 +16,7 @@ ActiveAdmin.register Measure do
     column :location
     column :device
     column :avg_age
-    column :presence_duration
+    column :contact_duration
     column :gender
     column :happiness
     actions
