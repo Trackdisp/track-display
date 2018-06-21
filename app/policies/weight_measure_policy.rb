@@ -1,0 +1,2 @@
+class WeightMeasurePolicy < ApplicationPolicy
+end
