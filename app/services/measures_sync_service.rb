@@ -15,7 +15,7 @@ class MeasuresSyncService < PowerTypes::Service.new
     return if w_measures.empty?
     measures = w_measures.group_by { |ms| ms[:device_id] }
     measures.each do |dev_serial, dev_measures|
-      device = create_or_find_device(dev_serial)
+      device = Device.find_or_create_by!(serial: dev_serial)
       import_measures(device, dev_measures)
     end
     @sync.complete
@@ -26,14 +26,6 @@ class MeasuresSyncService < PowerTypes::Service.new
   def import_measures(device, measures)
     measures.each do |measure_data|
       create_or_find_measure(device, measure_data)
-    end
-  end
-
-  def create_or_find_device(device_serial)
-    if device = Device.find_by(serial: device_serial)
-      device
-    else
-      Device.create!(serial: device_serial)
     end
   end
 

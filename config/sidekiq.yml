@@ -6,6 +6,9 @@ production:
 :limits:
   es_index: 1
 :schedule:
+  measures_sync:
+    cron: '0 */15 * * * *' # runs every 15 minutes
+    class: MeasuresSyncJob
   #  an_scheduled_task:
   #    cron: '0 * * * * *'  # Runs once per minute
   #    class: ExampleJob

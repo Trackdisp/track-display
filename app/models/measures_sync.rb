@@ -20,7 +20,6 @@ class MeasuresSync < ApplicationRecord
 
     event :execute, after: Proc.new { update(start_time: DateTime.current) } do
       transitions from: :created, to: :executing
-      transitions from: :completed, to: :executing
     end
 
     event :fail, after: Proc.new { update(end_time: DateTime.current) } do
