@@ -6,6 +6,7 @@ class Measure < ApplicationRecord
   belongs_to :device
   belongs_to :campaign, optional: true
   belongs_to :location, optional: true
+  belongs_to :measures_sync, optional: true
 
   before_create :set_campaign_and_location
 
@@ -59,14 +60,17 @@ end
 #  contact_duration  :decimal(4, 1)
 #  happiness         :decimal(4, 3)
 #  gender            :string
+#  measures_sync_id  :bigint(8)
 #
 # Indexes
 #
-#  index_measures_on_campaign_id  (campaign_id)
-#  index_measures_on_device_id    (device_id)
-#  index_measures_on_location_id  (location_id)
+#  index_measures_on_campaign_id       (campaign_id)
+#  index_measures_on_device_id         (device_id)
+#  index_measures_on_location_id       (location_id)
+#  index_measures_on_measures_sync_id  (measures_sync_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (device_id => devices.id)
+#  fk_rails_...  (measures_sync_id => measures_syncs.id)
 #

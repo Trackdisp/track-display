@@ -5,6 +5,7 @@ RSpec.describe Measure, type: :model do
     it { should belong_to(:device) }
     it { should belong_to(:campaign) }
     it { should belong_to(:location) }
+    it { should belong_to(:measures_sync) }
   end
 
   describe '#Validations' do
