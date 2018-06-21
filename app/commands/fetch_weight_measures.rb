@@ -1,8 +1,8 @@
-class FetchMeasures < PowerTypes::Command.new(:from, :to)
-  TIME_FORMAT = '%Y-%m-%dT%H:%M'
+class FetchWeightMeasures < PowerTypes::Command.new(:from, :to)
+  TIME_FORMAT = '%Y-%m-%dT%H'
 
   def perform
-    source_url = ENV.fetch('WOLKE_API_URL') + '/platanusintfinstant?'
+    source_url = ENV.fetch('WOLKE_API_URL') + '/platanusintfweighing?'
     conn = Faraday.new source_url, request: { params_encoder: DoNotEncoder }
     response = conn.get source_url, api_params
     parse_body(response)

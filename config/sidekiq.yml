@@ -9,7 +9,9 @@ production:
   measures_sync:
     cron: '0 */15 * * * *' # runs every 15 minutes
     class: MeasuresSyncJob
-  #  an_scheduled_task:
+  measures_sync:
+    cron: '0 0 * * * *' # runs every 1 hour
+    class: WeightMeasuresSyncJob  #  an_scheduled_task:
   #    cron: '0 * * * * *'  # Runs once per minute
   #    class: ExampleJob
   #    args: ['a', 'b']
