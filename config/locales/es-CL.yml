@@ -31,6 +31,9 @@ es-CL:
       user:
         one: Usuario
         other: Usuarios
+      weight_measure:
+        one: Peso
+        other: Pesos
     attributes:
       timestamps: &timestamps
         created_at: Fecha de Creación
@@ -54,6 +57,12 @@ es-CL:
         password: Contraseña
         password_confirmation: Confirmar Password
         email: Email
+      measure_common: &measure
+        campaign_company_id: Empresa
+        device: Dispositivo
+        location: Local
+        measured_at: Fecha Medido
+        w_id: ID Wolke
       admin_user:
         <<: *common
         <<: *login
@@ -85,22 +94,26 @@ es-CL:
         street: Calle
       measure:
         <<: *common
+        <<: &measure
         avg_age: Edad Promedio
-        campaign_company_id: Empresa
         contact_duration: Duración Contacto
-        device: Dispositivo
         gender: Género
         happiness: Felicidad
-        location: Local
-        measured_at: Fecha Medido
         presence_duration: Duración Presencia
-        w_id: ID Wolke
       region:
         <<: *common
       user:
         <<: *common
         <<: *login
         company: Empresa
+      weight_measure:
+        <<: *common
+        <<: *measure
+        item_weight: Elemento
+        shelf_weight: Estante
+        current_weight: Actual
+        previous_weight: Anterior
+        item_count: Dif. Elementos
   enumerize:
     channel:
       traditional: Tradicional
