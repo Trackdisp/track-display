@@ -3,6 +3,10 @@ module Elastic::IndexUpdater
     EsIndex::UpdateMeasureJob.delayed.perform_later(measure_id)
   end
 
+  def self.queue_update_weight_measure(measure_id)
+    EsIndex::UpdateWeightMeasureJob.delayed.perform_later(measure_id)
+  end
+
   def self.update_brand_measures(brand_id)
     update_object_measures(Brand, brand_id)
   end
@@ -27,10 +31,15 @@ module Elastic::IndexUpdater
     Measure.update_document(measure_id)
   end
 
+  def self.update_weight_measure(measure_id)
+    WeightMeasure.update_document(measure_id)
+  end
+
   private_class_method def self.update_object_measures(klass, object_id)
     object = klass.find_by(id: object_id)
     return unless object
     object.measures.find_each { |measure| queue_update_measure(measure.id) }
+    object.weight_measures.find_each { |measure| queue_update_weight_measure(measure.id) }
     object
   end
 end

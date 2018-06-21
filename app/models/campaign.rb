@@ -5,6 +5,7 @@ class Campaign < ApplicationRecord
   belongs_to :company
   has_many :devices
   has_many :measures, dependent: :destroy
+  has_many :weight_measures, dependent: :destroy
 
   validates_presence_of :name, :start_date, :end_date
 

@@ -4,6 +4,7 @@ class Device < ApplicationRecord
   belongs_to :campaign, optional: true
   belongs_to :location, optional: true
   has_many :measures, dependent: :destroy
+  has_many :weight_measures, dependent: :destroy
 
   validates :serial, presence: true
 
