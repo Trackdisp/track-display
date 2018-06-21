@@ -4,6 +4,9 @@ class MeasuresSync < ApplicationRecord
 
   has_many :measures
 
+  scope :completed, -> { where(state: :completed) }
+  scope :by_to_date, -> { order(to_date: :desc) }
+
   validates_presence_of :state, :from_date, :to_date
 
   SYNC_STATE = %i(created executing completed failed)
