@@ -5,6 +5,7 @@ class WeightMeasure < ApplicationRecord
   belongs_to :device
   belongs_to :location, optional: true
   belongs_to :campaign, optional: true
+  belongs_to :weight_measures_sync, optional: true
 
   before_create :set_campaign_and_location
   before_create :set_items_count
@@ -45,22 +46,24 @@ end
 #
 # Table name: weight_measures
 #
-#  id              :bigint(8)        not null, primary key
-#  device_id       :bigint(8)
-#  location_id     :bigint(8)
-#  campaign_id     :bigint(8)
-#  measured_at     :datetime
-#  item_weight     :integer
-#  shelf_weight    :integer
-#  current_weight  :integer
-#  previous_weight :integer
-#  items_count     :integer
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id                      :bigint(8)        not null, primary key
+#  device_id               :bigint(8)
+#  location_id             :bigint(8)
+#  campaign_id             :bigint(8)
+#  measured_at             :datetime
+#  item_weight             :integer
+#  shelf_weight            :integer
+#  current_weight          :integer
+#  previous_weight         :integer
+#  items_count             :integer
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  weight_measures_sync_id :bigint(8)
 #
 # Indexes
 #
-#  index_weight_measures_on_campaign_id  (campaign_id)
-#  index_weight_measures_on_device_id    (device_id)
-#  index_weight_measures_on_location_id  (location_id)
+#  index_weight_measures_on_campaign_id              (campaign_id)
+#  index_weight_measures_on_device_id                (device_id)
+#  index_weight_measures_on_location_id              (location_id)
+#  index_weight_measures_on_weight_measures_sync_id  (weight_measures_sync_id)
 #
