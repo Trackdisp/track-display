@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'aasm'
 gem 'active_model_serializers', '~> 0.9.3'
 gem 'active_skin'
 gem 'activeadmin', '~> 1.1.0'
@@ -14,6 +15,7 @@ gem 'elasticsearch-dsl'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'enumerize'
+gem 'faraday'
 gem 'friendly_id', '~> 5.1.0'
 gem 'groupdate'
 gem 'jbuilder', '~> 2.5'
@@ -49,6 +51,7 @@ end
 group :test do
   gem 'rspec_junit_formatter', '0.2.2'
   gem 'shoulda-matchers', require: false
+  gem 'timecop'
 end
 
 group :development do
