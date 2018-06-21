@@ -35,9 +35,9 @@ class MeasuresSyncService < PowerTypes::Service.new
       device.measures.create!(
         w_id: measure_data[:id],
         measured_at: measure_data[:timestamp].to_time,
-        avg_age: measure_data[:averageAge].to_f,
-        presence_duration: measure_data[:totalSeconds].to_i,
-        contact_duration: measure_data[:totalViewSeconds].to_i,
+        avg_age: measure_data[:average_age].to_f,
+        presence_duration: measure_data[:total_seconds].to_i,
+        contact_duration: measure_data[:total_view_seconds].to_i,
         gender: measure_data[:gender].to_sym,
         happiness: measure_data[:happiness].to_f,
         measures_sync: @sync
