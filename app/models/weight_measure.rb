@@ -1,4 +1,6 @@
 class WeightMeasure < ApplicationRecord
+  include Elastic::MeasureIndex
+
   belongs_to :device
   belongs_to :location, optional: true
   belongs_to :campaign, optional: true
