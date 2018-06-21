@@ -3,6 +3,7 @@ class Brand < ApplicationRecord
   extend Enumerize
   has_many :locations
   has_many :measures, through: :locations
+  has_many :weight_measures, through: :locations
 
   validates_presence_of :name, :channel
 

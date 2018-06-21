@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180621121526) do
+ActiveRecord::Schema.define(version: 20180621150701) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,23 @@ ActiveRecord::Schema.define(version: 20180621121526) do
     t.index ["company_id"], name: "index_users_on_company_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  end
+
+  create_table "weight_measures", force: :cascade do |t|
+    t.bigint "device_id"
+    t.bigint "location_id"
+    t.bigint "campaign_id"
+    t.datetime "measured_at"
+    t.integer "item_weight"
+    t.integer "shelf_weight"
+    t.integer "current_weight"
+    t.integer "previous_weight"
+    t.integer "items_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_weight_measures_on_campaign_id"
+    t.index ["device_id"], name: "index_weight_measures_on_device_id"
+    t.index ["location_id"], name: "index_weight_measures_on_location_id"
   end
 
   add_foreign_key "measures", "devices"

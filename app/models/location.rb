@@ -5,6 +5,7 @@ class Location < ApplicationRecord
   belongs_to :commune
   has_many :devices
   has_many :measures
+  has_many :weight_measures
 
   validates_presence_of :name, :street, :number
 

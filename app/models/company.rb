@@ -5,6 +5,7 @@ class Company < ApplicationRecord
   has_many :campaigns, dependent: :destroy
   has_many :devices, through: :campaigns
   has_many :measures, through: :campaigns, dependent: :destroy
+  has_many :weight_measures, through: :campaigns, dependent: :destroy
 
   validates :name, presence: true
 end
