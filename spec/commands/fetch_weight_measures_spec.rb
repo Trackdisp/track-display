@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-describe FetchMeasures do
+describe FetchWeightMeasures do
   def perform(*_args)
     described_class.for(*_args)
   end
 
   let(:wolke_url) { 'wolke_api_url' }
-  let(:measure_url) { wolke_url + '/platanusintfinstant?' }
+  let(:weight_url) { wolke_url + '/platanusintfweighing?' }
   let(:wolke_token) { 'wolke_token' }
   let(:conn) { double }
 
@@ -22,19 +22,19 @@ describe FetchMeasures do
   end
 
   describe '#perform' do
-    let(:from_date) { 15.minutes.ago }
+    let(:from_date) { 1.hour.ago }
     let(:to_date) { Time.current }
     let(:api_params) do
       {
-        startDate: '2018-06-18T11:45',
-        endDate: '2018-06-18T12:00',
+        startDate: '2018-06-18T11',
+        endDate: '2018-06-18T12',
         token: wolke_token
       }
     end
     let(:response) { double(body: '[]') }
 
     before do
-      expect(conn).to receive(:get).with(measure_url, api_params).and_return(response)
+      expect(conn).to receive(:get).with(weight_url, api_params).and_return(response)
     end
 
     it 'calls the wolke API correctly' do
