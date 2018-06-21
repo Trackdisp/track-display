@@ -1,5 +1,6 @@
 class WeightMeasure < ApplicationRecord
   include Elastic::MeasureIndex
+  include PowerTypes::Observable
 
   belongs_to :device
   belongs_to :location, optional: true
