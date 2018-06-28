@@ -11,7 +11,7 @@ class CampaignsController < BaseController
   end
 
   def show
-    stats = ObtainCampaignStats.for(campaign: campaign)
+    stats = ObtainCampaignStats.for(campaign: campaign, date_group: date_group_by)
     @graphs_data = stats[:graph_data]
     @total_views_count = stats[:summation][:contacts]
     @total_people_count = stats[:summation][:total]
@@ -26,5 +26,13 @@ class CampaignsController < BaseController
 
   def campaign
     @campaign ||= Campaign.find_by(slug: params[:slug])
+  end
+
+  def date_group_by
+    if params[:group_by].present?
+      params[:group_by].to_sym
+    else
+      :day
+    end
   end
 end
