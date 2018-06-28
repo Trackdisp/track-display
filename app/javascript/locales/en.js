@@ -3,6 +3,7 @@ export default {
   conjunctions: {
     and: 'y',
   },
+  graphs: {},
   messages: {
     errors: {
     },

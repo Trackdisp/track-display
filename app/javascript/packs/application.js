@@ -8,7 +8,10 @@ import VueChartkick from 'vue-chartkick'
 import VueI18n from 'vue-i18n';
 
 document.addEventListener('DOMContentLoaded', () => {
-  Vue.use(VueChartkick, {adapter: Highcharts})
+  Highcharts.setOptions({
+    lang: Locales.messages[document.documentElement.lang].graphs,
+  });
+  Vue.use(VueChartkick, {adapter: Highcharts});
   Vue.use(VueI18n);
 
   if (document.getElementById('app') !== null) {
