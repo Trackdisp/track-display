@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="summary-graph__graph">
-
+        <line-chart :data="<%= campaign_graph_data(@graphs_data).to_json %>" :legend="false" :colors="['#11B0FC', '#00D976']" :library="{ chart: { zoomType: 'x' } }"></line-chart>
       </div>
     </div>
   </div>

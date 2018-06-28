@@ -1,14 +1,9 @@
 module CampaignsHelper
-  def campaign_graph(graphs_data)
-    line_chart(
-      [
-        { name: 'Total People', data: graphs_data[:total] },
-        { name: 'Views Over 5', data: graphs_data[:contacts] }
-      ],
-      legend: false,
-      colors: %w(#11B0FC #00D976),
-      library: { chart: { zoomType: 'x' } }
-    )
+  def campaign_graph_data(graphs_data)
+    [
+      { name: I18n.t('messages.campaigns.total_people'), data: graphs_data[:total] },
+      { name: I18n.t('messages.campaigns.contacts'), data: graphs_data[:contacts] }
+    ]
   end
 
   def campaign_date_range(campaign)
