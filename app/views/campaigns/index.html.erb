@@ -1,7 +1,7 @@
-<div class="app">
+<div id="app" class="app">
   <%= render 'shared/header' %>
-  <div class="app__container" %>
-    <h2 class="app__title"%><%= t('messages.campaigns.index.title') %></h2>
+  <div class="app__container">
+    <h2 class="app__title"><%= t('messages.campaigns.index.title') %></h2>
     <% current_user.company.campaigns.each do |campaign| %>
       <%= render 'campaign_summary', campaign: campaign, stats: @stats[campaign.id] %>
     <% end %>

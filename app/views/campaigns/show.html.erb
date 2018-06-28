@@ -1,7 +1,7 @@
-<div class="app">
+<div id="app" class="app">
   <%= render 'shared/header' %>
-  <div class="app__container" %>
-    <h2 class="app__title"%><%= t('messages.campaign_dashboard.details_title') %></h2>
+  <div class="app__container">
+    <h2 class="app__title"><%= t('messages.campaign_dashboard.details_title') %></h2>
     <div class="summary-graph app__graph">
       <div class="summary-graph__summary-container">
         <div class="summary-graph__total-views">
@@ -18,15 +18,7 @@
         </div>
       </div>
       <div class="summary-graph__graph">
-        <%= line_chart(
-              [
-                { name: t('messages.campaigns.total_people'), data: @graphs_data[:total] },
-                { name: t('messages.campaigns.contacts'), data: @graphs_data[:contacts] }
-              ],
-              legend: false,
-              colors: %w(#11B0FC #00D976),
-              library: { chart: { zoomType: 'x' } }
-            ) %>
+
       </div>
     </div>
   </div>
