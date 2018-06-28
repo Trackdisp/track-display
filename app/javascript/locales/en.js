@@ -4,6 +4,11 @@ export default {
     and: 'y',
   },
   graphs: {},
+  groupDateSelector: {
+    week: 'Week',
+    day: 'Day',
+    hour: 'Hour',
+  },
   messages: {
     errors: {
     },

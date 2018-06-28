@@ -29,10 +29,12 @@ class CampaignsController < BaseController
   end
 
   def date_group_by
-    if params[:group_by].present?
-      params[:group_by].to_sym
-    else
-      :day
+    @date_group_by ||= begin
+      if params[:group_by].present?
+        params[:group_by].to_sym
+      else
+        :day
+      end
     end
   end
 end

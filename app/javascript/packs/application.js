@@ -2,17 +2,21 @@
 /* global document */
 
 import Vue from 'vue/dist/vue.esm';
-import Highcharts from 'highcharts'
-import Locales from '../locales/locales';
-import VueChartkick from 'vue-chartkick'
+import Highcharts from 'highcharts';
+import VueChartkick from 'vue-chartkick';
 import VueI18n from 'vue-i18n';
+import Vuetify from 'vuetify';
+
+import GroupDateSelector from '../tools/group-date-selector.vue';
+import Locales from '../locales/locales';
 
 document.addEventListener('DOMContentLoaded', () => {
   Highcharts.setOptions({
     lang: Locales.messages[document.documentElement.lang].graphs,
   });
-  Vue.use(VueChartkick, {adapter: Highcharts});
+  Vue.use(VueChartkick, { adapter: Highcharts });
   Vue.use(VueI18n);
+  Vue.use(Vuetify);
 
   if (document.getElementById('app') !== null) {
     new Vue({
@@ -20,7 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
       i18n: new VueI18n({
         locale: document.documentElement.lang,
         messages: Locales.messages,
-      })
+      }),
+      components: {
+        'group-date-selector': GroupDateSelector,
+      },
     });
   }
 });

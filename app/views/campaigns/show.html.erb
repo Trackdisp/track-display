@@ -3,6 +3,9 @@
   <div class="app__container">
     <h2 class="app__title"><%= t('messages.campaign_dashboard.details_title') %></h2>
     <div class="summary-graph app__graph">
+      <div class="summary-graph__selector">
+        <group-date-selector initial-group="<%= @date_group_by.to_s %>"></group-date-selector>
+      </div>
       <div class="summary-graph__summary-container">
         <div class="summary-graph__total-views">
           <span class="summary-graph__total-views-count"><%= @total_views_count %></span>

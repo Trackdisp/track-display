@@ -13,6 +13,12 @@
     font-size: 20px;
   }
 
+  &__selector {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
   &__total-views {
     flex-grow: 1;
     font-family: $main-font;
