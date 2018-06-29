@@ -1,10 +1,33 @@
 /* eslint no-console:0 */
-// This file is automatically compiled by Webpack, along with any other files
-// present in this directory. You're encouraged to place your actual application logic in
-// a relevant structure within app/javascript and only use these pack files to reference
-// that code so it'll be compiled.
-//
-// To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
-// layout file, like app/views/layouts/application.html.erb
+/* global document */
 
-console.log('Hello World from Webpacker');
+import Vue from 'vue/dist/vue.esm';
+import Highcharts from 'highcharts';
+import VueChartkick from 'vue-chartkick';
+import VueI18n from 'vue-i18n';
+import Vuetify from 'vuetify';
+
+import GroupDateSelector from '../tools/group-date-selector.vue';
+import Locales from '../locales/locales';
+
+document.addEventListener('DOMContentLoaded', () => {
+  Highcharts.setOptions({
+    lang: Locales.messages[document.documentElement.lang].graphs,
+  });
+  Vue.use(VueChartkick, { adapter: Highcharts });
+  Vue.use(VueI18n);
+  Vue.use(Vuetify);
+
+  if (document.getElementById('app') !== null) {
+    new Vue({
+      el: '#app',
+      i18n: new VueI18n({
+        locale: document.documentElement.lang,
+        messages: Locales.messages,
+      }),
+      components: {
+        'group-date-selector': GroupDateSelector,
+      },
+    });
+  }
+});
