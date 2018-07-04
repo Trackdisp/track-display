@@ -13,13 +13,7 @@ class CampaignsController < BaseController
   def show
     stats = ObtainCampaignStats.for(campaign: campaign, date_group: date_group_by)
     @graphs_data = stats[:graph_data]
-    @contacts_count = stats[:summation][:contacts]
-    @total_people_count = stats[:summation][:total]
-    @effectiveness = if @total_people_count != 0
-                       ((100 * @contacts_count) / @total_people_count.to_f).round
-                     else
-                       0
-                     end
+    @campaign_stats = stats[:summation]
   end
 
   private
