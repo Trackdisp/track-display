@@ -42,6 +42,7 @@ describe ObtainCampaignStats do
       expect(stats[:graph_data][:total].size).to be(8)
       expect(stats[:summation][:contacts]).to be(2)
       expect(stats[:summation][:total]).to be(5)
+      expect(stats[:summation][:effectiveness]).to be(40)
     end
 
     it 'expects defaults to group by day' do

@@ -45,7 +45,8 @@ en:
       contacts: Contacts
       total_people: People Flow
     campaign_dashboard:
+      contacts: Contacts
       details_title: Details
-      total_views: Contact Points
-      total_people: Flow of People
       effectiveness: '% Effectiveness'
+      total_people: Flow of people
+      unit_rotated: Unit rotated

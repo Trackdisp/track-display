@@ -1,0 +1,36 @@
+<div class="campaign-details__summary">
+  <div class="campaign-detail-data campaign-details__summary-stat">
+    <div class="campaign-detail-data__icon">
+      <%= image_tag 'contacts.svg' %>
+    </div>
+    <div class="campaign-detail-data__data-container">
+      <span class="campaign-detail-data__data"><%= @campaign_stats[:contacts] %></span>
+      <span class="campaign-detail-data__label"><%= t('messages.campaign_dashboard.contacts') %></span>
+    </div>
+  </div>
+
+  <div class="campaign-detail-data campaign-details__summary-stat">
+    <div class="campaign-detail-data__icon">
+      <%= image_tag 'seen.svg' %>
+    </div>
+    <div class="campaign-detail-data__data-container">
+      <span class="campaign-detail-data__data campaign-detail-data__data--secondary"><%= @campaign_stats[:total] %></span>
+      <span class="campaign-detail-data__label"><%= t('messages.campaign_dashboard.total_people') %></span>
+    </div>
+  </div>
+
+  <div class="campaign-detail-data campaign-details__summary-stat">
+    <div class="campaign-detail-data__icon">
+      <%= image_tag 'rotation.svg' %>
+    </div>
+    <div class="campaign-detail-data__data-container">
+      <span class="campaign-detail-data__data">0</span>
+      <span class="campaign-detail-data__label"><%= t('messages.campaign_dashboard.unit_rotated') %></span>
+    </div>
+  </div>
+
+  <div class="campaign-detail-data campaign-detail-data--percentage campaign-details__summary-stat">
+    <span class="campaign-detail-data__data"><%= @campaign_stats[:effectiveness] %></span>
+    <span class="campaign-detail-data__label"><%= t('messages.campaign_dashboard.effectiveness') %></span>
+  </div>
+</div>
