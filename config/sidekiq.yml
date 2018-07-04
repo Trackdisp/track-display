@@ -7,10 +7,10 @@ production:
   es_index: 1
 :schedule:
   measures_sync:
-    cron: '0 */15 * * * *' # runs every 15 minutes
+    cron: <%= ENV.fetch("SYNCHRONIZATION_CRON_INTERVAL", '0 */15 * * * *') %> # runs every 15 minutes
     class: MeasuresSyncJob
   weight_measures_sync:
-    cron: '0 0 * * * *' # runs every 1 hour
+    cron: <%= ENV.fetch("SYNCHRONIZATION_CRON_INTERVAL", '0 */15 * * * *') %> # runs every 15 minutes
     class: WeightMeasuresSyncJob  #  an_scheduled_task:
   #    cron: '0 * * * * *'  # Runs once per minute
   #    class: ExampleJob
