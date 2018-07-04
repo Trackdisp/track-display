@@ -1,10 +1,10 @@
 class WeightMeasuresSyncService < PowerTypes::Service.new
-  SYNCRONIZATION_INTERVAL = ENV.fetch('SYNCRONIZATION_INTERVAL', 1).to_i
+  SYNCHRONIZATION_INTERVAL = ENV.fetch('SYNCHRONIZATION_INTERVAL', 15).to_i
 
   def sync_since_last
     last_sync = WeightMeasuresSync.completed.by_to_date.first
-    from_date = last_sync.nil? ? SYNCRONIZATION_INTERVAL.hour.ago : last_sync.to_date
-    to_date = from_date + SYNCRONIZATION_INTERVAL.hour
+    from_date = last_sync.nil? ? SYNCHRONIZATION_INTERVAL.minutes.ago : last_sync.to_date
+    to_date = from_date + SYNCHRONIZATION_INTERVAL.minutes
     sync_measures(from_date: from_date, to_date: to_date)
   end
 

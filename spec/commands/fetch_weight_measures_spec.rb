@@ -25,8 +25,8 @@ describe FetchWeightMeasures do
     let(:to_date) { Time.current }
     let(:api_params) do
       {
-        startDate: '2018-06-18T11',
-        endDate: '2018-06-18T12',
+        startDate: '2018-06-18T11:00',
+        endDate: '2018-06-18T12:00',
         token: wolke_token
       }
     end

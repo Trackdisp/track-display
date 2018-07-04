@@ -1,5 +1,5 @@
 class FetchWeightMeasures < PowerTypes::Command.new(:from, :to)
-  TIME_FORMAT = '%Y-%m-%dT%H'
+  TIME_FORMAT = '%Y-%m-%dT%H:%M'
 
   def perform
     source_url = ENV.fetch('WOLKE_WEIGHT_MEASURES_URL')
