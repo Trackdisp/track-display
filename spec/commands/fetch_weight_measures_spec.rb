@@ -5,14 +5,13 @@ describe FetchWeightMeasures do
     described_class.for(*_args)
   end
 
-  let(:wolke_url) { 'wolke_api_url' }
-  let(:weight_url) { wolke_url + '/platanusintfweighing?' }
+  let(:wolke_url) { 'wolke_weight_measures_url' }
   let(:wolke_token) { 'wolke_token' }
   let(:conn) { double }
 
   before do
     Timecop.freeze(Time.local(2018, 6, 18, 12, 0, 0))
-    allow(ENV).to receive(:fetch).with('WOLKE_API_URL').and_return(wolke_url)
+    allow(ENV).to receive(:fetch).with('WOLKE_WEIGHT_MEASURES_URL').and_return(wolke_url)
     allow(ENV).to receive(:fetch).with('WOLKE_TOKEN').and_return(wolke_token)
     allow(Faraday).to receive(:new).and_return(conn)
   end
@@ -26,15 +25,15 @@ describe FetchWeightMeasures do
     let(:to_date) { Time.current }
     let(:api_params) do
       {
-        startDate: '2018-06-18T11',
-        endDate: '2018-06-18T12',
+        startDate: '2018-06-18T11:00',
+        endDate: '2018-06-18T12:00',
         token: wolke_token
       }
     end
     let(:response) { double(body: '[]') }
 
     before do
-      expect(conn).to receive(:get).with(weight_url, api_params).and_return(response)
+      expect(conn).to receive(:get).with(wolke_url, api_params).and_return(response)
     end
 
     it 'calls the wolke API correctly' do

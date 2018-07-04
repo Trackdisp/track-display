@@ -5,11 +5,10 @@ describe MeasuresSyncService do
     described_class.new(*_args)
   end
 
-  let(:sync_interval) { 15 }
+  let(:sync_interval) { ENV.fetch('SYNCHRONIZATION_INTERVAL').to_i }
 
   before do
     Timecop.freeze(Time.local(2018, 6, 18, 12, 0, 0))
-    allow(ENV).to receive(:fetch).with('SYNCRONIZATION_INTERVAL').and_return(sync_interval)
   end
 
   after do
@@ -18,7 +17,7 @@ describe MeasuresSyncService do
 
   describe '#sync_since_last' do
     context 'when last sincronization is nil' do
-      it 'syncronizes since SYNCRONIZATION_INTERVAL minutes ago' do
+      it 'syncronizes since SYNCHRONIZATION_INTERVAL minutes ago' do
         service = build
         expect(service).to receive(:sync_measures).with(
           from_date: sync_interval.minutes.ago,
@@ -54,10 +53,10 @@ describe MeasuresSyncService do
     let(:wolke_result) do
       [
         { id: "5b04db30ee33e37b160111e13", device_id: "1234567890",
-          timestamp: "2018-06-18 16:06:00", average_age: 34.9, total_seconds: 15,
+          timestamp: "2018-06-18 15:59:00", average_age: 34.9, total_seconds: 15,
           total_view_seconds: 7, gender: "male", happiness: 0.002 },
         { id: "5b04db30ee33e37b160111e14", device_id: "1234567890",
-          timestamp: "2018-06-18 16:07:00", average_age: 34.9, total_seconds: 11,
+          timestamp: "2018-06-18 16:01:00", average_age: 34.9, total_seconds: 11,
           total_view_seconds: 3, gender: "female", happiness: 0.002 }
       ]
     end
