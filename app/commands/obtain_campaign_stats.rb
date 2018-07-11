@@ -1,6 +1,6 @@
-class ObtainCampaignStats < PowerTypes::Command.new(:campaign, date_group: :day)
+class ObtainCampaignStats < PowerTypes::Command.new(:campaign, location: nil, date_group: :day)
   def perform
-    measures = EsSearchMeasures.for(campaign: @campaign).records
+    measures = EsSearchMeasures.for(campaign: @campaign, location: @location).records
     measures_data = group_measures(measures)
     stats = {
       graph_data: measures_data,
