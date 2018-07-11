@@ -8,7 +8,7 @@
         <group-date-selector initial-group="<%= @date_group_by.to_s %>"></group-date-selector>
       </div>
       <div class="summary-graph__graph">
-        <line-chart :data="<%= campaign_graph_data(@graphs_data).to_json %>" :legend="false" :colors="['#11B0FC', '#00D976']" :library="{ chart: { zoomType: 'x' } }"></line-chart>
+        <line-chart :data="<%= campaign_graph_data(@campaign_stat).to_json %>" :legend="false" :colors="['#11B0FC', '#00D976']" :library="{ chart: { zoomType: 'x' } }"></line-chart>
       </div>
     </div>
   </div>

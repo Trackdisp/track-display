@@ -4,16 +4,15 @@ class CampaignsController < BaseController
     current_user.company.campaigns.each do |campaign|
       stats = ObtainCampaignStats.for(campaign: campaign)
       @stats[campaign.id] = {
-        total_views: stats[:summation][:contacts],
-        total_people: stats[:summation][:total]
+        total_views: stats.contacts_sum,
+        total_people: stats.total_sum
       }
     end
   end
 
   def show
-    stats = ObtainCampaignStats.for(campaign: campaign, date_group: date_group_by)
-    @graphs_data = stats[:graph_data]
-    @campaign_stats = stats[:summation]
+    @campaign_stat = ObtainCampaignStats.for(campaign: campaign, date_group: date_group_by)
+    @locations = Location.all.select(:id, :name)
   end
 
   private

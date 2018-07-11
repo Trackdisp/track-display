@@ -1,8 +1,8 @@
 module CampaignsHelper
-  def campaign_graph_data(graphs_data)
+  def campaign_graph_data(campaign_data)
     [
-      { name: I18n.t('messages.campaigns.total_people'), data: graphs_data[:total] },
-      { name: I18n.t('messages.campaigns.contacts'), data: graphs_data[:contacts] }
+      { name: I18n.t('messages.campaigns.total_people'), data: campaign_data.total_data },
+      { name: I18n.t('messages.campaigns.contacts'), data: campaign_data.contacts_data }
     ]
   end
 

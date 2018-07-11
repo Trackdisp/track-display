@@ -2,15 +2,11 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign, location: nil, da
   def perform
     measures = EsSearchMeasures.for(campaign: @campaign, location: @location).records
     measures_data = group_measures(measures)
-    stats = {
-      graph_data: measures_data,
-      summation: {
-        contacts: measures_data[:contacts].values.sum,
-        total: measures_data[:total].values.sum
-      }
-    }
-    stats[:summation][:effectiveness] = calculate_effectiveness(stats[:summation])
-    stats
+    CampaignStat.new(
+      campaign: @campaign,
+      contacts_data: measures_data[:contacts],
+      total_data: measures_data[:total]
+    )
   end
 
   private
@@ -33,13 +29,5 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign, location: nil, da
     {
       contacts: contact_measures.count, total: total_measures.count
     }
-  end
-
-  def calculate_effectiveness(summation)
-    if summation[:total] != 0
-      ((100 * summation[:contacts]) / summation[:total].to_f).round
-    else
-      0
-    end
   end
 end

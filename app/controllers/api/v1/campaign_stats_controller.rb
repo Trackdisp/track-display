@@ -1,4 +1,4 @@
-class Api::V1::StatsController < Api::V1::BaseController
+class Api::V1::CampaignStatsController < Api::V1::BaseController
   def index
     render json: ObtainCampaignStats.for(campaign: campaign), status: :ok
   end
