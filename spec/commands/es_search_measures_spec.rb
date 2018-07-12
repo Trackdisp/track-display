@@ -48,7 +48,7 @@ describe EsSearchMeasures do
           .push(range: { measured_at: { gte: after_date.strftime('%Y-%m-%d') } })
       end
 
-      it 'filters by location id' do
+      it 'filters measured_at by after date' do
         expect(Measure).to receive(:es_search).with(es_search_params).and_return(nil)
         perform(campaign: campaign, after_date: after_date)
       end
@@ -62,9 +62,22 @@ describe EsSearchMeasures do
           .push(range: { measured_at: { lte: before_date.strftime('%Y-%m-%d') } })
       end
 
-      it 'filters by location id' do
+      it 'filters measured_at by before date' do
         expect(Measure).to receive(:es_search).with(es_search_params).and_return(nil)
         perform(campaign: campaign, before_date: before_date)
+      end
+    end
+
+    context 'with gender params' do
+      let(:gender) { 'male' }
+
+      before do
+        es_search_params[:query][:bool][:must].push(term: { gender: gender })
+      end
+
+      it 'filters by gender' do
+        expect(Measure).to receive(:es_search).with(es_search_params).and_return(nil)
+        perform(campaign: campaign, gender: gender)
       end
     end
   end

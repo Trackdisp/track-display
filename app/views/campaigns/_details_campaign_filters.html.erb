@@ -8,4 +8,7 @@
   <div class="campaign-details__filter">
     <datetime-picker initial-value="<%= @before_date %>" query-param="before" :placeholder="$t('messages.campaignDetails.filters.beforeDate')"></datetime-picker>
   </div>
+  <div class="campaign-details__filter">
+    <select-filter :options="<%= gender_types_json %>" label="name" initial-selected="<%= @gender %>" track-by="id" query-param="gender" :placeholder="$t('messages.campaignDetails.filters.gender')"></select-filter>
+  </div>
 </div>

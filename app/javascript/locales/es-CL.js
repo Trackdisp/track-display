@@ -33,6 +33,7 @@ export default {
       filters: {
         afterDate: 'Después de',
         beforeDate: 'Antes de',
+        gender: 'Género',
         locations: 'Locales',
       },
     },

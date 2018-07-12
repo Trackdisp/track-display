@@ -119,6 +119,10 @@ es-CL:
       traditional: Tradicional
       supermarket: Supermercado
       local_consumption: Consumo Local
+    gender:
+      male: Masculino
+      female: Femenino
+      undefined: Indefinido
   messages:
     header:
       logout: Cerrar Sesión

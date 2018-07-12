@@ -30,6 +30,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  enumerize:
+    gender:
+      male: Male
+      female: Female
+      undefined: Undefined
   messages:
     header:
       logout: Logout
