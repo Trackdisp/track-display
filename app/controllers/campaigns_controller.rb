@@ -12,10 +12,10 @@ class CampaignsController < BaseController
 
   def show
     @campaign_stat = ObtainCampaignStats.for(campaign: campaign, location: location,
-                                             date_group: date_group_by)
+                                             date_group: date_group_by,
+                                             after_date: after_date&.to_time,
+                                             before_date: before_date&.to_time)
     @locations = Location.all.select(:id, :name)
-    after_date
-    before_date
   end
 
   private

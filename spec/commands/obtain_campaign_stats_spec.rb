@@ -16,6 +16,8 @@ describe ObtainCampaignStats do
   describe '#perform' do
     let(:campaign) { create(:campaign) }
     let(:location) { create(:location) }
+    let(:after_date) { Time.now - 11.days }
+    let(:before_date) { Time.now }
     let(:device) { create(:device, campaign: campaign, location: location) }
     let!(:measures) do
       [
@@ -29,17 +31,21 @@ describe ObtainCampaignStats do
 
     before do
       search = double
-      expect(EsSearchMeasures).to receive(:for).with(campaign: campaign, location: location)
+      expect(EsSearchMeasures).to receive(:for).with(campaign: campaign, location: location,
+                                                     after_date: after_date,
+                                                     before_date: before_date)
                                                .and_return(search)
       expect(search).to receive(:records).and_return(device.measures)
     end
 
     it 'calls EsSearchMeasures command' do
-      perform(campaign: campaign, location: location)
+      perform(campaign: campaign, location: location, after_date: after_date,
+              before_date: before_date)
     end
 
     it 'calculates campaign stats' do
-      stats = perform(campaign: campaign, location: location)
+      stats = perform(campaign: campaign, location: location, after_date: after_date,
+                      before_date: before_date)
       expect(stats.campaign).to eq(campaign)
       expect(stats.contacts_data.size).to be(5)
       expect(stats.total_data.size).to be(8)
@@ -49,7 +55,8 @@ describe ObtainCampaignStats do
     end
 
     it 'expects defaults to group by day' do
-      stats = perform(campaign: campaign, location: location)
+      stats = perform(campaign: campaign, location: location, after_date: after_date,
+                      before_date: before_date)
       expect(stats.total_data[10.days.ago.to_date]).to be(1)
       expect(stats.contacts_data[9.days.ago.to_date]).to be(1)
       expect(stats.total_data[9.days.ago.to_date]).to be(1)
@@ -59,7 +66,8 @@ describe ObtainCampaignStats do
     end
 
     it 'groups by week' do
-      stats = perform(campaign: campaign, location: location, date_group: :week)
+      stats = perform(campaign: campaign, location: location, date_group: :week,
+                      after_date: after_date, before_date: before_date)
       expect(stats.total_data[Date.new(2018, 6, 4)]).to be(2)
       expect(stats.contacts_data[Date.new(2018, 6, 4)]).to be(1)
       expect(stats.total_data[Date.new(2018, 6, 11)]).to be(3)
@@ -67,7 +75,8 @@ describe ObtainCampaignStats do
     end
 
     it 'groups by hour' do
-      stats = perform(campaign: campaign, location: location, date_group: :hour)
+      stats = perform(campaign: campaign, location: location, date_group: :hour,
+                      after_date: after_date, before_date: before_date)
       expect(stats.total_data[Time.new(2018, 6, 8, 12)]).to be(1)
       expect(stats.contacts_data[Time.new(2018, 6, 9, 12)]).to be(1)
       expect(stats.total_data[Time.new(2018, 6, 9, 12)]).to be(1)
