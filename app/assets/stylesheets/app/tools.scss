@@ -1,0 +1,19 @@
+@import './base';
+
+.flatpickr-input {
+  width: calc(100% - 12px);
+  line-height: 36px;
+  border: 1px solid #e8e8e8;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 15px;
+  font-family: $main-font;
+}
+
+.multiselect {
+  &__single,
+  &__input,
+  &__element {
+    font-family: $main-font;
+  }
+}

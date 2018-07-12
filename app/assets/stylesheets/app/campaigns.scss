@@ -94,7 +94,12 @@
   }
 
   &__filter {
-    flex-basis: 25%;
+    flex-basis: calc((100% - 30px)/4);
+    margin-right: 10px;
+  }
+
+  &__filter:last-child {
+    margin-right: 0;
   }
 
   &__summary {

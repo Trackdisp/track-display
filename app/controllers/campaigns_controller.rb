@@ -12,7 +12,9 @@ class CampaignsController < BaseController
 
   def show
     @campaign_stat = ObtainCampaignStats.for(campaign: campaign, location: location,
-                                             date_group: date_group_by)
+                                             date_group: date_group_by,
+                                             after_date: after_date&.to_time,
+                                             before_date: before_date&.to_time)
     @locations = Location.all.select(:id, :name)
   end
 
@@ -34,5 +36,13 @@ class CampaignsController < BaseController
 
   def location
     @location ||= Location.find_by(id: params[:location].to_i) if params[:location].present?
+  end
+
+  def after_date
+    @after_date ||= params[:after]
+  end
+
+  def before_date
+    @before_date ||= params[:before]
   end
 end

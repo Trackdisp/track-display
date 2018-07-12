@@ -9,6 +9,7 @@ import Vuetify from 'vuetify';
 
 import GroupDateSelector from '../tools/group-date-selector.vue';
 import SelectFilter from '../tools/select-filter.vue';
+import DatetimePicker from '../tools/datetime-filter';
 import Locales from '../locales/locales';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -27,8 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
         messages: Locales.messages,
       }),
       components: {
-        'group-date-selector': GroupDateSelector,
-        'select-filter': SelectFilter,
+        GroupDateSelector,
+        SelectFilter,
+        DatetimePicker,
       },
     });
   }

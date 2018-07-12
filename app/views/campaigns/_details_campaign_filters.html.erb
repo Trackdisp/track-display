@@ -2,4 +2,10 @@
   <div class="campaign-details__filter">
     <select-filter :options="<%= @locations.to_json %>" label="name" :initial-selected="<%= @location&.id || 'null' %>" track-by="id" query-param="location" :placeholder="$t('messages.campaignDetails.filters.locations')"></select-filter>
   </div>
+  <div class="campaign-details__filter">
+    <datetime-picker initial-value="<%= @after_date %>" query-param="after" :placeholder="$t('messages.campaignDetails.filters.afterDate')"></datetime-picker>
+  </div>
+  <div class="campaign-details__filter">
+    <datetime-picker initial-value="<%= @before_date %>" query-param="before" :placeholder="$t('messages.campaignDetails.filters.beforeDate')"></datetime-picker>
+  </div>
 </div>
