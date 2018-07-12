@@ -1,0 +1,42 @@
+<template>
+  <flat-pickr class="flat-pick" v-model="auxDate" :config="config" :placeholder="placeholder" @on-close="modifyParamFilter"></flat-pickr>
+</template>
+
+<script>
+  import flatPickr from 'vue-flatpickr-component';
+  import { Spanish } from 'flatpickr/dist/l10n/es.js';
+  import { changeURLQueryParam, removeURLQueryParam } from "../helpers/url-helper";
+
+  export default {
+    props: ['initialValue', 'placeholder', 'queryParam'],
+    data () {
+      return {
+        date: this.initialValue,
+        auxDate: this.initialValue,
+        config: {
+          enableTime: true,
+          altInput: true,
+          altFormat: "j F Y, H:i",
+          dateFormat: "Y-m-dTH:i",
+          firstDayOfWeek: 1,
+          locale: Spanish,
+        },
+      }
+    },
+    components: {
+      flatPickr
+    },
+    methods: {
+      modifyParamFilter(selectedDates, dateStr) {
+        if (this.date !== dateStr) {
+          const currentUrl = window.location.href;
+          if (dateStr) {
+            window.location.href = changeURLQueryParam(currentUrl, this.queryParam, dateStr);
+          } else {
+            window.location.href = removeURLQueryParam(currentUrl, this.queryParam);
+          }
+        }
+      }
+    },
+  }
+</script>

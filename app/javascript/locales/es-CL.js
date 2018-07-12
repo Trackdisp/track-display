@@ -31,6 +31,8 @@ export default {
   messages: {
     campaignDetails: {
       filters: {
+        afterDate: 'Después de',
+        beforeDate: 'Antes de',
         locations: 'Locales',
       },
     },
