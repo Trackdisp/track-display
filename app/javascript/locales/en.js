@@ -10,6 +10,11 @@ export default {
     hour: 'Hour',
   },
   messages: {
+    campaignDetails: {
+      filters: {
+        locations: 'Locations',
+      },
+    },
     errors: {
     },
   },

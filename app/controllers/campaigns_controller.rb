@@ -11,7 +11,8 @@ class CampaignsController < BaseController
   end
 
   def show
-    @campaign_stat = ObtainCampaignStats.for(campaign: campaign, date_group: date_group_by)
+    @campaign_stat = ObtainCampaignStats.for(campaign: campaign, location: location,
+                                             date_group: date_group_by)
     @locations = Location.all.select(:id, :name)
   end
 
@@ -29,5 +30,9 @@ class CampaignsController < BaseController
         :day
       end
     end
+  end
+
+  def location
+    @location ||= Location.find_by(id: params[:location].to_i) if params[:location].present?
   end
 end

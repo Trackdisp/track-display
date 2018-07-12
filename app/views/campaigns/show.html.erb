@@ -1,7 +1,9 @@
 <div id="app" class="app">
   <%= render 'shared/header' %>
   <div class="campaign-details app__container">
-    <h2 class="campaign-details__title"><%= t('messages.campaign_dashboard.details_title') %></h2>
+    <h3 class="campaign-details__title"><%= t('messages.campaign_dashboard.filters_title') %></h3>
+    <%= render 'details_campaign_filters' %>
+    <h3 class="campaign-details__title"><%= t('messages.campaign_dashboard.details_title') %></h3>
     <%= render 'details_summary_stats' %>
     <div class="summary-graph campaign-details__graph">
       <div class="summary-graph__selector">

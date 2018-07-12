@@ -29,6 +29,11 @@ export default {
     hour: 'Hora',
   },
   messages: {
+    campaignDetails: {
+      filters: {
+        locations: 'Locales',
+      },
+    },
     errors: {
     },
   },
