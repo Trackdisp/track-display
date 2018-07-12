@@ -28,7 +28,7 @@ class Measure < ApplicationRecord
 
   validates_numericality_of :happiness, greater_than_or_equal_to: 0, less_than_or_equal_to: 1
 
-  GENDER_TYPES = %i(undefined male female)
+  ::GENDER_TYPES = %i(undefined male female)
   enumerize :gender, in: GENDER_TYPES, default: :undefined
 
   validates_presence_of :measured_at, :w_id, :gender

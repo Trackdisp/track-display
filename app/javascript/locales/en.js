@@ -14,6 +14,7 @@ export default {
       filters: {
         afterDate: 'After',
         beforeDate: 'Before',
+        gender: 'Gender',
         locations: 'Locations',
       },
     },

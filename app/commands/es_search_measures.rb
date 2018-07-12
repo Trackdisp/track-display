@@ -1,5 +1,5 @@
-class EsSearchMeasures < PowerTypes::Command.new(:campaign, location: nil, after_date: nil,
-                                                            before_date: nil)
+class EsSearchMeasures < PowerTypes::Command.new(:campaign,
+  location: nil, after_date: nil, before_date: nil, gender: nil)
   include Elasticsearch::DSL
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
@@ -21,6 +21,7 @@ class EsSearchMeasures < PowerTypes::Command.new(:campaign, location: nil, after
   def build_must_definition
     query = [{ term: { campaign_id: @campaign.id } }]
     query.push(term: { location_id: @location.id }) if @location.present?
+    query.push(term: { gender: @gender.to_s }) if @gender.present?
     check_date_range(query) if @after_date || @before_date
 
     query
