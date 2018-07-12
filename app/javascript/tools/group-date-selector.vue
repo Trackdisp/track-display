@@ -13,6 +13,8 @@
 </template>
 
 <script>
+  import { changeURLQueryParam } from '../helpers/url-helper';
+
   export default {
     props: ['initialGroup'],
     data() {
@@ -23,10 +25,8 @@
     watch: {
       groupBy: function (val) {
         if (val) {
-          const parser = document.createElement('a');
-          parser.href = window.location.href;
-          parser.search = `?group_by=${val}`;
-          window.location.href = parser.href;
+          const currentUrl = window.location.href;
+          window.location.href = changeURLQueryParam(currentUrl, 'group_by', val);
         }
       },
     },

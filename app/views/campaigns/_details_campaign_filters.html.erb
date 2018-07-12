@@ -1,0 +1,5 @@
+<div class="campaign-details__filters-container">
+  <div class="campaign-details__filter">
+    <select-filter :options="<%= @locations.to_json %>" label="name" :initial-selected="<%= @location&.id || 'null' %>" track-by="id" query-param="location" :placeholder="$t('messages.campaignDetails.filters.locations')"></select-filter>
+  </div>
+</div>
