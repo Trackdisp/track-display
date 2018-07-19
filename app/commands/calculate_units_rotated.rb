@@ -27,8 +27,7 @@ class CalculateUnitsRotated < PowerTypes::Command.new(:campaign,
     query = [{ term: { campaign_id: @campaign.id } }]
     query.push(term: { location_id: @location.id }) if @location.present?
     query.push(range: { items_count: { gt: 0 } })
-    check_date_range(query) if @after_date || @before_date
-
+    query[:range].push(measured_at: date_range_query) if @after_date || @before_date
     query
   end
 
@@ -47,11 +46,11 @@ class CalculateUnitsRotated < PowerTypes::Command.new(:campaign,
     }
   end
 
-  def check_date_range(query)
+  def check_date_range
     range_query = {}
     range_query[:lte] = @before_date.localtime.strftime(TIME_FORMAT) if @before_date.present?
     range_query[:gte] = @after_date.localtime.strftime(TIME_FORMAT) if @after_date.present?
-    query.push(range: { measured_at: range_query })
+    range_query
   end
 
   def parse_count_data(results)

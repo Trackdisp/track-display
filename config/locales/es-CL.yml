@@ -136,6 +136,7 @@ es-CL:
       index:
         title: Campañas
       contacts: Contactos
+      units_rotated: Unidades rotaron
       total_people: Flujo de gente
     campaign_dashboard:
       details_title: Detalles
@@ -143,4 +144,4 @@ es-CL:
       effectiveness: '% Efectividad'
       filters_title: Filtros
       total_people: Flujo de personas
-      unit_rotated: Unidades rotaron
+      units_rotated: Unidades rotaron
