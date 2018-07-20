@@ -25,8 +25,7 @@
     watch: {
       groupBy: function (val) {
         if (val) {
-          const currentUrl = window.location.href;
-          window.location.href = changeURLQueryParam(currentUrl, 'group_by', val);
+          window.location.href = changeURLQueryParam('group_by', val);
         }
       },
     },
