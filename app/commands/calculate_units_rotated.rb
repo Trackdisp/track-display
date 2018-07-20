@@ -32,18 +32,21 @@ class CalculateUnitsRotated < PowerTypes::Command.new(:campaign,
   end
 
   def build_aggs_definitions
-    {
+    aggs = {
       units_rotated_sum: { sum: { field: :items_count } },
       units_rotated: {
         date_histogram: {
           field: :measured_at,
           interval: @date_group,
-          time_zone: "#{Time.now.getlocal.zone}:00",
           min_doc_count: 1
         },
         aggs: { items_by_date: { sum: { field: :items_count } } }
       }
     }
+    if Time.now.getlocal.zone != 'UTC'
+      aggs[:units_rotated][:date_histogram][:time_zone] = "#{Time.now.getlocal.zone}:00"
+    end
+    aggs
   end
 
   def check_date_range
