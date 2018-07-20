@@ -24,8 +24,8 @@
       <%= image_tag 'rotation.svg' %>
     </div>
     <div class="campaign-detail-data__data-container">
-      <span class="campaign-detail-data__data">0</span>
-      <span class="campaign-detail-data__label"><%= t('messages.campaign_dashboard.unit_rotated') %></span>
+      <span class="campaign-detail-data__data campaign-detail-data__data--third"><%= @campaign_stat.units_rotated_sum %></span>
+      <span class="campaign-detail-data__label"><%= t('messages.campaign_dashboard.units_rotated') %></span>
     </div>
   </div>
 

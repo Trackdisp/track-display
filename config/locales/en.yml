@@ -48,6 +48,7 @@ en:
       index:
         title: Campaign
       contacts: Contacts
+      units_rotated: Units rotated
       total_people: People Flow
     campaign_dashboard:
       contacts: Contacts
@@ -55,4 +56,4 @@ en:
       effectiveness: '% Effectiveness'
       filters_title: Filters
       total_people: Flow of people
-      unit_rotated: Unit rotated
+      units_rotated: Unit rotated

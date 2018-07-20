@@ -19,11 +19,10 @@
     },
     watch: {
       filterValue: function (val) {
-        const currentUrl = window.location.href;
         if (val) {
-          window.location.href = changeURLQueryParam(currentUrl, this.queryParam, val.id);
+          window.location.search = changeURLQueryParam(this.queryParam, val.id);
         } else {
-          window.location.href = removeURLQueryParam(currentUrl, this.queryParam);
+          window.location.search = removeURLQueryParam(this.queryParam);
         }
       },
     }

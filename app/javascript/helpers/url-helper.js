@@ -1,19 +1,13 @@
-export function changeURLQueryParam(url, param, value) {
-  const parser = document.createElement('a');
-  parser.href = url;
-  const searchParams = new URLSearchParams(parser.search);
+export function changeURLQueryParam(param, value) {
+  const searchParams = new URLSearchParams(window.location.search);
   searchParams.set(param, value);
-  parser.search = searchParams.toString();
 
-  return parser.href;
+  return searchParams.toString();
 }
 
-export function removeURLQueryParam(url, param) {
-  const parser = document.createElement('a');
-  parser.href = url;
-  const searchParams = new URLSearchParams(parser.search);
+export function removeURLQueryParam(param) {
+  const searchParams = new URLSearchParams(window.location.search);
   searchParams.delete(param);
-  parser.search = searchParams.toString();
 
-  return parser.href;
+  return searchParams.toString();
 }

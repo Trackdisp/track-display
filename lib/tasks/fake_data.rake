@@ -4,6 +4,7 @@ namespace :fake_data do
   FAKE_COMPANIES_COUNT = 2
   FAKE_DEVICES_COUNT = 5
   FAKE_MEASURES_COUNT = 30
+  FAKE_WEIGHT_MEASURES_COUNT = 30
   FAKE_PASSWORD = 'password'
   FAKE_REGION_COUNT = 3
   FAKE_USERS_COUNT = 5
@@ -91,6 +92,35 @@ namespace :fake_data do
     end
 
     puts 'Measures creation complete'
+  end
+
+  desc "Create fake weight measures"
+  task create_weight_measures: :environment do
+    puts 'Creating weight measures ...'
+    ITEM_WEIGHT = 10
+    SHELF_WEIGHT = 80
+    DATE_RANGE = Time.now - 4.months..Time.now
+    Device.all.each do |device|
+      previous_weight = 500
+      (1..rand(FAKE_WEIGHT_MEASURES_COUNT)).each do
+        unit_difference = rand(9) - 4
+        unit_difference += 1 if unit_difference.zero?
+        weight_difference = unit_difference * ITEM_WEIGHT
+        current_weight = previous_weight - weight_difference
+        current_weight = previous_weight + weight_difference if current_weight.negative?
+        WeightMeasure.create!(
+          device: device,
+          measured_at: rand(DATE_RANGE),
+          item_weight: ITEM_WEIGHT,
+          shelf_weight: SHELF_WEIGHT,
+          current_weight: current_weight,
+          previous_weight: previous_weight
+        )
+        previous_weight = current_weight
+      end
+    end
+
+    puts 'Weight measures creation complete'
   end
 
   desc "Create fake regions"

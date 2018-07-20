@@ -35,33 +35,42 @@ describe ObtainCampaignStats do
         campaign: campaign,
         location: location,
         after_date: after_date,
-        before_date: before_date,
-        gender: gender
+        before_date: before_date
       }
     end
 
+    let(:measure_search_params) { search_params.merge(gender: gender) }
+
+    let(:unit_rotated_data) { double }
+    let(:unit_rotated_sum) { 20 }
+
     before do
       search = double
-      expect(EsSearchMeasures).to receive(:for).with(search_params).and_return(search)
+      expect(EsSearchMeasures).to receive(:for).with(measure_search_params)
+                                               .and_return(search)
+      expect(CalculateUnitsRotated).to receive(:for)
+        .with(search_params).and_return(data: unit_rotated_data, sum: unit_rotated_sum)
       expect(search).to receive(:records).and_return(device.measures)
     end
 
-    it 'calls EsSearchMeasures command' do
-      perform(search_params)
+    it 'calls EsSearchMeasures and CalculateUnitsRotated commands' do
+      perform(measure_search_params)
     end
 
     it 'calculates campaign stats' do
-      stats = perform(search_params)
+      stats = perform(measure_search_params)
       expect(stats.campaign).to eq(campaign)
       expect(stats.contacts_data.size).to be(5)
       expect(stats.total_data.size).to be(8)
       expect(stats.contacts_sum).to be(2)
       expect(stats.total_sum).to be(5)
       expect(stats.effectiveness).to be(40)
+      expect(stats.units_rotated_data).to be(unit_rotated_data)
+      expect(stats.units_rotated_sum).to be(unit_rotated_sum)
     end
 
     it 'expects defaults to group by day' do
-      stats = perform(search_params)
+      stats = perform(measure_search_params)
       expect(stats.total_data[10.days.ago.to_date]).to be(1)
       expect(stats.contacts_data[9.days.ago.to_date]).to be(1)
       expect(stats.total_data[9.days.ago.to_date]).to be(1)
@@ -71,7 +80,7 @@ describe ObtainCampaignStats do
     end
 
     it 'groups by week' do
-      stats = perform(search_params.merge(date_group: :week))
+      stats = perform(measure_search_params.merge(date_group: :week))
       expect(stats.total_data[Date.new(2018, 6, 4)]).to be(2)
       expect(stats.contacts_data[Date.new(2018, 6, 4)]).to be(1)
       expect(stats.total_data[Date.new(2018, 6, 11)]).to be(3)
@@ -79,7 +88,7 @@ describe ObtainCampaignStats do
     end
 
     it 'groups by hour' do
-      stats = perform(search_params.merge(date_group: :hour))
+      stats = perform(measure_search_params.merge(date_group: :hour))
       expect(stats.total_data[Time.new(2018, 6, 8, 12)]).to be(1)
       expect(stats.contacts_data[Time.new(2018, 6, 9, 12)]).to be(1)
       expect(stats.total_data[Time.new(2018, 6, 9, 12)]).to be(1)
