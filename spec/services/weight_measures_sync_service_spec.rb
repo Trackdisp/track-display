@@ -73,5 +73,18 @@ describe WeightMeasuresSyncService do
     it 'creates measures correctly' do
       expect { perform }.to change { WeightMeasure.count }.by(2)
     end
+
+    context 'when wolke results is empty' do
+      let(:wolke_result) { [] }
+
+      it "doesn't creates new measures " do
+        expect { perform }.not_to(change { WeightMeasure.count })
+      end
+
+      it 'creates a complete synchronization' do
+        expect { perform }.to(change { WeightMeasuresSync.count })
+        expect(WeightMeasuresSync.last.state).to eq(:completed)
+      end
+    end
   end
 end
