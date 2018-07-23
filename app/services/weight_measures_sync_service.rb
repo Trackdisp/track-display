@@ -12,11 +12,12 @@ class WeightMeasuresSyncService < PowerTypes::Service.new
     @sync = WeightMeasuresSync.create!(from_date: from_date, to_date: to_date)
     @sync.execute
     w_measures = FetchWeightMeasures.for(from: from_date, to: to_date)
-    return if w_measures.empty?
-    measures = w_measures.group_by { |ms| ms[:device_id] }
-    measures.each do |dev_serial, dev_measures|
-      device = Device.find_or_create_by!(serial: dev_serial)
-      import_measures(device, dev_measures)
+    unless w_measures.empty?
+      measures = w_measures.group_by { |ms| ms[:device_id] }
+      measures.each do |dev_serial, dev_measures|
+        device = Device.find_or_create_by!(serial: dev_serial)
+        import_measures(device, dev_measures)
+      end
     end
     @sync.complete
   end
