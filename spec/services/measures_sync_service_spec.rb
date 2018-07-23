@@ -80,11 +80,11 @@ describe MeasuresSyncService do
       let(:wolke_result) { [] }
 
       it "doesn't creates new measures " do
-        expect { perform }.not_to change { Measure.count }
+        expect { perform }.not_to(change { Measure.count })
       end
 
       it 'creates a complete synchronization' do
-        expect { perform }.to change { MeasuresSync.count }
+        expect { perform }.to(change { MeasuresSync.count })
         expect(MeasuresSync.last.state).to eq(:completed)
       end
     end
