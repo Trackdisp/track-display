@@ -24,9 +24,9 @@ export default {
     thousandsSep: ',',
   },
   groupDateSelector: {
-    week: 'Semana',
-    day: 'Día',
-    hour: 'Hora',
+    week: 'SEMANA',
+    day: 'DÍA',
+    hour: 'HORA',
   },
   messages: {
     campaignDetails: {
