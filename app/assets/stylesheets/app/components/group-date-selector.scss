@@ -1,13 +1,13 @@
-@import './base';
+@import '../base';
 
 .btn-toggle {
   display: inline-flex;
   border-radius: 2px;
   transition: .3s cubic-bezier(.25, .8, .5, 1);
-  will-change: background,box-shadow;
+  will-change: background, box-shadow;
 
   .btn {
-    transition: .3s cubic-bezier(.25, .8, .5, 1),color 1ms;
+    transition: .3s cubic-bezier(.25, .8, .5, 1), color 1ms;
     height: 32px;
     border: 1px solid $primary-btn-color;
     background-color: $content-bg-color;

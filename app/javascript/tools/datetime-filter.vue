@@ -31,9 +31,9 @@
         if (this.date !== dateStr) {
           const currentUrl = window.location.href;
           if (dateStr) {
-            window.location.href = changeURLQueryParam(currentUrl, this.queryParam, dateStr);
+            window.location.search = changeURLQueryParam(this.queryParam, dateStr);
           } else {
-            window.location.href = removeURLQueryParam(currentUrl, this.queryParam);
+            window.location.search = removeURLQueryParam(this.queryParam);
           }
         }
       }
