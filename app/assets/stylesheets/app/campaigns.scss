@@ -109,8 +109,8 @@
   }
 
   &__summary-stat {
-    flex-basis: calc((100% - 30px)/4);
-    margin-right: 10px;
+    flex-basis: calc((100% - 40px)/6);
+    margin-right: 8px;
   }
 
   &__summary-stat:last-child {
@@ -152,11 +152,11 @@
     margin-bottom: 4px;
   }
 
-  &__data--secondary {
+  &__data--total-people {
     color: $graph-secondary-color;
   }
 
-  &__data--third {
+  &__data--units-rotated {
     color: $graph-third-color;
   }
 
