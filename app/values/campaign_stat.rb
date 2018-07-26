@@ -26,7 +26,7 @@ class CampaignStat
     @total_data = opts[:data]
     @total_sum = opts[:sum]
 
-    @total_happiness = (opts[:happiness] * 100).round
+    @total_happiness = ((opts[:happiness] || 0) * 100).round
   end
 
   def init_units_stats(opts = {})
