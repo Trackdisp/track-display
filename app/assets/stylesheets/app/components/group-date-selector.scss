@@ -1,0 +1,49 @@
+@import '../base';
+
+.btn-toggle {
+  display: inline-flex;
+  border-radius: 2px;
+  transition: .3s cubic-bezier(.25, .8, .5, 1);
+  will-change: background, box-shadow;
+
+  .btn {
+    transition: .3s cubic-bezier(.25, .8, .5, 1), color 1ms;
+    height: 32px;
+    border: 1px solid $primary-btn-color;
+    background-color: $content-bg-color;
+    color: $primary-btn-color;
+    padding-left: 17px;
+    padding-right: 17px;
+    cursor: pointer;
+
+    &:first-child {
+      border-radius: 16px 0 0 16px;
+      border-right: 0;
+    }
+
+    &:last-child {
+      border-radius: 0 16px 16px 0;
+      border-left: 0;
+    }
+
+    &:hover {
+      background-color: $primary-hover-bg;
+    }
+
+    &--active {
+      background-color: $primary-btn-color;
+      color: $content-bg-color;
+
+      &:hover {
+        background-color: $primary-btn-color;
+      }
+    }
+
+    &__content {
+      font-family: $main-font;
+      font-size: 12px;
+    }
+  }
+}
+
+

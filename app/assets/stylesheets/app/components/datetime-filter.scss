@@ -1,0 +1,39 @@
+@import '../base';
+
+.flatpickr {
+  &-input {
+    width: calc(100% - 12px);
+    line-height: 36px;
+    border: $app-filter-border;
+    border-radius: 5px;
+    padding-left: 10px;
+    font-size: 12px;
+    font-family: $main-font;
+    font-weight: bold;
+    letter-spacing: $app-spacing-letter;
+    color: $primary-font-color;
+
+    &::placeholder {
+      color: $app-filter-color;
+    }
+  }
+
+  &-weekdays,
+  &-weekdays &-weekday,
+  &-months,
+  &-months &-month {
+    background-color: $primary-btn-color;
+    font-family: $main-font;
+    letter-spacing: $app-spacing-letter;
+  }
+
+  &-day {
+    font-family: $main-font;
+
+    &.selected,
+    &.selected:hover {
+      background-color: $primary-btn-color;
+      font-family: $main-font;
+    }
+  }
+}

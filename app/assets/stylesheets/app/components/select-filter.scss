@@ -1,0 +1,51 @@
+@import '../base';
+
+.multiselect {
+  &__tags {
+    border: $app-filter-border;
+  }
+
+  &__single,
+  &__input,
+  &__element {
+    font-family: $main-font;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: $app-spacing-letter;
+    color: $app-filter-color;
+  }
+
+  &__input::placeholder {
+    color: $active-filter-color;
+  }
+
+  &__content-wrapper {
+    border-color: $primary-btn-color;
+  }
+
+  &__element {
+    color: $primary-font-color;
+  }
+
+  &__option--highlight {
+    background-color: $primary-btn-color;
+  }
+
+  &--active &__tags {
+    border-color: $active-filter-color;
+    color: $active-filter-color;
+  }
+
+  &--active &__input,
+  &--active &__single {
+    color: $primary-btn-color;
+  }
+
+  &__select::before {
+    border-top-color: $active-filter-color;
+  }
+
+  &--active-filter &__single {
+    color: $primary-font-color;
+  }
+}

@@ -1,5 +1,5 @@
 <template>
-  <vue-multiselect :options="options" :label="label" :track-by="trackBy" v-model="filterValue" :placeholder="placeholder"></vue-multiselect>
+  <vue-multiselect :options="options" :class="selectClass" :label="label" :track-by="trackBy" v-model="filterValue" :placeholder="placeholder" :show-labels="false"></vue-multiselect>
 </template>
 
 <script>
@@ -11,11 +11,18 @@
     props: ['options', 'label', 'initialSelected', 'trackBy', 'placeholder', 'queryParam'],
     data() {
       return {
-        filterValue: this.options.find(opt => opt[this.trackBy] === this.initialSelected)
+        filterValue: this.options.find(opt => opt[this.trackBy] === this.initialSelected),
       };
     },
     components: {
       'vue-multiselect': Multiselect,
+    },
+    computed: {
+      selectClass: function() {
+        return {
+          "multiselect--active-filter": typeof this.filterValue !== 'undefined'
+        };
+      },
     },
     watch: {
       filterValue: function (val) {

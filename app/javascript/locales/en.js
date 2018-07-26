@@ -5,9 +5,9 @@ export default {
   },
   graphs: {},
   groupDateSelector: {
-    week: 'Week',
-    day: 'Day',
-    hour: 'Hour',
+    week: 'WEEK',
+    day: 'DAY',
+    hour: 'HOUR',
   },
   messages: {
     campaignDetails: {

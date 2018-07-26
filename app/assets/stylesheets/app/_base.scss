@@ -15,13 +15,17 @@ $header-menu-bd-color: #bdd4da;
 $app-content-border: 	1px solid rgba(189, 212, 218, .34);
 $app-content-hover-border: 1px solid #00d976;
 $app-content-border-radius: 4px;
-$graph-primary-color: #00d976;
+$graph-primary-color: #00c46c;
 $graph-secondary-color: #11b0fc;
 $graph-third-color: #fe7b4f;
-$stats-value-color: #00d976;
+$stats-value-color: #00c46c;
+$primary-hover-bg: #ececec;
 
 $app-spacing-letter: .8px;
 
+$app-filter-color: #a0b3b8;
+$app-filter-border: 1px solid rgba(189, 212, 218, .65);
+$active-filter-color: #00c46c;
 
 @font-face {
   font-family: 'Qanelas';
