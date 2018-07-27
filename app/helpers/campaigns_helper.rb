@@ -19,4 +19,17 @@ module CampaignsHelper
     end
     gender_json.to_json
   end
+
+  def summary_stats_elements(campaign_stat)
+    [
+      { icon: 'contacts.svg', value: campaign_stat.contacts_sum, translation: 'contacts' },
+      { icon: 'seen.svg', value: campaign_stat.total_sum, translation: 'total_people',
+        class: 'total-people' },
+      { icon: 'rotation.svg', value: campaign_stat.units_rotated_sum,
+        translation: 'units_rotated', class: 'units-rotated' },
+      { icon: 'rotation.svg', value: campaign_stat.effectiveness, translation: 'effectiveness' },
+      { icon: 'rotation.svg', value: campaign_stat.total_happiness, translation: 'happiness' },
+      { icon: 'rotation.svg', value: campaign_stat.total_avg_age, translation: 'avg_age' }
+    ]
+  end
 end

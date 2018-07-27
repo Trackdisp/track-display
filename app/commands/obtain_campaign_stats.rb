@@ -1,46 +1,67 @@
 class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
   location: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil)
   def perform
-    measures = EsSearchMeasures.for(search_base_params.merge(gender: @gender)).records
-    measures_data = group_measures(measures)
-    units_rotated = CalculateUnitsRotated.for(search_base_params)
+    measures = parse_measures_stats(
+      CalculateMeasuresStats.for(search_params.merge(gender: @gender))
+    )
+    units_rotated = parse_units_stats(CalculateUnitsRotated.for(search_params))
     CampaignStat.new(
       campaign: @campaign,
-      contacts_data: measures_data[:contacts],
-      total_data: measures_data[:total],
-      units_rotated_data: units_rotated[:data],
-      units_rotated_sum: units_rotated[:sum]
+      contacts: measures[:contacts],
+      total: measures[:total],
+      units_rotated: units_rotated
     )
   end
 
   private
 
-  def group_measures(measures)
-    contact_measures = measures.has_contact
-    total_measures = measures.all
-
-    if @date_group == :week
-      contact_measures = contact_measures.group_by_week(:measured_at, week_start: :mon)
-      total_measures = total_measures.group_by_week(:measured_at, week_start: :mon)
-    elsif @date_group == :day
-      contact_measures = contact_measures.group_by_day(:measured_at)
-      total_measures = total_measures.group_by_day(:measured_at)
-    else
-      contact_measures = contact_measures.group_by_hour(:measured_at)
-      total_measures = total_measures.group_by_hour(:measured_at)
-    end
-
+  def parse_measures_stats(es_response)
+    contacts = es_response.aggregations.contacts
+    total_aggs = es_response.aggregations
     {
-      contacts: contact_measures.count, total: total_measures.count
+      contacts: { data: parse_bucket_count(contacts.by_date), sum: contacts.doc_count },
+      total: {
+        avg_age: total_aggs.avg_age.value&.round || 0,
+        data: parse_bucket_count(total_aggs.by_date),
+        female: parse_key_count(total_aggs.gender_group, :female),
+        happiness: total_aggs.avg_happiness.value,
+        male: parse_key_count(total_aggs.gender_group, :male),
+        sum: es_response.results.count
+      }
     }
   end
 
-  def search_base_params
+  def parse_units_stats(es_response)
+    {
+      data: parse_units_count(es_response.aggregations.units_rotated.buckets),
+      sum: es_response.aggregations.units_rotated_sum.value.to_i
+    }
+  end
+
+  def parse_units_count(results)
+    results.reduce(Hash.new) do |hash, unit_rotated|
+      hash.merge(unit_rotated.key_as_string => unit_rotated.items_by_date.value.to_i)
+    end
+  end
+
+  def parse_bucket_count(histogram)
+    histogram.buckets.reduce(Hash.new) do |hash, bucket|
+      hash.merge(bucket.key_as_string => bucket.doc_count.to_i)
+    end
+  end
+
+  def parse_key_count(aggregation, key)
+    key_bucket = aggregation.buckets.find { |bucket| bucket[:key] == key }
+    key_bucket&.doc_count || 0
+  end
+
+  def search_params
     {
       campaign: @campaign,
       location: @location,
       after_date: @after_date,
-      before_date: @before_date
+      before_date: @before_date,
+      date_group: @date_group
     }
   end
 end

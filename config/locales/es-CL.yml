@@ -139,9 +139,11 @@ es-CL:
       units_rotated: Unidades rotaron
       total_people: Flujo de gente
     campaign_dashboard:
+      avg_age: Edad Prom.
       details_title: Detalles
       contacts: Contactos
-      effectiveness: '% Efectividad'
+      effectiveness: Efectividad
       filters_title: Filtros
-      total_people: Flujo de personas
-      units_rotated: Unidades rotaron
+      happiness: De Felicidad
+      total_people: Personas
+      units_rotated: Unid. rotaron

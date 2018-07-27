@@ -5,37 +5,21 @@ describe ObtainCampaignStats do
     described_class.for(*_args)
   end
 
-  before do
-    Timecop.freeze(Time.local(2018, 6, 18, 12, 0, 0))
-  end
-
-  after do
-    Timecop.return
-  end
-
   describe '#perform' do
     let(:campaign) { create(:campaign) }
     let(:location) { create(:location) }
     let(:after_date) { Time.now - 11.days }
     let(:before_date) { Time.now }
     let(:gender) { 'male' }
-    let(:device) { create(:device, campaign: campaign, location: location) }
-    let!(:measures) do
-      [
-        create(:measure, device: device, contact_duration: 3, measured_at: 10.days.ago),
-        create(:measure, device: device, contact_duration: 6, measured_at: 9.days.ago),
-        create(:measure, device: device, contact_duration: 8, measured_at: 5.days.ago),
-        create(:measure, device: device, contact_duration: 3, measured_at: 5.days.ago + 2.hour),
-        create(:measure, device: device, contact_duration: 4, measured_at: 3.days.ago)
-      ]
-    end
+    let(:date_group) { :day }
 
     let(:search_params) do
       {
         campaign: campaign,
         location: location,
         after_date: after_date,
-        before_date: before_date
+        before_date: before_date,
+        date_group: date_group
       }
     end
 
@@ -44,58 +28,69 @@ describe ObtainCampaignStats do
     let(:unit_rotated_data) { double }
     let(:unit_rotated_sum) { 20 }
 
-    before do
-      search = double
-      expect(EsSearchMeasures).to receive(:for).with(measure_search_params)
-                                               .and_return(search)
-      expect(CalculateUnitsRotated).to receive(:for)
-        .with(search_params).and_return(data: unit_rotated_data, sum: unit_rotated_sum)
-      expect(search).to receive(:records).and_return(device.measures)
+    let(:measures_results) do
+      double(
+        results: double(count: 8),
+        aggregations: double(
+          contacts: double(
+            by_date: double(
+              buckets: [
+                double(key_as_string: 'contacts_date_01', doc_count: 1),
+                double(key_as_string: 'contacts_date_02', doc_count: 3)
+              ]
+            ),
+            doc_count: 4
+          ),
+          by_date: double(
+            buckets: [
+              double(key_as_string: 'total_date_01', doc_count: 3),
+              double(key_as_string: 'total_date_02', doc_count: 5)
+            ]
+          ),
+          avg_age: double(value: 22.2),
+          avg_happiness: double(value: 0.12),
+          gender_group: double(buckets: [{ key: 'female', doc_count: 0 }])
+        )
+      )
     end
 
-    it 'calls EsSearchMeasures and CalculateUnitsRotated commands' do
+    let(:units_result) do
+      double(
+        aggregations: double(
+          units_rotated: double(
+            buckets: [
+              double(key_as_string: 'units_date_01', items_by_date: double(value: 5)),
+              double(key_as_string: 'units_date_02', items_by_date: double(value: 8))
+            ]
+          ),
+          units_rotated_sum: double(value: 10)
+        )
+      )
+    end
+
+    before do
+      expect(CalculateMeasuresStats).to receive(:for)
+        .with(measure_search_params).and_return(measures_results)
+      expect(CalculateUnitsRotated).to receive(:for).with(search_params).and_return(units_result)
+    end
+
+    it 'calls calculates stats commands' do
       perform(measure_search_params)
     end
 
     it 'calculates campaign stats' do
       stats = perform(measure_search_params)
       expect(stats.campaign).to eq(campaign)
-      expect(stats.contacts_data.size).to be(5)
-      expect(stats.total_data.size).to be(8)
-      expect(stats.contacts_sum).to be(2)
-      expect(stats.total_sum).to be(5)
-      expect(stats.effectiveness).to be(40)
-      expect(stats.units_rotated_data).to be(unit_rotated_data)
-      expect(stats.units_rotated_sum).to be(unit_rotated_sum)
-    end
-
-    it 'expects defaults to group by day' do
-      stats = perform(measure_search_params)
-      expect(stats.total_data[10.days.ago.to_date]).to be(1)
-      expect(stats.contacts_data[9.days.ago.to_date]).to be(1)
-      expect(stats.total_data[9.days.ago.to_date]).to be(1)
-      expect(stats.contacts_data[5.days.ago.to_date]).to be(1)
-      expect(stats.total_data[5.days.ago.to_date]).to be(2)
-      expect(stats.total_data[3.days.ago.to_date]).to be(1)
-    end
-
-    it 'groups by week' do
-      stats = perform(measure_search_params.merge(date_group: :week))
-      expect(stats.total_data[Date.new(2018, 6, 4)]).to be(2)
-      expect(stats.contacts_data[Date.new(2018, 6, 4)]).to be(1)
-      expect(stats.total_data[Date.new(2018, 6, 11)]).to be(3)
-      expect(stats.contacts_data[Date.new(2018, 6, 4)]).to be(1)
-    end
-
-    it 'groups by hour' do
-      stats = perform(measure_search_params.merge(date_group: :hour))
-      expect(stats.total_data[Time.new(2018, 6, 8, 12)]).to be(1)
-      expect(stats.contacts_data[Time.new(2018, 6, 9, 12)]).to be(1)
-      expect(stats.total_data[Time.new(2018, 6, 9, 12)]).to be(1)
-      expect(stats.total_data[Time.new(2018, 6, 13, 12)]).to be(1)
-      expect(stats.total_data[Time.new(2018, 6, 13, 14)]).to be(1)
-      expect(stats.contacts_data[Time.new(2018, 6, 13, 12)]).to be(1)
-      expect(stats.total_data[Time.new(2018, 6, 15, 12)]).to be(1)
+      expect(stats.contacts_data).to eq('contacts_date_01' => 1, 'contacts_date_02' => 3)
+      expect(stats.contacts_sum).to be(4)
+      expect(stats.effectiveness).to be(50)
+      expect(stats.total_avg_age).to be(22)
+      expect(stats.total_data).to eq('total_date_01' => 3, 'total_date_02' => 5)
+      expect(stats.total_female).to be(0)
+      expect(stats.total_male).to be(0)
+      expect(stats.total_sum).to be(8)
+      expect(stats.units_rotated_data).to eq('units_date_01' => 5, 'units_date_02' => 8)
+      expect(stats.units_rotated_sum).to be(10)
     end
   end
 end

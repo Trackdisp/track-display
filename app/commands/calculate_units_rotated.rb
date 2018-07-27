@@ -4,12 +4,7 @@ class CalculateUnitsRotated < PowerTypes::Command.new(:campaign,
   TIME_FORMAT = '%Y-%m-%d'
 
   def perform
-    es_result = WeightMeasure.es_search query_definition
-
-    {
-      data: parse_count_data(es_result.aggregations.units_rotated.buckets),
-      sum: es_result.aggregations.units_rotated_sum.value.to_i
-    }
+    WeightMeasure.es_search query_definition
   end
 
   private
@@ -54,11 +49,5 @@ class CalculateUnitsRotated < PowerTypes::Command.new(:campaign,
     range_query[:lte] = @before_date.localtime.strftime(TIME_FORMAT) if @before_date.present?
     range_query[:gte] = @after_date.localtime.strftime(TIME_FORMAT) if @after_date.present?
     range_query
-  end
-
-  def parse_count_data(results)
-    results.reduce(Hash.new) do |hash, unit_rotated|
-      hash.merge(unit_rotated.key_as_string => unit_rotated.items_by_date.value.to_i)
-    end
   end
 end

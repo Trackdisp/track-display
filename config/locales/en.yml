@@ -51,9 +51,11 @@ en:
       units_rotated: Units rotated
       total_people: People Flow
     campaign_dashboard:
+      avg_age: Avg. Age
       contacts: Contacts
       details_title: Details
-      effectiveness: '% Effectiveness'
+      effectiveness: Effectiveness
       filters_title: Filters
+      happiness: Happiness
       total_people: Flow of people
       units_rotated: Unit rotated
