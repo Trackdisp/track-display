@@ -120,6 +120,8 @@ For managing tasks in the background, this project uses [Sidekiq](https://github
 - To get the ActiveRecord objects: `search.records`
 - To get the ES documents: `search.results`
 
+Note: this also applies to WeightMeasure
+
 ## Seeds
 
 To populate your database with initial data you can add, inside the `/db/seeds.rb` file, the code to generate **only the necessary data** to run the application.
