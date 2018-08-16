@@ -1,6 +1,6 @@
 ActiveAdmin.register Device do
   belongs_to :campaign, optional: true, finder: :find_by_slug
-  permit_params :name, :serial, :campaign_id, :location_id
+  permit_params :name, :serial, :campaign_id, :location_id, :active
 
   filter :campaign
   filter :location
@@ -15,6 +15,7 @@ ActiveAdmin.register Device do
     column :campaign
     column :location
     column :created_at
+    toggle_bool_column :active
     actions
   end
 

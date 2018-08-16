@@ -25,6 +25,7 @@ end
 #  updated_at  :datetime         not null
 #  campaign_id :bigint(8)
 #  location_id :bigint(8)
+#  active      :boolean          default(FALSE)
 #
 # Indexes
 #
