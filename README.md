@@ -114,13 +114,13 @@ For managing tasks in the background, this project uses [Sidekiq](https://github
 - The first time, you need to create an ES index: `Measure.create_index!(force: true)`
 - If you change the `MeasureIndex` structure, you need to refresh the index: `Measure.refresh_index!`
 - If you have old `Measure` objects and want to added to ES, you need to execute: `Measure.import`
-- If you want to delete the index, ypu need to execute: `Measure.destroy_index!`
+- If you want to delete the index, you need to execute: `Measure.destroy_index!`
 - If you want to sync a particular Measure instance with ES, you can: `Measure.update_document(measure_instance)`
 - To get all the ES documents without filters you can do: `search = Measure.es_search("*")` (10 is the default limit)
 - To get the ActiveRecord objects: `search.records`
 - To get the ES documents: `search.results`
 
-Note: this also applies to WeightMeasure
+Note: this also has to be done with `WeightMeasure`
 
 ## Seeds
 
