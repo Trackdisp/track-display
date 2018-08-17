@@ -33,7 +33,7 @@ class Measure < ApplicationRecord
 
   validates_presence_of :measured_at, :w_id, :gender
 
-  delegate :name, :serial, to: :device, allow_nil: true, prefix: true
+  delegate :name, :serial, :active, to: :device, allow_nil: true, prefix: true
   delegate :brand_name, :campaign_name, :company_name, :location_name,
     to: :device, allow_nil: true, prefix: false
 

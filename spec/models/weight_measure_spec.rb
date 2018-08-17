@@ -39,6 +39,10 @@ RSpec.describe WeightMeasure, type: :model do
       expect(subject.device_serial).to eq(subject.device.serial)
     end
 
+    it 'device_active' do
+      expect(subject.device_active).to eq(subject.device.active)
+    end
+
     it 'location_name' do
       expect(subject.location_name).to eq(subject.device.location.name)
     end

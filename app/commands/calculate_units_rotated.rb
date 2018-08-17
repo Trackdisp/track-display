@@ -19,9 +19,12 @@ class CalculateUnitsRotated < PowerTypes::Command.new(:campaign,
   end
 
   def build_must_definition
-    query = [{ term: { campaign_id: @campaign.id } }]
+    query = [
+      { term: { campaign_id: @campaign.id } },
+      { term: { device_active: true } },
+      { range: { items_count: { gt: 0 } } }
+    ]
     query.push(term: { location_id: @location.id }) if @location.present?
-    query.push(range: { items_count: { gt: 0 } })
     query.push(range: { measured_at: date_range_query }) if @after_date || @before_date
     query
   end
