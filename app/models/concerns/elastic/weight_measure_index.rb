@@ -12,6 +12,7 @@ module Elastic
         mappings do
           indexes :device_name, type: 'text'
           indexes :device_serial, type: 'text'
+          indexes :device_active, type: 'boolean'
           indexes :campaign_name, type: 'text'
           indexes :company_name, type: 'text'
           indexes :location_name, type: 'text'
@@ -26,9 +27,9 @@ module Elastic
       end
 
       def as_indexed_json(_options = {})
-        as_json(methods: [:device_name, :device_serial, :campaign_name, :company_name,
-                          :location_name, :brand_name, :measured_at, :item_weight, :shelf_weight,
-                          :current_weight, :previous_weight, :items_count])
+        as_json(methods: [:device_name, :device_serial, :device_active, :campaign_name,
+                          :company_name, :location_name, :brand_name, :measured_at, :item_weight,
+                          :shelf_weight, :current_weight, :previous_weight, :items_count])
       end
     end
   end
