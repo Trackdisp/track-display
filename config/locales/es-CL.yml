@@ -84,6 +84,7 @@ es-CL:
         campaign: Campaña
         company: Empresa
         location: Local
+        active: Activo
       location:
         <<: *common
         brand: Cadena
