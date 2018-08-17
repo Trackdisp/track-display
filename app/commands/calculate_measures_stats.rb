@@ -22,7 +22,7 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
     query = [{ term: { campaign_id: @campaign.id } }]
     query.push(term: { location_id: @location.id }) if @location.present?
     query.push(term: { gender: @gender.to_s }) if @gender.present?
-    query.push(range: { measured_at: date_range_query }) if @after_date || @before_date
+    query.push(range: { measured_at: check_date_range }) if @after_date || @before_date
     query
   end
 
@@ -68,11 +68,5 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
     range_query[:lte] = @before_date.localtime.strftime(TIME_FORMAT) if @before_date.present?
     range_query[:gte] = @after_date.localtime.strftime(TIME_FORMAT) if @after_date.present?
     range_query
-  end
-
-  def parse_count_data(results)
-    results.reduce(Hash.new) do |hash, unit_rotated|
-      hash.merge(unit_rotated.key_as_string => unit_rotated.items_by_date.value.to_i)
-    end
   end
 end
