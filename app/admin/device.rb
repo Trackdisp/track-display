@@ -25,6 +25,7 @@ ActiveAdmin.register Device do
       f.input :serial
       f.input :campaign
       f.input :location
+      f.input :active
     end
     f.actions
   end
