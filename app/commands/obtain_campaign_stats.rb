@@ -39,14 +39,19 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
   end
 
   def parse_units_count(results)
-    results.reduce(Hash.new) do |hash, unit_rotated|
-      hash.merge(unit_rotated.key_as_string => unit_rotated.items_by_date.value.to_i)
+    results.reduce(Array.new) do |arr, unit_rotated|
+      arr.push(
+        [
+          Time.parse(unit_rotated.key_as_string).to_f * 1000,
+          unit_rotated.items_by_date.value.to_i
+        ]
+      )
     end
   end
 
   def parse_bucket_count(histogram)
-    histogram.buckets.reduce(Hash.new) do |hash, bucket|
-      hash.merge(bucket.key_as_string => bucket.doc_count.to_i)
+    histogram.buckets.reduce(Array.new) do |arr, bucket|
+      arr.push([Time.parse(bucket.key_as_string).to_f * 1000, bucket.doc_count.to_i])
     end
   end
 
