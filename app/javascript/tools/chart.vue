@@ -19,15 +19,16 @@
           xAxis: { type: 'datetime' },
           tooltip: {
             shared: true,
+            useHTML: true,
             xDateFormat: this.date_format,
             pointFormatter: function() {
               let format = '<span style="color:' + this.color + '">\u25CF</span> '
                 + this.series.name + ': <b>' + this.y + '</b> <br/>';
 
-              if (this.female) {
-                format += outThis.$i18n.t('chart.female') + ': <b>' + this.female + '</b><br/>'
-                  + outThis.$i18n.t('chart.male') + ': <b>' + this.male + '</b><br/>'
-                  + outThis.$i18n.t('chart.age') + ': <b>' + this.avg_age + '</b><br/>';
+              if (this.female > 0 || this.male > 0) {
+                format += '&emsp;\u25CF ' + outThis.$i18n.t('chart.female') + ': <b>' + this.female + '</b></span><br/>'
+                  + '&emsp;\u25CF ' + outThis.$i18n.t('chart.male') + ': <b>' + this.male + '</b><br/>'
+                  + '&emsp;\u25CF ' + outThis.$i18n.t('chart.age') + ': <b>' + this.avg_age + '</b><br/>';
               }
               return format;
             }
