@@ -41,24 +41,24 @@ describe ObtainCampaignStats do
           contacts: double(
             by_date: double(
               buckets: [
-                double(key_as_string: contacts_date_01, doc_count: 1),
-                double(key_as_string: contacts_date_02, doc_count: 3)
+                double(
+                  key_as_string: contacts_date_01,
+                  doc_count: 1,
+                  gender_group: double(buckets: [{ key: 'female', doc_count: 1 }])
+                ),
+                double(
+                  key_as_string: contacts_date_02,
+                  doc_count: 3,
+                  gender_group: double(buckets: [{ key: 'male', doc_count: 1 }])
+                )
               ]
             ),
             doc_count: 4
           ),
           by_date: double(
             buckets: [
-              double(
-                key_as_string: total_date_01,
-                doc_count: 3,
-                gender_group: double(buckets: [{ key: 'female', doc_count: 1 }])
-              ),
-              double(
-                key_as_string: total_date_02,
-                doc_count: 5,
-                gender_group: double(buckets: [{ key: 'male', doc_count: 1 }])
-              )
+              double(key_as_string: total_date_01,doc_count: 3),
+              double(key_as_string: total_date_02,doc_count: 5)
             ]
           ),
           avg_age: double(value: 22.2),

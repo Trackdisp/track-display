@@ -16,12 +16,12 @@ class CampaignStat
   def init_contacts_stats(opts = {})
     @contacts_data = opts[:data]
     @contacts_sum = opts[:sum]
+    @female_data = opts[:female_data]
+    @male_data = opts[:male_data]
   end
 
   def init_total_stats(opts = {})
     @total_avg_age = opts[:avg_age]
-    @female_data = opts[:female_data]
-    @male_data = opts[:male_data]
     @total_female = opts[:female]
     @total_male = opts[:male]
     @total_data = opts[:data]

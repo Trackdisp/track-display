@@ -19,17 +19,24 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
     contacts = es_response.aggregations.contacts
     total_aggs = es_response.aggregations
     {
-      contacts: { data: parse_bucket_count(contacts.by_date), sum: contacts.doc_count },
-      total: {
-        avg_age: total_aggs.avg_age.value&.round || 0,
-        data: parse_bucket_count(total_aggs.by_date),
-        female_data: parse_gender_count(total_aggs.by_date, "female"),
-        male_data: parse_gender_count(total_aggs.by_date, "male"),
-        female: parse_key_count(total_aggs.gender_group, :female),
-        happiness: total_aggs.avg_happiness.value,
-        male: parse_key_count(total_aggs.gender_group, :male),
-        sum: es_response.results.count
-      }
+      contacts: {
+        data: parse_bucket_count(contacts.by_date),
+        sum: contacts.doc_count,
+        female_data: parse_gender_count(contacts.by_date, "female"),
+        male_data: parse_gender_count(contacts.by_date, "male")
+      },
+      total: total_aggregations(total_aggs, es_response.results.count)
+    }
+  end
+
+  def total_aggregations(total_aggs, sum)
+    {
+      avg_age: total_aggs.avg_age.value&.round || 0,
+      data: parse_bucket_count(total_aggs.by_date),
+      female: parse_key_count(total_aggs.gender_group, :female),
+      happiness: total_aggs.avg_happiness.value,
+      male: parse_key_count(total_aggs.gender_group, :male),
+      sum: sum
     }
   end
 
