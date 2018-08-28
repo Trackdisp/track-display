@@ -12,7 +12,8 @@ module CampaignsHelper
       {
         x: campaign_data.total_data[i][0],
         y: campaign_data.total_data[i][1],
-        female: campaign_data.female_data[i]
+        female: campaign_data.female_data[i],
+        male: campaign_data.male_data[i]
       }
     end
   end

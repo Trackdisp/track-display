@@ -25,7 +25,8 @@
                 + this.series.name + ': <b>' + this.y + '</b> <br/>';
 
               if (this.female) {
-                format += outThis.$i18n.t('chart.female') + ': <b>' + this.female + '</b><br/>';
+                format += outThis.$i18n.t('chart.female') + ': <b>' + this.female + '</b><br/>'
+                  + outThis.$i18n.t('chart.male') + ': <b>' + this.male + '</b><br/>'
               }
               return format;
             }

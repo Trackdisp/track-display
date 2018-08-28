@@ -52,12 +52,12 @@ describe ObtainCampaignStats do
               double(
                 key_as_string: total_date_01,
                 doc_count: 3,
-                gender_group: double(buckets: [{ key: 'female', doc_count: 0 }])
+                gender_group: double(buckets: [{ key: 'female', doc_count: 1 }])
               ),
               double(
                 key_as_string: total_date_02,
                 doc_count: 5,
-                gender_group: double(buckets: [{ key: 'female', doc_count: 0 }])
+                gender_group: double(buckets: [{ key: 'male', doc_count: 1 }])
               )
             ]
           ),
@@ -110,7 +110,8 @@ describe ObtainCampaignStats do
           [Time.parse(total_date_02).to_f * 1000, 5]
         ]
       )
-      expect(stats.female_data).to eq([0, 0])
+      expect(stats.female_data).to eq([1, 0])
+      expect(stats.male_data).to eq([0, 1])
       expect(stats.total_female).to be(0)
       expect(stats.total_male).to be(0)
       expect(stats.total_sum).to be(8)

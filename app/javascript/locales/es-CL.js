@@ -30,6 +30,7 @@ export default {
   },
   chart: {
     female: 'Mujeres',
+    male: 'Hombres',
   },
   messages: {
     campaignDetails: {

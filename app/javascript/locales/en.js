@@ -11,6 +11,7 @@ export default {
   },
   chart: {
     female: 'Women',
+    male: 'Men',
   },
   messages: {
     campaignDetails: {

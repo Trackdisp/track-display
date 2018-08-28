@@ -9,7 +9,6 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
       campaign: @campaign,
       contacts: measures[:contacts],
       total: measures[:total],
-      female: measures[:female],
       units_rotated: units_rotated
     )
   end
@@ -24,7 +23,8 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
       total: {
         avg_age: total_aggs.avg_age.value&.round || 0,
         data: parse_bucket_count(total_aggs.by_date),
-        female_data: parse_female_count(total_aggs.by_date),
+        female_data: parse_gender_count(total_aggs.by_date, "female"),
+        male_data: parse_gender_count(total_aggs.by_date, "male"),
         female: parse_key_count(total_aggs.gender_group, :female),
         happiness: total_aggs.avg_happiness.value,
         male: parse_key_count(total_aggs.gender_group, :male),
@@ -57,9 +57,9 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
     end
   end
 
-  def parse_female_count(histogram)
+  def parse_gender_count(histogram, gender)
     histogram.buckets.reduce(Array.new) do |arr, bucket|
-      g_buck = bucket.gender_group.buckets.find { |gender_bucket| gender_bucket[:key] == "female" }
+      g_buck = bucket.gender_group.buckets.find { |gender_bucket| gender_bucket[:key] == gender }
       gender_count = g_buck ? g_buck[:doc_count] : 0
       arr.push(gender_count)
     end
