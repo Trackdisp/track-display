@@ -28,6 +28,9 @@ export default {
     day: 'DÍA',
     hour: 'HORA',
   },
+  chart: {
+    female: 'Mujeres',
+  },
   messages: {
     campaignDetails: {
       filters: {

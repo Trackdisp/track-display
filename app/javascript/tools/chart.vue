@@ -11,15 +11,24 @@
       date_format: String
     },
     data () {
+      const outThis = this;
       return {
         options : {
-          title: { text: "" },
+          title: { text: '' },
           chart: { type: 'spline', zoomType: 'x' },
           xAxis: { type: 'datetime' },
           tooltip: {
             shared: true,
             xDateFormat: this.date_format,
-            pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b><br/>'
+            pointFormatter: function() {
+              let format = '<span style="color:' + this.color + '">\u25CF</span> '
+                + this.series.name + ': <b>' + this.y + '</b> <br/>';
+
+              if (this.female) {
+                format += outThis.$i18n.t('chart.female') + ': <b>' + this.female + '</b><br/>';
+              }
+              return format;
+            }
           },
           legend: false,
           credits: false,
