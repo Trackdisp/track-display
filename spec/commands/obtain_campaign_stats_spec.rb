@@ -44,11 +44,13 @@ describe ObtainCampaignStats do
                 double(
                   key_as_string: contacts_date_01,
                   doc_count: 1,
+                  avg_age: double(value: 26.7),
                   gender_group: double(buckets: [{ key: 'female', doc_count: 1 }])
                 ),
                 double(
                   key_as_string: contacts_date_02,
                   doc_count: 3,
+                  avg_age: double(value: 31.1),
                   gender_group: double(buckets: [{ key: 'male', doc_count: 1 }])
                 )
               ]
@@ -112,6 +114,7 @@ describe ObtainCampaignStats do
       )
       expect(stats.female_data).to eq([1, 0])
       expect(stats.male_data).to eq([0, 1])
+      expect(stats.avg_age_data).to eq([27, 31])
       expect(stats.total_female).to be(0)
       expect(stats.total_male).to be(0)
       expect(stats.total_sum).to be(8)

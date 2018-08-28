@@ -13,7 +13,8 @@ module CampaignsHelper
         x: campaign_data.contacts_data[i][0],
         y: campaign_data.contacts_data[i][1],
         female: campaign_data.female_data[i],
-        male: campaign_data.male_data[i]
+        male: campaign_data.male_data[i],
+        avg_age: campaign_data.avg_age_data[i]
       }
     end
   end

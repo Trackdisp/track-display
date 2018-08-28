@@ -31,6 +31,7 @@ export default {
   chart: {
     female: 'Mujeres',
     male: 'Hombres',
+    age: 'Edad Promedio',
   },
   messages: {
     campaignDetails: {

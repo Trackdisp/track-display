@@ -2,7 +2,7 @@ class CampaignStat
   include ActiveModel::SerializerSupport
   attr_accessor :campaign, :contacts_data, :contacts_sum, :female_data, :male_data,
     :total_data, :total_sum, :effectiveness, :units_rotated_data, :units_rotated_sum,
-    :total_male, :total_female, :total_happiness, :total_avg_age
+    :total_male, :total_female, :total_happiness, :total_avg_age, :avg_age_data
 
   def initialize(opts = {})
     @campaign = opts[:campaign]
@@ -18,6 +18,7 @@ class CampaignStat
     @contacts_sum = opts[:sum]
     @female_data = opts[:female_data]
     @male_data = opts[:male_data]
+    @avg_age_data = opts[:avg_age_data]
   end
 
   def init_total_stats(opts = {})
