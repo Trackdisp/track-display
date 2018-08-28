@@ -59,8 +59,8 @@ describe ObtainCampaignStats do
           ),
           by_date: double(
             buckets: [
-              double(key_as_string: total_date_01,doc_count: 3),
-              double(key_as_string: total_date_02,doc_count: 5)
+              double(key_as_string: total_date_01, doc_count: 3),
+              double(key_as_string: total_date_02, doc_count: 5)
             ]
           ),
           avg_age: double(value: 22.2),
