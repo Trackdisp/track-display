@@ -5811,6 +5811,10 @@ vue-flatpickr-component@^7.0.4:
   dependencies:
     flatpickr "^4.4.6"
 
+vue-highcharts@0.0.10:
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/vue-highcharts/-/vue-highcharts-0.0.10.tgz#a4b90098ede77a65cca87e62bed87549e1e1c985"
+
 vue-hot-reload-api@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"

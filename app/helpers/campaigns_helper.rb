@@ -2,9 +2,32 @@ module CampaignsHelper
   def campaign_graph_data(campaign_data)
     [
       { name: I18n.t('messages.campaigns.total_people'), data: campaign_data.total_data },
-      { name: I18n.t('messages.campaigns.contacts'), data: campaign_data.contacts_data },
+      { name: I18n.t('messages.campaigns.contacts'), data: contacts_data_extended(campaign_data) },
       { name: I18n.t('messages.campaigns.units_rotated'), data: campaign_data.units_rotated_data }
     ]
+  end
+
+  def contacts_data_extended(campaign_data)
+    Array.new(campaign_data.contacts_data.length) do |i|
+      {
+        x: campaign_data.contacts_data[i][0],
+        y: campaign_data.contacts_data[i][1],
+        female: campaign_data.female_data[i],
+        male: campaign_data.male_data[i],
+        avg_age: campaign_data.avg_age_data[i]
+      }
+    end
+  end
+
+  def date_format(group_by)
+    case group_by
+    when "week"
+      I18n.t('messages.campaigns.week') + " %A, %b %e, %Y"
+    when "day"
+      "%A, %b %e, %Y"
+    when "hour"
+      "%A, %b %e, %H:%M"
+    end
   end
 
   def campaign_date_range(campaign)

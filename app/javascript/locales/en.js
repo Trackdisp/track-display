@@ -9,6 +9,11 @@ export default {
     day: 'DAY',
     hour: 'HOUR',
   },
+  chart: {
+    female: 'Women',
+    male: 'Men',
+    age: 'Average Age',
+  },
   messages: {
     campaignDetails: {
       filters: {
