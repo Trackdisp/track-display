@@ -50,8 +50,10 @@ module CampaignsHelper
         class: 'total-people' },
       { icon: 'rotation.svg', value: campaign_stat.units_rotated_sum,
         translation: 'units_rotated', class: 'units-rotated' },
-      { icon: 'rotation.svg', value: campaign_stat.effectiveness, translation: 'effectiveness' },
-      { icon: 'rotation.svg', value: campaign_stat.total_happiness, translation: 'happiness' },
+      { icon: 'rotation.svg', value: "#{campaign_stat.effectiveness}%",
+        translation: 'effectiveness' },
+      { icon: 'rotation.svg', value: "#{campaign_stat.total_happiness}%",
+        translation: 'happiness' },
       { icon: 'rotation.svg', value: campaign_stat.total_avg_age, translation: 'avg_age' }
     ]
   end
