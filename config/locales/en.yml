@@ -52,11 +52,5 @@ en:
       total_people: People Flow
       week: Week from
     campaign_dashboard:
-      avg_age: Avg. Age
-      contacts: Contacts
       details_title: Details
-      effectiveness: Effectiveness
       filters_title: Filters
-      happiness: Happiness
-      total_people: Flow of people
-      units_rotated: Unit rotated

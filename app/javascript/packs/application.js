@@ -9,6 +9,7 @@ import VueHighcharts from 'vue-highcharts';
 import GroupDateSelector from '../tools/group-date-selector.vue';
 import SelectFilter from '../tools/select-filter.vue';
 import DatetimePicker from '../tools/datetime-filter';
+import Stat from '../tools/stat';
 import Chart from '../tools/chart.vue';
 import Locales from '../locales/locales';
 
@@ -32,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         SelectFilter,
         DatetimePicker,
         Chart,
+        Stat,
       },
     });
   }

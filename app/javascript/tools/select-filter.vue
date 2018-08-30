@@ -19,7 +19,7 @@ export default {
   computed: {
     selectClass() {
       return {
-        'multiselect--active-filter': typeof this.filterValue !== 'undefined'
+        'multiselect--active-filter': typeof this.filterValue !== 'undefined',
       };
     },
   },
