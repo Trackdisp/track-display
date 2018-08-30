@@ -13,21 +13,21 @@
 </template>
 
 <script>
-  import { changeURLQueryParam } from '../helpers/url-helper';
+import { changeURLQueryParam } from '../helpers/url-helper';
 
-  export default {
-    props: ['initialGroup'],
-    data() {
-      return {
-        groupBy: this.initialGroup,
-      };
+export default {
+  props: ['initialGroup'],
+  data() {
+    return {
+      groupBy: this.initialGroup,
+    };
+  },
+  watch: {
+    groupBy(val) {
+      if (val) {
+        window.location.search = changeURLQueryParam('group_by', val);
+      }
     },
-    watch: {
-      groupBy: function (val) {
-        if (val) {
-          window.location.search = changeURLQueryParam('group_by', val);
-        }
-      },
-    },
-  }
+  },
+}
 </script>
