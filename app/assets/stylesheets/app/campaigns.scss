@@ -109,8 +109,12 @@
   }
 
   &__summary-stat {
-    flex-basis: calc((100% - 40px)/6);
     margin-right: 8px;
+    flex-basis: calc((100% - 40px)/6);
+
+    &--clickable {
+      cursor: pointer;
+    }
   }
 
   &__summary-stat:last-child {
@@ -122,10 +126,10 @@
   background-color: $content-bg-color;
   border: $app-content-border;
   border-radius: $app-content-border-radius;
+  font-family: $main-font;
+  padding: 20px 10px;
   display: flex;
   flex-direction: row;
-  font-family: $main-font;
-  padding: 20px 15px;
 
   &__icon {
     align-items: center;

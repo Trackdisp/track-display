@@ -51,8 +51,14 @@ describe ObtainCampaignStats do
                   key_as_string: contacts_date_02,
                   doc_count: 3,
                   avg_age: double(value: 31.1),
-                  gender_group: double(buckets: [{ key: 'male', doc_count: 1 }])
+                  gender_group: double(buckets: [{ key: 'male', doc_count: 2 }])
                 )
+              ]
+            ),
+            gender_group: double(
+              buckets: [
+                { key: 'female', doc_count: 1 },
+                { key: 'male', doc_count: 2 }
               ]
             ),
             doc_count: 4
@@ -65,7 +71,14 @@ describe ObtainCampaignStats do
           ),
           avg_age: double(value: 22.2),
           avg_happiness: double(value: 0.12),
-          gender_group: double(buckets: [{ key: 'female', doc_count: 0 }])
+          gender_group: double(
+            buckets: [
+              { key: 'female', doc_count: 6, avg_age: double(value: 25.1),
+                avg_happiness: double(value: 0.41) },
+              { key: 'male', doc_count: 2, avg_age: double(value: 30.9),
+                avg_happiness: double(value: 0.02) }
+            ]
+          )
         )
       )
     end
@@ -104,20 +117,26 @@ describe ObtainCampaignStats do
         ]
       )
       expect(stats.contacts_sum).to be(4)
-      expect(stats.effectiveness).to be(50)
+      expect(stats.contacts_female_data).to eq([1, 0])
+      expect(stats.contacts_male_data).to eq([0, 2])
+      expect(stats.contacts_female_sum).to eq(1)
+      expect(stats.contacts_male_sum).to eq(2)
+      expect(stats.avg_age_data).to eq([27, 31])
       expect(stats.total_avg_age).to be(22)
+      expect(stats.total_female_sum).to be(6)
+      expect(stats.total_male_sum).to be(2)
+      expect(stats.total_female_avg_age).to be(25)
+      expect(stats.total_male_avg_age).to be(31)
       expect(stats.total_data).to eq(
         [
           [Time.parse(total_date_01).to_f * 1000, 3],
           [Time.parse(total_date_02).to_f * 1000, 5]
         ]
       )
-      expect(stats.female_data).to eq([1, 0])
-      expect(stats.male_data).to eq([0, 1])
-      expect(stats.avg_age_data).to eq([27, 31])
-      expect(stats.total_female).to be(0)
-      expect(stats.total_male).to be(0)
       expect(stats.total_sum).to be(8)
+      expect(stats.total_happiness).to be(12)
+      expect(stats.total_female_happiness).to be(41)
+      expect(stats.total_male_happiness).to be(2)
       expect(stats.units_rotated_data).to eq(
         [
           [Time.parse(units_date_01).to_f * 1000, 5],
@@ -125,6 +144,9 @@ describe ObtainCampaignStats do
         ]
       )
       expect(stats.units_rotated_sum).to be(10)
+      expect(stats.effectiveness).to be(50)
+      expect(stats.female_effectiveness).to be(17)
+      expect(stats.male_effectiveness).to be(100)
     end
   end
 end
