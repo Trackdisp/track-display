@@ -1,9 +1,9 @@
 module CampaignsHelper
   def campaign_graph_data(campaign_data)
     [
-      { name: I18n.t('messages.campaigns.total_people'), data: campaign_data.total_data },
+      { name: I18n.t('messages.campaigns.people'), data: campaign_data.total_data },
       { name: I18n.t('messages.campaigns.contacts'), data: contacts_data_extended(campaign_data) },
-      { name: I18n.t('messages.campaigns.units_rotated'), data: campaign_data.units_rotated_data }
+      { name: I18n.t('messages.campaigns.rotated'), data: campaign_data.units_rotated_data }
     ]
   end
 
@@ -46,7 +46,7 @@ module CampaignsHelper
   def summary_stats_elements(stat)
     summary_people_stats(stat).concat(
       [
-        { icon: 'rotation.svg', value: stat.units_rotated_sum, translation: 'unitsRotated',
+        { icon: 'rotation.svg', value: stat.units_rotated_sum, translation: 'rotated',
           class: 'units-rotated' },
         { icon: 'rotation.svg', value: "#{stat.effectiveness}%", translation: 'effectiveness',
           female_value: "#{stat.female_effectiveness}%",
@@ -54,7 +54,7 @@ module CampaignsHelper
         { icon: 'rotation.svg', value: "#{stat.total_happiness}%", translation: 'happiness',
           female_value: "#{stat.total_female_happiness}%",
           male_value: "#{stat.total_male_happiness}%" },
-        { icon: 'rotation.svg', value: stat.total_avg_age, translation: 'avgAge',
+        { icon: 'rotation.svg', value: stat.total_avg_age, translation: 'age',
           female_value: stat.total_female_avg_age, male_value: stat.total_male_avg_age }
       ]
     )
@@ -64,7 +64,7 @@ module CampaignsHelper
     [
       { icon: 'contacts.svg', value: stat.contacts_sum, translation: 'contacts',
         female_value: stat.contacts_female_sum, male_value: stat.contacts_male_sum },
-      { icon: 'seen.svg', value: stat.total_sum, translation: 'totalPeople',
+      { icon: 'seen.svg', value: stat.total_sum, translation: 'people',
         female_value: stat.total_female_sum, male_value: stat.total_male_sum,
         class: 'total-people' }
     ]

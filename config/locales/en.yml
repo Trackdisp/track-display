@@ -48,8 +48,11 @@ en:
       index:
         title: Campaign
       contacts: Contacts
-      units_rotated: Units rotated
-      total_people: People Flow
+      people: Flow of people
+      rotated: Units rotated
+      effectiveness: Effectiveness
+      happiness: Happiness
+      age: Avg. Age
       week: Week from
     campaign_dashboard:
       details_title: Details
