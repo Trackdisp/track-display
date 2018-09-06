@@ -1,5 +1,5 @@
 <div class="campaign-details__summary">
   <% summary_stats_elements(@campaign_stat).each do |element| %>
-    <stat element="<%= element.to_json %>"></stat>
+    <stat element="<%= element.to_json %>" image="<%= image_path(element[:icon]) %>"></stat>
   <% end %>
 </div>

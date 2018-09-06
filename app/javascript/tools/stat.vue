@@ -3,7 +3,7 @@
     <div class="campaign-detail-data">
       <div @click="toggleShow" :class="statClass">
         <div class="campaign-detail-data__icon">
-          <img :src="icon">
+          <img :src="image">
         </div>
         <div class="campaign-detail-data__data-container">
           <span :class="valueClass">{{ value }}</span>
@@ -21,7 +21,7 @@
 import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
-  props: ['element'],
+  props: ['element', 'image'],
   mixins: [clickaway],
   data() {
     const elementParsed = JSON.parse(this.element);
@@ -31,7 +31,6 @@ export default {
       '';
 
     return {
-      icon: `/assets/${elementParsed.icon}`,
       valueClass: `campaign-detail-data__data ${optionalValuesClass}`,
       statClass: `campaign-detail-data__icon-data-container ${optionalDataClass}`,
       value: elementParsed.value,
