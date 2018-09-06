@@ -24,11 +24,11 @@ export default {
       },
       stats: {
         contacts: 'Contacts',
-        totalPeople: 'Flow of people',
-        unitsRotated: 'Units rotated',
+        people: 'Flow of people',
+        rotated: 'Units rotated',
         effectiveness: 'Effectiveness',
         happiness: 'Happiness',
-        avgAge: 'Avg. Age',
+        age: 'Avg. Age',
       },
     },
     errors: {

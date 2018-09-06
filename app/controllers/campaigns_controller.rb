@@ -2,11 +2,7 @@ class CampaignsController < BaseController
   def index
     @stats = {}
     current_user.company.campaigns.each do |campaign|
-      stats = ObtainCampaignStats.for(campaign: campaign)
-      @stats[campaign.id] = {
-        total_views: stats.contacts_sum,
-        total_people: stats.total_sum
-      }
+      @stats[campaign.id] = ObtainCampaignStats.for(campaign: campaign)
     end
   end
 

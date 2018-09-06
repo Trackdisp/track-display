@@ -4,19 +4,14 @@
     <%= campaign_date_range(campaign) %>
   </h5>
   <div class="campaign-option__stats-container">
-    <div class="campaign-stat campaign-option__stat">
-      <%= image_tag 'contacts.svg', class: 'campaign-stat__icon' %>
-      <div class="campaign-stat__content">
-        <span class="campaign-stat__value"><%= stats[:total_views] %></span>
-        <span class="campaign-stat__label"><%= t('messages.campaigns.contacts') %></span>
+    <% summary_stats_elements(stats).each do |element| %>
+      <div class="campaign-stat campaign-option__stat">
+        <%= image_tag element[:icon], class: 'campaign-stat__icon' %>
+        <div class="campaign-stat__content">
+          <span class="campaign-stat__value"><%= element[:value] %></span>
+          <span class="campaign-stat__label"><%= t("messages.campaigns.#{element[:translation]}") %></span>
+        </div>
       </div>
-    </div>
-    <div class="campaign-stat campaign-option__stat">
-      <%= image_tag 'seen.svg', class: 'campaign-stat__icon' %>
-      <div class="campaign-stat__content">
-        <span class="campaign-stat__value"><%= stats[:total_people] %></span>
-        <span class="campaign-stat__label"><%= t('messages.campaigns.total_people') %></span>
-      </div>
-    </div>
+    <% end %>
   </div>
 </a>

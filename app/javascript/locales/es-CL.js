@@ -43,11 +43,11 @@ export default {
       },
       stats: {
         contacts: 'Contactos',
-        totalPeople: 'Personas',
-        unitsRotated: 'Unid. rotaron',
+        people: 'Personas',
+        rotated: 'Unid. rotaron',
         effectiveness: 'De Efectividad',
         happiness: 'De Felicidad',
-        avgAge: 'Edad. Prom',
+        age: 'Edad. Prom',
       },
     },
     errors: {

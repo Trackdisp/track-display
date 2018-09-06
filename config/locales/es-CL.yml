@@ -137,8 +137,11 @@ es-CL:
       index:
         title: Campañas
       contacts: Contactos
-      units_rotated: Unidades rotaron
-      total_people: Flujo de gente
+      people: Personas
+      rotated: Unid. rotaron
+      effectiveness: De Efectividad
+      happiness: De Felicidad
+      age: Edad. Prom
       week: Semana desde
     campaign_dashboard:
       details_title: Detalles
