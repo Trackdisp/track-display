@@ -41,6 +41,14 @@ export default {
         gender: 'Género',
         locations: 'Locales',
       },
+      stats: {
+        contacts: 'Contactos',
+        totalPeople: 'Personas',
+        unitsRotated: 'Unid. rotaron',
+        effectiveness: 'De Efectividad',
+        happiness: 'De Felicidad',
+        avgAge: 'Edad. Prom',
+      },
     },
     errors: {
     },

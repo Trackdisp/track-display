@@ -22,6 +22,14 @@ export default {
         gender: 'Gender',
         locations: 'Locations',
       },
+      stats: {
+        contacts: 'Contacts',
+        totalPeople: 'Flow of people',
+        unitsRotated: 'Units rotated',
+        effectiveness: 'Effectiveness',
+        happiness: 'Happiness',
+        avgAge: 'Avg. Age',
+      },
     },
     errors: {
     },

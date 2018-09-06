@@ -23,7 +23,9 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
         data: parse_bucket_count(contacts.by_date),
         sum: contacts.doc_count,
         female_data: parse_gender_count(contacts.by_date, "female"),
+        female: parse_key_count(contacts.gender_group, "female"),
         male_data: parse_gender_count(contacts.by_date, "male"),
+        male: parse_key_count(contacts.gender_group, "male"),
         avg_age_data: parse_avg_age(contacts.by_date)
       },
       total: total_aggregations(total_aggs, es_response.results.count)
@@ -34,9 +36,13 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
     {
       avg_age: total_aggs.avg_age.value&.round || 0,
       data: parse_bucket_count(total_aggs.by_date),
-      female: parse_key_count(total_aggs.gender_group, :female),
+      female: parse_key_count(total_aggs.gender_group, "female"),
+      female_avg_age: parse_key_avg_age(total_aggs.gender_group, "female"),
+      female_happiness: parse_key_happiness(total_aggs.gender_group, "female"),
       happiness: total_aggs.avg_happiness.value,
-      male: parse_key_count(total_aggs.gender_group, :male),
+      male: parse_key_count(total_aggs.gender_group, "male"),
+      male_avg_age: parse_key_avg_age(total_aggs.gender_group, "male"),
+      male_happiness: parse_key_happiness(total_aggs.gender_group, "male"),
       sum: sum
     }
   end
@@ -81,7 +87,17 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
 
   def parse_key_count(aggregation, key)
     key_bucket = aggregation.buckets.find { |bucket| bucket[:key] == key }
-    key_bucket&.doc_count || 0
+    key_bucket&.[](:doc_count) || 0
+  end
+
+  def parse_key_avg_age(aggregation, key)
+    key_bucket = aggregation.buckets.find { |bucket| bucket[:key] == key }
+    key_bucket&.[](:avg_age)&.value&.round || 0
+  end
+
+  def parse_key_happiness(aggregation, key)
+    key_bucket = aggregation.buckets.find { |bucket| bucket[:key] == key }
+    key_bucket&.[](:avg_happiness)&.value || 0
   end
 
   def search_params

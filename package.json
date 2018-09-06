@@ -6,6 +6,7 @@
     "highcharts": "^6.1.0",
     "vue": "^2.5.16",
     "vue-chartkick": "^0.4.0",
+    "vue-clickaway": "^2.2.2",
     "vue-flatpickr-component": "^7.0.4",
     "vue-highcharts": "0.0.10",
     "vue-i18n": "^8.0.0",
@@ -15,6 +16,7 @@
     "vuetify": "^1.0.19"
   },
   "devDependencies": {
+    "eslint-plugin-vue": "^4.7.1",
     "webpack-dev-server": "2.11.2"
   }
 }

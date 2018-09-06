@@ -46,7 +46,13 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
     {
       avg_age: { avg: { field: :avg_age } },
       avg_happiness: { avg: { field: :happiness } },
-      gender_group: { terms: { field: :gender, size: 3 } }
+      gender_group: {
+        terms: { field: :gender, size: 3 },
+        aggs: {
+          avg_age: { avg: { field: :avg_age } },
+          avg_happiness: { avg: { field: :happiness } }
+        }
+      }
     }
   end
 

@@ -1,13 +1,5 @@
 <div class="campaign-details__summary">
   <% summary_stats_elements(@campaign_stat).each do |element| %>
-    <div class="campaign-detail-data campaign-details__summary-stat">
-      <div class="campaign-detail-data__icon">
-        <%= image_tag element[:icon] %>
-      </div>
-      <div class="campaign-detail-data__data-container">
-        <span class="campaign-detail-data__data <%= "campaign-detail-data__data--#{element[:class]}" if element[:class] %>"><%= element[:value] %></span>
-        <span class="campaign-detail-data__label"><%= t("messages.campaign_dashboard.#{element[:translation]}") %></span>
-      </div>
-    </div>
+    <stat element="<%= element.to_json %>"></stat>
   <% end %>
 </div>

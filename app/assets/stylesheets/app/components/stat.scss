@@ -1,0 +1,70 @@
+@import '../base';
+
+.campaign-detail-data {
+  background-color: $content-bg-color;
+  border: $app-content-border;
+  border-radius: $app-content-border-radius;
+  font-family: $main-font;
+  position: relative;
+
+  &__icon-data-container {
+    display: flex;
+    flex-direction: row;
+    padding: 20px 10px;
+  }
+
+  &__icon {
+    align-items: center;
+    display: flex;
+    flex-basis: 52px;
+    justify-content: center;
+  }
+
+  &__data-container {
+    align-items: center;
+    display: flex;
+    flex-basis: calc(100% - 52px);
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__data {
+    color: $graph-primary-color;
+    font-family: $main-font;
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 0.75px;
+    line-height: 34px;
+    margin-bottom: 4px;
+  }
+
+  &__data--total-people {
+    color: $graph-secondary-color;
+  }
+
+  &__data--units-rotated {
+    color: $graph-third-color;
+  }
+
+  &__label {
+    color: $primary-font-color;
+    font-family: $main-font;
+    font-size: 12px;
+    letter-spacing: 0.4px;
+    line-height: 14px;
+  }
+
+  &__gender-breakdown {
+    border: $app-content-border;
+    left: 0;
+    padding: 5px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+  }
+
+  &--clickable {
+    cursor: pointer;
+  }
+}
+

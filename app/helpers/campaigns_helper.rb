@@ -12,8 +12,8 @@ module CampaignsHelper
       {
         x: campaign_data.contacts_data[i][0],
         y: campaign_data.contacts_data[i][1],
-        female: campaign_data.female_data[i],
-        male: campaign_data.male_data[i],
+        female: campaign_data.contacts_female_data[i],
+        male: campaign_data.contacts_male_data[i],
         avg_age: campaign_data.avg_age_data[i]
       }
     end
@@ -43,18 +43,30 @@ module CampaignsHelper
     gender_json.to_json
   end
 
-  def summary_stats_elements(campaign_stat)
+  def summary_stats_elements(stat)
+    summary_people_stats(stat).concat(
+      [
+        { icon: 'rotation.svg', value: stat.units_rotated_sum, translation: 'unitsRotated',
+          class: 'units-rotated' },
+        { icon: 'rotation.svg', value: "#{stat.effectiveness}%", translation: 'effectiveness',
+          female_value: "#{stat.female_effectiveness}%",
+          male_value: "#{stat.male_effectiveness}%" },
+        { icon: 'rotation.svg', value: "#{stat.total_happiness}%", translation: 'happiness',
+          female_value: "#{stat.total_female_happiness}%",
+          male_value: "#{stat.total_male_happiness}%" },
+        { icon: 'rotation.svg', value: stat.total_avg_age, translation: 'avgAge',
+          female_value: stat.total_female_avg_age, male_value: stat.total_male_avg_age }
+      ]
+    )
+  end
+
+  def summary_people_stats(stat)
     [
-      { icon: 'contacts.svg', value: campaign_stat.contacts_sum, translation: 'contacts' },
-      { icon: 'seen.svg', value: campaign_stat.total_sum, translation: 'total_people',
-        class: 'total-people' },
-      { icon: 'rotation.svg', value: campaign_stat.units_rotated_sum,
-        translation: 'units_rotated', class: 'units-rotated' },
-      { icon: 'rotation.svg', value: "#{campaign_stat.effectiveness}%",
-        translation: 'effectiveness' },
-      { icon: 'rotation.svg', value: "#{campaign_stat.total_happiness}%",
-        translation: 'happiness' },
-      { icon: 'rotation.svg', value: campaign_stat.total_avg_age, translation: 'avg_age' }
+      { icon: 'contacts.svg', value: stat.contacts_sum, translation: 'contacts',
+        female_value: stat.contacts_female_sum, male_value: stat.contacts_male_sum },
+      { icon: 'seen.svg', value: stat.total_sum, translation: 'totalPeople',
+        female_value: stat.total_female_sum, male_value: stat.total_male_sum,
+        class: 'total-people' }
     ]
   end
 end
