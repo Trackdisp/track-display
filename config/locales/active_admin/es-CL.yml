@@ -1,5 +1,14 @@
 es-CL:
   active_admin:
+    measures:
+      upload:
+        button: Subir CSV
+        title: Subir Mediciones
+        empty: CSV vacío
+        extension_error: No es un .csv
+        success: Mediciones creadas
+        format_error: Error de formato en la data del CSV
+        general_error: Ocurrió un error
     devices:
       zero: Sin Disp.
       one: 1 Disp.

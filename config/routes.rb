@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     end
   end
   devise_for :admin_users, ActiveAdmin::Devise.config
+  post '/admin/measures/upload_csv', to: 'admin/measures#upload_csv'
   ActiveAdmin.routes(self)
   devise_for :users
   mount Sidekiq::Web => '/queue'

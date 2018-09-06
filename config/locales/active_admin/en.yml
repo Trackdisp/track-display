@@ -1,5 +1,14 @@
 en:
   active_admin:
+    measures:
+      upload:
+        button: Upload CSV
+        title: Upload Measures
+        empty: Empty CSV
+        extension_error: Not a .csv
+        success: Measures created
+        format_error: Error in CSV data format
+        general_error: An error ocurred
     devices:
       zero: Unasigned
       one: 1 Device
