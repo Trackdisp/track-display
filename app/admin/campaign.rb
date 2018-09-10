@@ -1,5 +1,5 @@
 ActiveAdmin.register Campaign do
-  permit_params :name, :company_id, :start_date, :end_date, device_ids: []
+  permit_params :name, :company_id, :start_date, :end_date, :logo, device_ids: []
 
   controller do
     defaults finder: :find_by_slug
@@ -34,6 +34,9 @@ ActiveAdmin.register Campaign do
       row :start_date
       row :end_date
       row :created_at
+      row :logo do |campaign|
+        image_tag campaign.logo.variant(resize: '100x100') if campaign.logo.attached?
+      end
     end
   end
 
@@ -44,6 +47,7 @@ ActiveAdmin.register Campaign do
       f.input :devices, collection: Device.all.map { |dev| [dev.name || dev.serial, dev.id] }
       f.input :start_date, as: :date_picker
       f.input :end_date, as: :date_picker
+      f.input :logo, as: :file
     end
     f.actions
   end
