@@ -25,6 +25,10 @@
     font-size: 24px;
   }
 
+  &__logo {
+    vertical-align: bottom;
+  }
+
   &__date-range {
     margin: 0 0 21px;
     font-family: $main-font;

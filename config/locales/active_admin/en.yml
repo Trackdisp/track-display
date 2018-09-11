@@ -1,5 +1,11 @@
 en:
   active_admin:
+    campaign:
+      errors:
+        not_an_image: Selected file is not an image
+    company:
+      errors:
+        not_an_image: Selected file is not an image
     measures:
       upload:
         button: Upload CSV

@@ -76,6 +76,10 @@
     letter-spacing: $app-spacing-letter;
   }
 
+  &__campaign-container {
+    display: contents;
+  }
+
   &__campaign-name {
     color: $header-name-color;
     font-family: $main-font;
