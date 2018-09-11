@@ -3,6 +3,28 @@ ActiveAdmin.register Campaign do
 
   controller do
     defaults finder: :find_by_slug
+
+    def update
+      redirect_to_campaign unless nil_or_image?
+      super if nil_or_image?
+    end
+
+    def create
+      redirect_to_campaign unless nil_or_image?
+      super if nil_or_image?
+    end
+
+    private
+
+    def nil_or_image?
+      logo = permitted_params[:campaign][:logo]
+      logo.nil? || (logo.content_type&.start_with? 'image')
+    end
+
+    def redirect_to_campaign
+      redirect_to admin_campaign_path(permitted_params[:campaign]),
+        alert: t('active_admin.campaign.errors.not_an_image')
+    end
   end
 
   filter :name
@@ -35,7 +57,12 @@ ActiveAdmin.register Campaign do
       row :end_date
       row :created_at
       row :logo do |campaign|
-        image_tag campaign.logo.variant(resize: '100x100') if campaign.logo.attached?
+        logo = campaign.logo
+        if logo.attached? && logo.variable?
+          image_tag logo.variant(resize: '100x100')
+        elsif logo.attached?
+          image_tag(logo, size: '100x100')
+        end
       end
     end
   end
