@@ -6,7 +6,7 @@ gem 'active_skin'
 gem 'activeadmin', '~> 1.3.1'
 gem 'activeadmin_addons'
 gem 'activejob-retry'
-gem 'aws-sdk', '~> 2.5'
+gem 'aws-sdk-s3', require: false
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'devise-i18n'
