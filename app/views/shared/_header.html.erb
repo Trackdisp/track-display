@@ -8,13 +8,13 @@
         <p class="header__campaign-name">
           <%= @campaign.name %>
         </p>
-        <%= image_tag @campaign.logo.variant(resize: '60x60') if @campaign.logo.attached? %>
+        <%= image_tag(@campaign.logo, class: 'header__campaign-logo') if @campaign.logo.attached? %>
       </div>
     <% end %>
     <div class="header__menu-section">
       <p class="header__company-name">
         <% if current_user&.company.logo.attached? %>
-          <%= image_tag current_user&.company.logo.variant(resize: '60x60') %>
+          <%= image_tag(current_user&.company.logo, class: 'header__company-logo') %>
         <% else %>
           <%= current_user&.company.name %>
         <% end %>

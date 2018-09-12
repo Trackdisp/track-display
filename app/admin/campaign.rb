@@ -58,11 +58,7 @@ ActiveAdmin.register Campaign do
       row :created_at
       row :logo do |campaign|
         logo = campaign.logo
-        if logo.attached? && logo.variable?
-          image_tag logo.variant(resize: '100x100')
-        elsif logo.attached?
-          image_tag(logo, size: '100x100')
-        end
+        image_tag(logo, class: 'campaign__logo') if logo.attached?
       end
     end
   end
