@@ -42,11 +42,7 @@ ActiveAdmin.register Company do
       row :created_at
       row :logo do |company|
         logo = company.logo
-        if logo.attached? && logo.variable?
-          image_tag logo.variant(resize: '100x100')
-        elsif logo.attached?
-          image_tag(logo, size: '100x100')
-        end
+        image_tag(logo, class: 'company__logo') if logo.attached?
       end
     end
   end

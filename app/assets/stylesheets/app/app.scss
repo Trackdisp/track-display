@@ -76,6 +76,10 @@
     letter-spacing: $app-spacing-letter;
   }
 
+  &__company-logo {
+    height: 60px;
+  }
+
   &__campaign-container {
     display: contents;
   }
@@ -83,8 +87,13 @@
   &__campaign-name {
     color: $header-name-color;
     font-family: $main-font;
-    letter-spacing: $app-spacing-letter;
     font-size: 24px;
+    letter-spacing: $app-spacing-letter;
     line-height: 29px;
+    padding-right: 5px;
+  }
+
+  &__campaign-logo {
+    height: 60px;
   }
 }

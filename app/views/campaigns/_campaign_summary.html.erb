@@ -1,7 +1,7 @@
 <a href="<%= campaign_path(campaign) %>" class="campaign-option" >
   <h2 class="campaign-option__title">
     <%= campaign.name %>
-    <%= image_tag campaign.logo.variant(resize: '50x50'), class: 'campaign-option__logo' if campaign.logo.attached? %>
+    <%= image_tag(campaign.logo, class: 'campaign-option__logo') if campaign.logo.attached? %>
   </h2>
   <h5 class="campaign-option__date-range">
     <%= campaign_date_range(campaign) %>
