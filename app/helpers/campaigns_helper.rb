@@ -3,7 +3,7 @@ module CampaignsHelper
     [
       { name: I18n.t('messages.campaigns.people'), data: campaign_data.total_data },
       { name: I18n.t('messages.campaigns.contacts'), data: contacts_data_extended(campaign_data) },
-      { name: I18n.t('messages.campaigns.rotated'), data: campaign_data.units_rotated_data }
+      { name: I18n.t('messages.campaigns.extracted'), data: campaign_data.units_extracted_data }
     ]
   end
 
@@ -46,8 +46,8 @@ module CampaignsHelper
   def summary_stats_elements(stat)
     summary_people_stats(stat).concat(
       [
-        { icon: 'rotation.svg', value: stat.units_rotated_sum, translation: 'rotated',
-          class: 'units-rotated' },
+        { icon: 'rotation.svg', value: stat.units_extracted_sum, translation: 'extracted',
+          class: 'units-extracted' },
         { icon: 'rotation.svg', value: "#{stat.effectiveness}%", translation: 'effectiveness',
           female_value: "#{stat.female_effectiveness}%",
           male_value: "#{stat.male_effectiveness}%" },

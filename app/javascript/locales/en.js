@@ -25,7 +25,7 @@ export default {
       stats: {
         contacts: 'Contacts',
         people: 'Flow of people',
-        rotated: 'Units rotated',
+        extracted: 'Units extracted',
         effectiveness: 'Effectiveness',
         happiness: 'Happiness',
         age: 'Avg. Age',

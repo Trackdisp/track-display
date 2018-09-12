@@ -44,7 +44,7 @@ export default {
       stats: {
         contacts: 'Contactos',
         people: 'Personas',
-        rotated: 'Unid. rotaron',
+        extracted: 'Unid. rotaron',
         effectiveness: 'De Efectividad',
         happiness: 'De Felicidad',
         age: 'Edad. Prom',
