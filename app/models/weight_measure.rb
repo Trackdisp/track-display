@@ -18,6 +18,7 @@ class WeightMeasure < ApplicationRecord
 
   validates(
     :item_weight,
+    :items_max,
     :shelf_weight,
     :current_weight,
     :previous_weight,
@@ -59,6 +60,7 @@ end
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  weight_measures_sync_id :bigint(8)
+#  items_max               :integer          default(20)
 #
 # Indexes
 #
