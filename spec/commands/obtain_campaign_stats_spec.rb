@@ -93,7 +93,7 @@ describe ObtainCampaignStats do
             ]
           ),
           units_extracted_sum: double(value: 10),
-          sum_rotation: double(value: 5)
+          sum_rotation: double(value: 5.3)
         )
       )
     end
@@ -145,6 +145,7 @@ describe ObtainCampaignStats do
         ]
       )
       expect(stats.units_extracted_sum).to be(10)
+      expect(stats.sum_rotation).to be(5.3)
       expect(stats.effectiveness).to be(50)
       expect(stats.female_effectiveness).to be(17)
       expect(stats.male_effectiveness).to be(100)
