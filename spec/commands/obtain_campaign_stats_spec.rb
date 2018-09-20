@@ -92,7 +92,8 @@ describe ObtainCampaignStats do
               double(key_as_string: units_date_02, items_by_date: double(value: 8))
             ]
           ),
-          units_extracted_sum: double(value: 10)
+          units_extracted_sum: double(value: 10),
+          sum_rotation: double(value: 5)
         )
       )
     end
@@ -100,7 +101,7 @@ describe ObtainCampaignStats do
     before do
       expect(CalculateMeasuresStats).to receive(:for)
         .with(measure_search_params).and_return(measures_results)
-      expect(CalculateUnitsExtracted).to receive(:for).with(search_params).and_return(units_result)
+      expect(CalculateUnitsStats).to receive(:for).with(search_params).and_return(units_result)
     end
 
     it 'calls calculates stats commands' do

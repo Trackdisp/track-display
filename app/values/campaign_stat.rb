@@ -5,7 +5,7 @@ class CampaignStat
     :total_sum, :effectiveness, :units_extracted_data, :units_extracted_sum,
     :total_male_sum, :total_female_sum, :total_happiness, :total_avg_age, :avg_age_data,
     :contacts_female_sum, :contacts_male_sum, :total_female_happiness, :total_male_happiness,
-    :female_effectiveness, :male_effectiveness
+    :female_effectiveness, :male_effectiveness, :sum_rotation
 
   def initialize(opts = {})
     @campaign = opts[:campaign]
@@ -40,6 +40,7 @@ class CampaignStat
   end
 
   def init_units_stats(opts = {})
+    @sum_rotation = opts[:sum_rotation]
     @units_extracted_data = opts[:data]
     @units_extracted_sum = opts[:sum]
   end

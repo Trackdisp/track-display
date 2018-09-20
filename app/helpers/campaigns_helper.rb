@@ -44,10 +44,8 @@ module CampaignsHelper
   end
 
   def summary_stats_elements(stat)
-    summary_people_stats(stat).concat(
+    summary_people_stats(stat).concat(summary_units_stats(stat)).concat(
       [
-        { icon: 'rotation.svg', value: stat.units_extracted_sum, translation: 'extracted',
-          class: 'units-extracted' },
         { icon: 'rotation.svg', value: "#{stat.effectiveness}%", translation: 'effectiveness',
           female_value: "#{stat.female_effectiveness}%",
           male_value: "#{stat.male_effectiveness}%" },
@@ -67,6 +65,15 @@ module CampaignsHelper
       { icon: 'seen.svg', value: stat.total_sum, translation: 'people',
         female_value: stat.total_female_sum, male_value: stat.total_male_sum,
         class: 'total-people' }
+    ]
+  end
+
+  def summary_units_stats(stat)
+    [
+      { icon: 'rotation.svg', value: stat.units_extracted_sum, translation: 'extracted',
+        class: 'units-extracted' },
+      { icon: 'rotation.svg', value: stat.sum_rotation, translation: 'rotation',
+        class: 'sum-rotation' }
     ]
   end
 end

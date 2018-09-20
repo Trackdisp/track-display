@@ -1,4 +1,4 @@
-class CalculateUnitsExtracted < PowerTypes::Command.new(:campaign,
+class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
   location: nil, date_group: :day, after_date: nil, before_date: nil)
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
@@ -44,7 +44,23 @@ class CalculateUnitsExtracted < PowerTypes::Command.new(:campaign,
     if Time.now.getlocal.zone != 'UTC'
       aggs[:units_extracted][:date_histogram][:time_zone] = "#{Time.now.getlocal.zone}:00"
     end
-    aggs
+    aggs.merge(rotation_aggs)
+  end
+
+  def rotation_aggs
+    {
+      by_device: {
+        terms: { field: :device_id },
+        aggs: {
+          rotated_by_device: { sum: { field: :rotated_fraction } }
+        }
+      },
+      sum_rotation: {
+        sum_bucket: {
+          buckets_path: "by_device>rotated_by_device"
+        }
+      }
+    }
   end
 
   def date_range_query

@@ -44,10 +44,11 @@ export default {
       stats: {
         contacts: 'Contactos',
         people: 'Personas',
-        extracted: 'Unid. rotaron',
+        extracted: 'Unid. extraídas',
         effectiveness: 'De Efectividad',
         happiness: 'De Felicidad',
         age: 'Edad. Prom',
+        rotation: 'Rotación Total',
       },
     },
     errors: {

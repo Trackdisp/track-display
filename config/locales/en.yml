@@ -49,7 +49,8 @@ en:
         title: Campaign
       contacts: Contacts
       people: Flow of people
-      extracted: Units extracted
+      extraction: Units extracted
+      rotated: Total rotation
       effectiveness: Effectiveness
       happiness: Happiness
       age: Avg. Age

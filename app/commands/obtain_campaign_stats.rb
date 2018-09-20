@@ -4,7 +4,7 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
     measures = parse_measures_stats(
       CalculateMeasuresStats.for(search_params.merge(gender: @gender))
     )
-    units_extracted = parse_units_stats(CalculateUnitsExtracted.for(search_params))
+    units_extracted = parse_units_stats(CalculateUnitsStats.for(search_params))
     CampaignStat.new(
       campaign: @campaign,
       contacts: measures[:contacts],
@@ -50,7 +50,8 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
   def parse_units_stats(es_response)
     {
       data: parse_units_count(es_response.aggregations.units_extracted.buckets),
-      sum: es_response.aggregations.units_extracted_sum.value.to_i
+      sum: es_response.aggregations.units_extracted_sum.value.to_i,
+      sum_rotation: es_response.aggregations.sum_rotation.value.to_f.round(2)
     }
   end
 

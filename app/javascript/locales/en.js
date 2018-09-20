@@ -29,6 +29,7 @@ export default {
         effectiveness: 'Effectiveness',
         happiness: 'Happiness',
         age: 'Avg. Age',
+        rotation: 'Total Rotation',
       },
     },
     errors: {
