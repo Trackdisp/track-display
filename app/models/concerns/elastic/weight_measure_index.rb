@@ -23,6 +23,7 @@ module Elastic
           indexes :current_weight, type: 'integer'
           indexes :previous_weight, type: 'integer'
           indexes :items_count, type: 'integer'
+          indexes :items_max, type: 'integer'
           indexes :rotated_fraction, type: 'half_float'
         end
       end
@@ -31,7 +32,7 @@ module Elastic
         as_json(methods: [:device_name, :device_serial, :device_active, :campaign_name,
                           :company_name, :location_name, :brand_name, :measured_at, :item_weight,
                           :shelf_weight, :current_weight, :previous_weight, :items_count,
-                          :rotated_fraction])
+                          :items_max, :rotated_fraction])
       end
     end
   end
