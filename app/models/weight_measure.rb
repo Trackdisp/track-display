@@ -9,6 +9,7 @@ class WeightMeasure < ApplicationRecord
 
   before_create :set_campaign_and_location
   before_create :set_items_count
+  before_create :set_rotated_fraction
 
   scope :by_company, ->(company_id) do
     joins(:campaign).where(campaigns: { company_id: company_id })
@@ -18,6 +19,7 @@ class WeightMeasure < ApplicationRecord
 
   validates(
     :item_weight,
+    :items_max,
     :shelf_weight,
     :current_weight,
     :previous_weight,
@@ -40,6 +42,10 @@ class WeightMeasure < ApplicationRecord
   def set_items_count
     self.items_count = (previous_weight - current_weight) / item_weight
   end
+
+  def set_rotated_fraction
+    self.rotated_fraction = items_count.to_f / items_max.to_f
+  end
 end
 
 # == Schema Information
@@ -59,6 +65,8 @@ end
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  weight_measures_sync_id :bigint(8)
+#  items_max               :integer          default(20)
+#  rotated_fraction        :decimal(, )
 #
 # Indexes
 #

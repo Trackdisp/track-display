@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_10_134447) do
+ActiveRecord::Schema.define(version: 2018_09_12_164243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -204,6 +204,8 @@ ActiveRecord::Schema.define(version: 2018_09_10_134447) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "weight_measures_sync_id"
+    t.integer "items_max", default: 20
+    t.decimal "rotated_fraction"
     t.index ["campaign_id"], name: "index_weight_measures_on_campaign_id"
     t.index ["device_id"], name: "index_weight_measures_on_device_id"
     t.index ["location_id"], name: "index_weight_measures_on_location_id"

@@ -1,4 +1,4 @@
-class CalculateUnitsRotated < PowerTypes::Command.new(:campaign,
+class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
   location: nil, date_group: :day, after_date: nil, before_date: nil)
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
@@ -31,8 +31,8 @@ class CalculateUnitsRotated < PowerTypes::Command.new(:campaign,
 
   def build_aggs_definitions
     aggs = {
-      units_rotated_sum: { sum: { field: :items_count } },
-      units_rotated: {
+      units_extracted_sum: { sum: { field: :items_count } },
+      units_extracted: {
         date_histogram: {
           field: :measured_at,
           interval: @date_group,
@@ -42,9 +42,25 @@ class CalculateUnitsRotated < PowerTypes::Command.new(:campaign,
       }
     }
     if Time.now.getlocal.zone != 'UTC'
-      aggs[:units_rotated][:date_histogram][:time_zone] = "#{Time.now.getlocal.zone}:00"
+      aggs[:units_extracted][:date_histogram][:time_zone] = "#{Time.now.getlocal.zone}:00"
     end
-    aggs
+    aggs.merge(rotation_aggs)
+  end
+
+  def rotation_aggs
+    {
+      by_device: {
+        terms: { field: :device_id },
+        aggs: {
+          rotated_by_device: { sum: { field: :rotated_fraction } }
+        }
+      },
+      sum_rotation: {
+        sum_bucket: {
+          buckets_path: "by_device>rotated_by_device"
+        }
+      }
+    }
   end
 
   def date_range_query

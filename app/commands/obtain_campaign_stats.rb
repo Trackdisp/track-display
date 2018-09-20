@@ -4,12 +4,12 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
     measures = parse_measures_stats(
       CalculateMeasuresStats.for(search_params.merge(gender: @gender))
     )
-    units_rotated = parse_units_stats(CalculateUnitsRotated.for(search_params))
+    units_extracted = parse_units_stats(CalculateUnitsStats.for(search_params))
     CampaignStat.new(
       campaign: @campaign,
       contacts: measures[:contacts],
       total: measures[:total],
-      units_rotated: units_rotated
+      units_extracted: units_extracted
     )
   end
 
@@ -49,17 +49,18 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
 
   def parse_units_stats(es_response)
     {
-      data: parse_units_count(es_response.aggregations.units_rotated.buckets),
-      sum: es_response.aggregations.units_rotated_sum.value.to_i
+      data: parse_units_count(es_response.aggregations.units_extracted.buckets),
+      sum: es_response.aggregations.units_extracted_sum.value.to_i,
+      sum_rotation: es_response.aggregations.sum_rotation.value.to_f.round(2)
     }
   end
 
   def parse_units_count(results)
-    results.reduce(Array.new) do |arr, unit_rotated|
+    results.reduce(Array.new) do |arr, unit_extracted|
       arr.push(
         [
-          Time.parse(unit_rotated.key_as_string).to_f * 1000,
-          unit_rotated.items_by_date.value.to_i
+          Time.parse(unit_extracted.key_as_string).to_f * 1000,
+          unit_extracted.items_by_date.value.to_i
         ]
       )
     end

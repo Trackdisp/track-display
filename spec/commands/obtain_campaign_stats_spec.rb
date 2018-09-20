@@ -31,8 +31,8 @@ describe ObtainCampaignStats do
 
     let(:measure_search_params) { search_params.merge(gender: gender) }
 
-    let(:unit_rotated_data) { double }
-    let(:unit_rotated_sum) { 20 }
+    let(:unit_extracted_data) { double }
+    let(:unit_extracted_sum) { 20 }
 
     let(:measures_results) do
       double(
@@ -86,13 +86,14 @@ describe ObtainCampaignStats do
     let(:units_result) do
       double(
         aggregations: double(
-          units_rotated: double(
+          units_extracted: double(
             buckets: [
               double(key_as_string: units_date_01, items_by_date: double(value: 5)),
               double(key_as_string: units_date_02, items_by_date: double(value: 8))
             ]
           ),
-          units_rotated_sum: double(value: 10)
+          units_extracted_sum: double(value: 10),
+          sum_rotation: double(value: 5.3)
         )
       )
     end
@@ -100,7 +101,7 @@ describe ObtainCampaignStats do
     before do
       expect(CalculateMeasuresStats).to receive(:for)
         .with(measure_search_params).and_return(measures_results)
-      expect(CalculateUnitsRotated).to receive(:for).with(search_params).and_return(units_result)
+      expect(CalculateUnitsStats).to receive(:for).with(search_params).and_return(units_result)
     end
 
     it 'calls calculates stats commands' do
@@ -137,13 +138,14 @@ describe ObtainCampaignStats do
       expect(stats.total_happiness).to be(12)
       expect(stats.total_female_happiness).to be(41)
       expect(stats.total_male_happiness).to be(2)
-      expect(stats.units_rotated_data).to eq(
+      expect(stats.units_extracted_data).to eq(
         [
           [Time.parse(units_date_01).to_f * 1000, 5],
           [Time.parse(units_date_02).to_f * 1000, 8]
         ]
       )
-      expect(stats.units_rotated_sum).to be(10)
+      expect(stats.units_extracted_sum).to be(10)
+      expect(stats.sum_rotation).to be(5.3)
       expect(stats.effectiveness).to be(50)
       expect(stats.female_effectiveness).to be(17)
       expect(stats.male_effectiveness).to be(100)
