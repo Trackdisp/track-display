@@ -44,7 +44,7 @@ module CampaignsHelper
   end
 
   def summary_stats_elements(stat)
-    summary_people_stats(stat).concat(summary_units_stats(stat)).concat(
+    summary_people_stats(stat).concat(
       [
         { icon: 'rotation.svg', value: "#{stat.effectiveness}%", translation: 'effectiveness',
           female_value: "#{stat.female_effectiveness}%",
@@ -55,7 +55,7 @@ module CampaignsHelper
         { icon: 'rotation.svg', value: stat.total_avg_age, translation: 'age',
           female_value: stat.total_female_avg_age, male_value: stat.total_male_avg_age }
       ]
-    )
+    ).concat(summary_units_stats(stat))
   end
 
   def summary_people_stats(stat)
