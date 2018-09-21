@@ -2,9 +2,7 @@
   <div class="campaign-details__summary-stat" v-on-clickaway="hide">
     <div class="campaign-detail-data">
       <div @click="toggleShow" :class="statClass">
-        <div class="campaign-detail-data__icon">
-          <img :src="image">
-        </div>
+        <img class="campaign-detail-data__icon" :src="image">
         <div class="campaign-detail-data__data-container">
           <span :class="valueClass">{{ value }}</span>
           <span class="campaign-detail-data__label">{{ translation }}</span>
