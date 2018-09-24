@@ -13,9 +13,12 @@ class CampaignsController < BaseController
       campaign: campaign,
       date_group: date_group_by,
       gender: gender,
-      location: location
+      location: location,
+      brand: brand
     )
-    @locations = Location.find(campaign.devices.where(active: true).pluck(:location_id).uniq)
+    all_locations = Location.find(campaign.devices.where(active: true).pluck(:location_id).uniq)
+    @locations = @brand ? all_locations.select { |l| l.brand_id == @brand.id } : all_locations
+    @brands = Brand.find(all_locations.pluck(:brand_id).uniq)
   end
 
   private
@@ -36,6 +39,10 @@ class CampaignsController < BaseController
 
   def location
     @location ||= Location.find_by(id: params[:location].to_i) if params[:location].present?
+  end
+
+  def brand
+    @brand ||= Brand.find_by(id: params[:brand].to_i) if params[:brand].present?
   end
 
   def after_date

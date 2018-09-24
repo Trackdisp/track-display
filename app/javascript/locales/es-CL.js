@@ -40,6 +40,7 @@ export default {
         beforeDate: 'Antes de',
         gender: 'Género',
         locations: 'Locales',
+        brands: 'Cadenas',
       },
       stats: {
         contacts: 'Contactos',

@@ -9,8 +9,13 @@ import { changeURLQueryParam, removeURLQueryParam } from '../helpers/url-helper'
 export default {
   props: ['options', 'label', 'initialSelected', 'trackBy', 'placeholder', 'queryParam'],
   data() {
+    const filterVal = this.options.find(opt => opt[this.trackBy] === this.initialSelected);
+    if (this.initialSelected && filterVal === undefined) {
+      window.location.search = removeURLQueryParam(this.queryParam);
+    }
+
     return {
-      filterValue: this.options.find(opt => opt[this.trackBy] === this.initialSelected),
+      filterValue: filterVal,
     };
   },
   components: {

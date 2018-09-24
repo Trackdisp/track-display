@@ -1,5 +1,5 @@
 class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
-  location: nil, date_group: :day, after_date: nil, before_date: nil)
+  location: nil, brand: nil, date_group: :day, after_date: nil, before_date: nil)
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
 
@@ -25,6 +25,7 @@ class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
       { range: { items_count: { gt: 0 } } }
     ]
     query.push(term: { location_id: @location.id }) if @location.present?
+    query.push(match: { brand_name: @brand.name }) if @brand.present?
     query.push(range: { measured_at: date_range_query }) if @after_date || @before_date
     query
   end
