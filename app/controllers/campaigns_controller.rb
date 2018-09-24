@@ -15,7 +15,7 @@ class CampaignsController < BaseController
       gender: gender,
       location: location
     )
-    @locations = Location.all.select(:id, :name)
+    @locations = Location.find(campaign.devices.where(active: true).pluck(:location_id).uniq)
   end
 
   private
