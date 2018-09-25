@@ -25,7 +25,7 @@ class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
       { range: { items_count: { gt: 0 } } }
     ]
     query.push(term: { location_id: @location.id }) if @location.present?
-    query.push(match: { brand_name: @brand.name }) if @brand.present?
+    query.push(term: { brand_id: @brand.id }) if @brand.present?
     query.push(range: { measured_at: date_range_query }) if @after_date || @before_date
     query
   end

@@ -21,7 +21,7 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
   def build_must_definition
     query = [{ term: { campaign_id: @campaign.id } }, { term: { device_active: true } }]
     query.push(term: { location_id: @location.id }) if @location.present?
-    query.push(match: { brand_name: @brand.name }) if @brand.present?
+    query.push(term: { brand_id: @brand.id }) if @brand.present?
     query.push(term: { gender: @gender.to_s }) if @gender.present?
     query.push(range: { measured_at: check_date_range }) if @after_date || @before_date
     query

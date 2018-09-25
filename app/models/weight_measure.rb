@@ -31,8 +31,10 @@ class WeightMeasure < ApplicationRecord
   validates_presence_of :measured_at
 
   delegate :name, :serial, :active, to: :device, allow_nil: true, prefix: true
-  delegate :brand_name, :campaign_name, :company_name, :location_name,
-    to: :device, allow_nil: true, prefix: false
+  delegate :name, to: :campaign, allow_nil: true, prefix: true
+  delegate :name, to: :location, allow_nil: true, prefix: true
+  delegate :company_id, :company_name, to: :campaign, allow_nil: true
+  delegate :brand_id, :brand_name, to: :location, allow_nil: true
 
   def set_campaign_and_location
     self.campaign = device.campaign
