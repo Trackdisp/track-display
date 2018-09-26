@@ -24,6 +24,7 @@ module Elastic
           indexes :contact_duration, type: 'half_float'
           indexes :happiness, type: 'half_float'
           indexes :gender, type: 'keyword'
+          indexes :channel, type: 'text'
         end
       end
 
@@ -31,7 +32,7 @@ module Elastic
         as_json(methods: [:device_name, :device_serial, :device_active, :campaign_name,
                           :company_name, :location_name, :brand_name, :brand_id,
                           :measured_at, :avg_age, :presence_duration, :contact_duration, :happiness,
-                          :gender])
+                          :gender, :channel])
       end
     end
   end
