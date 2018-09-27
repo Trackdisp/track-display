@@ -122,6 +122,8 @@ For managing tasks in the background, this project uses [Sidekiq](https://github
 
 Note: this also has to be done with `WeightMeasure`
 
+When changing the mappings of the indexes, running in Heroku `bundle exec rake environment elasticsearch:import:all FORCE=Y` will force the recreation of indexes and reimport the data 
+
 ## Seeds
 
 To populate your database with initial data you can add, inside the `/db/seeds.rb` file, the code to generate **only the necessary data** to run the application.
