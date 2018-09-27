@@ -14,11 +14,10 @@ class CampaignsController < BaseController
       date_group: date_group_by,
       gender: gender,
       location: location,
-      brand: brand
+      brand: brand,
+      channel: channel
     )
-    all_locations = Location.find(campaign.devices.where(active: true).pluck(:location_id).uniq)
-    @locations = @brand ? all_locations.select { |l| l.brand_id == @brand.id } : all_locations
-    @brands = Brand.find(all_locations.pluck(:brand_id).uniq)
+    set_filters_options
   end
 
   private
@@ -37,12 +36,28 @@ class CampaignsController < BaseController
     end
   end
 
+  def set_filters_options
+    all_locs = Location.find(campaign.devices.where(active: true).pluck(:location_id).uniq)
+    locs_filtered_by_brand = all_locs.select { |l| l.brand_id == @brand&.id }
+    selected_locs = @brand ? locs_filtered_by_brand : all_locs
+    @locations = @channel ? selected_locs.select { |l| l.channel == @channel } : selected_locs
+    @brands = Brand.find(all_locs.pluck(:brand_id).uniq)
+
+    @channels = all_locs.reduce(Set.new) do |arr, loc|
+      arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel)
+    end
+  end
+
   def location
     @location ||= Location.find_by(id: params[:location].to_i) if params[:location].present?
   end
 
   def brand
     @brand ||= Brand.find_by(id: params[:brand].to_i) if params[:brand].present?
+  end
+
+  def channel
+    @channel ||= params[:channel]
   end
 
   def after_date

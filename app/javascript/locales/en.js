@@ -22,6 +22,7 @@ export default {
         gender: 'Gender',
         locations: 'Locations',
         brands: 'Brands',
+        channels: 'Channels',
       },
       stats: {
         contacts: 'Contacts',

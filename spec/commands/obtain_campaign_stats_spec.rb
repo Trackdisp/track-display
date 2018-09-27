@@ -9,6 +9,7 @@ describe ObtainCampaignStats do
     let(:campaign) { create(:campaign) }
     let(:location) { create(:location) }
     let(:brand) { create(:brand) }
+    let(:channel) { 'traditional' }
     let(:after_date) { Time.now - 11.days }
     let(:before_date) { Time.now }
     let(:contacts_date_01) { '2018-03-11T00:00:00.000-03:00' }
@@ -25,6 +26,7 @@ describe ObtainCampaignStats do
         campaign: campaign,
         location: location,
         brand: brand,
+        channel: channel,
         after_date: after_date,
         before_date: before_date,
         date_group: date_group

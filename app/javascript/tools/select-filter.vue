@@ -31,7 +31,7 @@ export default {
   watch: {
     filterValue(val) {
       if (val) {
-        window.location.search = changeURLQueryParam(this.queryParam, val.id);
+        window.location.search = changeURLQueryParam(this.queryParam, val[this.trackBy]);
       } else {
         window.location.search = removeURLQueryParam(this.queryParam);
       }

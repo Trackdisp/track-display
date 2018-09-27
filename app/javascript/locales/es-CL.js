@@ -41,6 +41,7 @@ export default {
         gender: 'Género',
         locations: 'Locales',
         brands: 'Cadenas',
+        channels: 'Canales',
       },
       stats: {
         contacts: 'Contactos',
