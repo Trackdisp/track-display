@@ -21,6 +21,8 @@ export default {
         beforeDate: 'Before',
         gender: 'Gender',
         locations: 'Locations',
+        brands: 'Brands',
+        channels: 'Channels',
       },
       stats: {
         contacts: 'Contacts',

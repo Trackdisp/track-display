@@ -1,5 +1,6 @@
 class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
-  location: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil)
+  location: nil, brand: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil,
+  channel: nil)
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
 
@@ -21,8 +22,10 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
   def build_must_definition
     query = [{ term: { campaign_id: @campaign.id } }, { term: { device_active: true } }]
     query.push(term: { location_id: @location.id }) if @location.present?
+    query.push(term: { brand_id: @brand.id }) if @brand.present?
     query.push(term: { gender: @gender.to_s }) if @gender.present?
-    query.push(range: { measured_at: check_date_range }) if @after_date || @before_date
+    query.push(term: { channel: @channel.to_s }) if @channel.present?
+    query.push(range: { measured_at: check_date_range }) if should_check_date_range
     query
   end
 
@@ -74,5 +77,9 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
     range_query[:lte] = @before_date.localtime.strftime(TIME_FORMAT) if @before_date.present?
     range_query[:gte] = @after_date.localtime.strftime(TIME_FORMAT) if @after_date.present?
     range_query
+  end
+
+  def should_check_date_range
+    @after_date || @before_date
   end
 end

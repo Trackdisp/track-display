@@ -3,6 +3,12 @@
     <select-filter :options="<%= @locations.to_json %>" label="name" :initial-selected="<%= @location&.id || 'null' %>" track-by="id" query-param="location" :placeholder="$t('messages.campaignDetails.filters.locations')"></select-filter>
   </div>
   <div class="campaign-details__filter">
+    <select-filter :options="<%= @brands.to_json %>" label="name" :initial-selected="<%= @brand&.id || 'null' %>" track-by="id" query-param="brand" :placeholder="$t('messages.campaignDetails.filters.brands')"></select-filter>
+  </div>
+  <div class="campaign-details__filter">
+    <select-filter :options="<%= @channels.to_json %>" label="name" initial-selected="<%= @channel %>" track-by="id" query-param="channel" :placeholder="$t('messages.campaignDetails.filters.channels')"></select-filter>
+  </div>
+  <div class="campaign-details__filter">
     <datetime-picker initial-value="<%= @after_date %>" query-param="after" :placeholder="$t('messages.campaignDetails.filters.afterDate')"></datetime-picker>
   </div>
   <div class="campaign-details__filter">
