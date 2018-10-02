@@ -53,9 +53,9 @@ describe WeightMeasuresSyncService do
     let(:wolke_result) do
       [
         { device_id: "1234567890", time: "2018-06-18 15:57:00", item_weight: 10,
-          shelf_weight: 89, current_weight: 550, previous_weight: 540 },
+          items_max: 20, shelf_weight: 89, current_weight: 550, previous_weight: 540 },
         { device_id: "1234567890", time: "2018-06-21 15:59:00", item_weight: 10,
-          shelf_weight: 89, current_weight: 550, previous_weight: 540 }
+          items_max: 20, shelf_weight: 89, current_weight: 550, previous_weight: 540 }
       ]
     end
     let(:perform) { build.sync_measures(from_date: from_date, to_date: to_date) }
