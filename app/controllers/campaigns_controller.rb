@@ -15,7 +15,8 @@ class CampaignsController < BaseController
       gender: gender,
       location: location,
       brand: brand,
-      channel: channel
+      channel: channel,
+      commune: commune
     )
     set_filters_options
   end
@@ -38,14 +39,14 @@ class CampaignsController < BaseController
 
   def set_filters_options
     all_locs = all_campaign_locations
-    locs_filtered_by_brand = all_locs.select { |l| l.brand_id == @brand&.id }
-    selected_locs = @brand ? locs_filtered_by_brand : all_locs
-    @locations = @channel ? selected_locs.select { |l| l.channel == @channel } : selected_locs
-    @brands = Brand.find(all_locs.pluck(:brand_id).uniq)
 
+    @locations = set_locations_options(all_locs)
+
+    @brands = Brand.find(all_locs.pluck(:brand_id).uniq)
     @channels = all_locs.reduce(Set.new) do |arr, loc|
       arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel)
     end
+    @communes = Commune.find(all_locs.pluck(:commune_id).uniq)
   end
 
   def all_campaign_locations
@@ -62,6 +63,17 @@ class CampaignsController < BaseController
     all_locs_ids ? Location.find(all_locs_ids) : nil
   end
 
+  def set_locations_options(all_locs)
+    locs_of_brand = all_locs.select { |l| l.brand_id == @brand&.id }
+    locs_filtered_by_brand = @brand ? locs_of_brand : all_locs
+
+    locs_of_channel = locs_filtered_by_brand.select { |l| l.channel == @channel }
+    locs_filtered_by_channel = @channel ? locs_of_channel : locs_filtered_by_brand
+
+    locs_of_commune = locs_filtered_by_channel.select { |l| l.commune_id == @commune&.id }
+    @commune ? locs_of_commune : locs_filtered_by_channel
+  end
+
   def location
     @location ||= Location.find_by(id: params[:location].to_i) if params[:location].present?
   end
@@ -72,6 +84,10 @@ class CampaignsController < BaseController
 
   def channel
     @channel ||= params[:channel]
+  end
+
+  def commune
+    @commune ||= Commune.find_by(id: params[:commune].to_i) if params[:commune].present?
   end
 
   def after_date
