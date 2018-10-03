@@ -7,7 +7,7 @@ class Brand < ApplicationRecord
 
   validates_presence_of :name, :channel
 
-  CHANNEL_TYPES = %i(traditional supermaket local_consumption)
+  CHANNEL_TYPES = %i(traditional supermarket local_consumption)
   enumerize :channel, in: CHANNEL_TYPES, default: CHANNEL_TYPES.first
 end
 

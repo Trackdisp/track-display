@@ -26,6 +26,7 @@ gem 'puma', '~> 3.7'
 gem 'pundit'
 gem 'rack-cors', '~> 0.4.0'
 gem 'rails', '~> 5.2.1'
+gem 'rails-controller-testing'
 gem 'rails-i18n'
 gem 'recipient_interceptor'
 gem 'responders'
@@ -48,6 +49,7 @@ group :production do
 end
 
 group :test do
+  gem 'elasticsearch-extensions'
   gem 'rspec_junit_formatter', '0.2.2'
   gem 'shoulda-matchers', require: false
   gem 'timecop'
