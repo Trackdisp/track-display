@@ -41,18 +41,14 @@ class CampaignsController < BaseController
   def set_filters_options
     all_locs = all_campaign_locations
 
-    @locations = locations_options(all_locs)
+    @locations = all_locs.filtered(build_locations_filters_hash)
 
     @brands = Brand.find(all_locs.pluck(:brand_id).uniq)
     @channels = all_locs.reduce(Set.new) do |arr, loc|
       arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel)
     end
     @regions = Region.find(all_locs.map(&:region_id).uniq)
-    @communes = if @region.nil?
-                  Commune.find(all_locs.pluck(:commune_id).uniq)
-                else
-                  Commune.find(all_locs.pluck(:commune_id).uniq & @region.communes.map(&:id))
-                end
+    @communes = filtered_communes(all_locs)
   end
 
   def all_campaign_locations
@@ -66,21 +62,24 @@ class CampaignsController < BaseController
                                  .pluck(:location_id).uniq
     all_locs_ids = measure_locs_ids | w_measure_locs_ids
 
-    all_locs_ids ? Location.find(all_locs_ids) : nil
+    all_locs_ids ? Location.where(id: all_locs_ids) : nil
   end
 
-  def locations_options(all_locs)
-    locs_of_brand = all_locs.select { |l| l.brand_id == @brand&.id }
-    locs_filtered_by_brand = @brand ? locs_of_brand : all_locs
+  def build_locations_filters_hash
+    filters = {}
+    filters[:brand_id] = @brand.id if @brand
+    filters[:region_id] = @region.id if @region
+    filters[:commune_id] = @commune.id if @commune
+    filters[:channel] = @channel if @channel
+    filters
+  end
 
-    locs_of_channel = locs_filtered_by_brand.select { |l| l.channel == @channel }
-    locs_filtered_by_channel = @channel ? locs_of_channel : locs_filtered_by_brand
-
-    locs_of_commune = locs_filtered_by_channel.select { |l| l.commune_id == @commune&.id }
-    locs_filtered_by_commune = @commune ? locs_of_commune : locs_filtered_by_channel
-
-    locs_of_region = locs_filtered_by_commune.select { |l| l.region_id == @region&.id }
-    @region ? locs_of_region : locs_filtered_by_channel
+  def filtered_communes(all_locs)
+    if @region.nil?
+      Commune.find(all_locs.pluck(:commune_id).uniq)
+    else
+      Commune.find(all_locs.pluck(:commune_id).uniq & @region.communes.map(&:id))
+    end
   end
 
   def location
