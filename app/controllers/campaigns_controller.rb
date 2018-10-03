@@ -48,7 +48,11 @@ class CampaignsController < BaseController
       arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel)
     end
     @regions = Region.find(all_locs.map(&:region_id).uniq)
-    @communes = Commune.find(all_locs.pluck(:commune_id).uniq)
+    @communes = if @region.nil?
+                  Commune.find(all_locs.pluck(:commune_id).uniq)
+                else
+                  Commune.find(all_locs.pluck(:commune_id).uniq & @region.communes.map(&:id))
+                end
   end
 
   def all_campaign_locations
