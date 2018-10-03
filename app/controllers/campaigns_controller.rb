@@ -16,7 +16,8 @@ class CampaignsController < BaseController
       location: location,
       brand: brand,
       channel: channel,
-      commune: commune
+      commune: commune,
+      region: region
     )
     set_filters_options
   end
@@ -40,12 +41,13 @@ class CampaignsController < BaseController
   def set_filters_options
     all_locs = all_campaign_locations
 
-    @locations = set_locations_options(all_locs)
+    @locations = locations_options(all_locs)
 
     @brands = Brand.find(all_locs.pluck(:brand_id).uniq)
     @channels = all_locs.reduce(Set.new) do |arr, loc|
       arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel)
     end
+    @regions = Region.find(all_locs.map(&:region_id).uniq)
     @communes = Commune.find(all_locs.pluck(:commune_id).uniq)
   end
 
@@ -63,7 +65,7 @@ class CampaignsController < BaseController
     all_locs_ids ? Location.find(all_locs_ids) : nil
   end
 
-  def set_locations_options(all_locs)
+  def locations_options(all_locs)
     locs_of_brand = all_locs.select { |l| l.brand_id == @brand&.id }
     locs_filtered_by_brand = @brand ? locs_of_brand : all_locs
 
@@ -71,7 +73,10 @@ class CampaignsController < BaseController
     locs_filtered_by_channel = @channel ? locs_of_channel : locs_filtered_by_brand
 
     locs_of_commune = locs_filtered_by_channel.select { |l| l.commune_id == @commune&.id }
-    @commune ? locs_of_commune : locs_filtered_by_channel
+    locs_filtered_by_commune = @commune ? locs_of_commune : locs_filtered_by_channel
+
+    locs_of_region = locs_filtered_by_commune.select { |l| l.region_id == @region&.id }
+    @region ? locs_of_region : locs_filtered_by_channel
   end
 
   def location
@@ -88,6 +93,10 @@ class CampaignsController < BaseController
 
   def commune
     @commune ||= Commune.find_by(id: params[:commune].to_i) if params[:commune].present?
+  end
+
+  def region
+    @region ||= Region.find_by(id: params[:region].to_i) if params[:region].present?
   end
 
   def after_date

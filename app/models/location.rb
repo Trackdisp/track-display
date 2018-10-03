@@ -10,6 +10,7 @@ class Location < ApplicationRecord
   validates_presence_of :name, :street, :number
 
   delegate :name, to: :brand, prefix: true, allow_nil: true
+  delegate :region_id, to: :commune
 
   CHANNEL_TYPES = %i(traditional supermarket local_consumption)
   enumerize :channel, in: CHANNEL_TYPES

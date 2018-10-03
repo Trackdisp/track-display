@@ -26,6 +26,7 @@ module Elastic
           indexes :gender, type: 'keyword'
           indexes :channel, type: 'text'
           indexes :commune_id, type: 'integer'
+          indexes :region_id, type: 'integer'
         end
       end
 
@@ -33,7 +34,7 @@ module Elastic
         as_json(methods: [:device_name, :device_serial, :device_active, :campaign_name,
                           :company_name, :location_name, :brand_name, :brand_id,
                           :measured_at, :avg_age, :presence_duration, :contact_duration, :happiness,
-                          :gender, :channel, :commune_id])
+                          :gender, :channel, :commune_id, :region_id])
       end
     end
   end

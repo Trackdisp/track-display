@@ -37,7 +37,7 @@ class Measure < ApplicationRecord
   delegate :name, to: :campaign, allow_nil: true, prefix: true
   delegate :name, to: :location, allow_nil: true, prefix: true
   delegate :company_id, :company_name, to: :campaign, allow_nil: true
-  delegate :brand_id, :brand_name, :channel, :commune_id, to: :location, allow_nil: true
+  delegate :region_id, :brand_id, :brand_name, :channel, :commune_id, to: :location, allow_nil: true
 
   def set_campaign_and_location
     self.campaign = device.campaign

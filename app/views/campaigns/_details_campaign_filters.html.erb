@@ -12,6 +12,9 @@
     <select-filter :options="<%= @communes.to_json %>" label="name" :initial-selected="<%= @commune&.id || 'null' %>" track-by="id" query-param="commune" :placeholder="$t('messages.campaignDetails.filters.communes')"></select-filter>
   </div>
   <div class="campaign-details__filter">
+    <select-filter :options="<%= @regions.to_json %>" label="name" :initial-selected="<%= @region&.id || 'null' %>" track-by="id" query-param="region" :placeholder="$t('messages.campaignDetails.filters.regions')"></select-filter>
+  </div>
+  <div class="campaign-details__filter">
     <datetime-picker initial-value="<%= @after_date %>" query-param="after" :placeholder="$t('messages.campaignDetails.filters.afterDate')"></datetime-picker>
   </div>
   <div class="campaign-details__filter">

@@ -1,6 +1,6 @@
 class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
   location: nil, brand: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil,
-  channel: nil, commune: nil)
+  channel: nil, commune: nil, region: nil)
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
 
@@ -32,6 +32,7 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
     query.push(term: { brand_id: @brand.id }) if @brand.present?
     query.push(term: { channel: @channel.to_s }) if @channel.present?
     query.push(term: { commune_id: @commune.id }) if @commune.present?
+    query.push(term: { region_id: @region.id }) if @region.present?
   end
 
   def build_aggs_definitions
