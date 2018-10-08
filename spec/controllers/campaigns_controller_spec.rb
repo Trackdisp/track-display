@@ -73,5 +73,36 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
         )
       end
     end
+
+    describe "with selected location" do
+      it "location filter value is the one sent" do
+        get :show, params: { slug: campaign.slug, location: measures[0].location_id }
+        expect(assigns(:location)).to eq(measures[0].location)
+      end
+    end
+
+    describe "with selected brand" do
+      it "location filter options are only of sent brand" do
+        get :show, params: { slug: campaign.slug, brand: measures[0].location.brand_id }
+        expect(assigns(:locations)).to eq([measures[0].location])
+      end
+
+      it "brand filter value is the one sent" do
+        get :show, params: { slug: campaign.slug, brand: measures[0].location.brand_id }
+        expect(assigns(:brand)).to eq(measures[0].location.brand)
+      end
+    end
+
+    describe "with selected channel" do
+      it "location filter options are only of sent channel" do
+        get :show, params: { slug: campaign.slug, channel: "supermarket" }
+        expect(assigns(:locations)).to eq([measures[2].location])
+      end
+
+      it "brand filter value is the one sent" do
+        get :show, params: { slug: campaign.slug, channel: "supermarket" }
+        expect(assigns(:channel)).to eq("supermarket")
+      end
+    end
   end
 end
