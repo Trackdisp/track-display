@@ -11,7 +11,7 @@ class Location < ApplicationRecord
 
   delegate :name, to: :brand, prefix: true, allow_nil: true
 
-  CHANNEL_TYPES = %i(traditional supermaket local_consumption)
+  CHANNEL_TYPES = %i(traditional supermarket local_consumption)
   enumerize :channel, in: CHANNEL_TYPES
 end
 

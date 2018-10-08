@@ -50,6 +50,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   # Add device helpers
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.extend ControllerMacros, type: :controller
 end
 
 Shoulda::Matchers.configure do |config|

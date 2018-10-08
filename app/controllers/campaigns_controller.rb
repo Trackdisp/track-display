@@ -37,7 +37,7 @@ class CampaignsController < BaseController
   end
 
   def set_filters_options
-    all_locs = Location.find(campaign.devices.where(active: true).pluck(:location_id).uniq)
+    all_locs = all_campaign_locations
     locs_filtered_by_brand = all_locs.select { |l| l.brand_id == @brand&.id }
     selected_locs = @brand ? locs_filtered_by_brand : all_locs
     @locations = @channel ? selected_locs.select { |l| l.channel == @channel } : selected_locs
@@ -46,6 +46,20 @@ class CampaignsController < BaseController
     @channels = all_locs.reduce(Set.new) do |arr, loc|
       arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel)
     end
+  end
+
+  def all_campaign_locations
+    measure_locs_ids = campaign.measures.joins(:device).where
+                               .not(devices: { active: false },
+                                    measures: { location_id: nil })
+                               .pluck(:location_id).uniq
+    w_measure_locs_ids = campaign.weight_measures.joins(:device).where
+                                 .not(devices: { active: false },
+                                      weight_measures: { location_id: nil })
+                                 .pluck(:location_id).uniq
+    all_locs_ids = measure_locs_ids | w_measure_locs_ids
+
+    all_locs_ids ? Location.find(all_locs_ids) : nil
   end
 
   def location
