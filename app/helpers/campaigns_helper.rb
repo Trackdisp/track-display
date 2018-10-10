@@ -19,17 +19,6 @@ module CampaignsHelper
     end
   end
 
-  def date_format(group_by)
-    case group_by
-    when "week"
-      I18n.t('messages.campaigns.week') + " %A, %b %e, %Y"
-    when "day"
-      "%A, %b %e, %Y"
-    when "hour"
-      "%A, %b %e, %H:%M"
-    end
-  end
-
   def campaign_date_range(campaign)
     "#{I18n.localize(campaign.start_date, format: :long).upcase} -
       #{I18n.localize(campaign.end_date, format: :long).upcase}"
