@@ -1,16 +1,20 @@
 <div id="app" class="app">
   <%= render 'shared/header' %>
   <div class="campaign-details app__container">
-    <h3 class="campaign-details__title"><%= t('messages.campaign_dashboard.filters_title') %></h3>
-    <%= render 'details_campaign_filters' %>
-    <h3 class="campaign-details__title"><%= t('messages.campaign_dashboard.details_title') %></h3>
-    <%= render 'details_summary_stats' %>
-    <div class="summary-graph campaign-details__graph">
-      <div class="summary-graph__selector">
-        <group-date-selector initial-group="<%= @date_group_by.to_s %>"></group-date-selector>
-      </div>
-      <div class="summary-graph__graph">
-        <chart v-bind:series="<%= campaign_graph_data(@campaign_stat).to_json %>" date_format="<%= date_format(@date_group_by.to_s) %>" ></chart>
+    <div class="campaign-details__sidebar">
+      <h3 class="campaign-details__title"><%= t('messages.campaign_dashboard.filters_title') %></h3>
+      <%= render 'details_campaign_filters' %>
+    </div>
+    <div class="campaign-details__main">
+      <h3 class="campaign-details__title"><%= t('messages.campaign_dashboard.details_title') %></h3>
+      <%= render 'details_summary_stats' %>
+      <div class="summary-graph campaign-details__graph">
+        <div class="summary-graph__selector">
+          <group-date-selector initial-group="<%= @date_group_by.to_s %>"></group-date-selector>
+        </div>
+        <div class="summary-graph__graph">
+          <chart v-bind:series="<%= campaign_graph_data(@campaign_stat).to_json %>" date_format="<%= date_format(@date_group_by.to_s) %>" ></chart>
+        </div>
       </div>
     </div>
   </div>

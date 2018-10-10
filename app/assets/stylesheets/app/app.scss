@@ -8,13 +8,15 @@
 
 .app {
   background-color: $main-bg-color;
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   text-align: center;
 
   &__container {
+    display: flex;
+    flex-grow: 1;
     text-align: left;
-    margin: 0 auto;
-    width: 1024px;
   }
 
   &__title {

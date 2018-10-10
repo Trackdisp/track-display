@@ -8,18 +8,21 @@
   <div class="campaign-details__filter">
     <select-filter :options="<%= @channels.to_json %>" label="name" initial-selected="<%= @channel %>" track-by="id" query-param="channel" :placeholder="$t('messages.campaignDetails.filters.channels')"></select-filter>
   </div>
+  <div class="campaign-details__filter-separator"></div>
   <div class="campaign-details__filter">
     <select-filter :options="<%= @communes.to_json %>" label="name" initial-selected="<%= @commune&.id %>" track-by="id" query-param="commune" :placeholder="$t('messages.campaignDetails.filters.communes')"></select-filter>
   </div>
   <div class="campaign-details__filter">
     <select-filter :options="<%= @regions.to_json %>" label="name" initial-selected="<%= @region&.id %>" track-by="id" query-param="region" :placeholder="$t('messages.campaignDetails.filters.regions')"></select-filter>
   </div>
+  <div class="campaign-details__filter-separator"></div>
   <div class="campaign-details__filter">
     <datetime-picker initial-value="<%= @after_date %>" query-param="after" :placeholder="$t('messages.campaignDetails.filters.afterDate')"></datetime-picker>
   </div>
   <div class="campaign-details__filter">
     <datetime-picker initial-value="<%= @before_date %>" query-param="before" :placeholder="$t('messages.campaignDetails.filters.beforeDate')"></datetime-picker>
   </div>
+  <div class="campaign-details__filter-separator"></div>
   <div class="campaign-details__filter">
     <select-filter :options="<%= gender_types_json %>" label="name" initial-selected="<%= @gender %>" track-by="id" query-param="gender" :placeholder="$t('messages.campaignDetails.filters.gender')"></select-filter>
   </div>
