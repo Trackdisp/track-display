@@ -15,7 +15,9 @@ class CampaignsController < BaseController
       gender: gender,
       location: location,
       brand: brand,
-      channel: channel
+      channel: channel,
+      commune: commune,
+      region: region
     )
     set_filters_options
   end
@@ -38,14 +40,15 @@ class CampaignsController < BaseController
 
   def set_filters_options
     all_locs = all_campaign_locations
-    locs_filtered_by_brand = all_locs.select { |l| l.brand_id == @brand&.id }
-    selected_locs = @brand ? locs_filtered_by_brand : all_locs
-    @locations = @channel ? selected_locs.select { |l| l.channel == @channel } : selected_locs
-    @brands = Brand.find(all_locs.pluck(:brand_id).uniq)
 
+    @locations = all_locs.filtered(build_locations_filters_hash)
+
+    @brands = Brand.find(all_locs.pluck(:brand_id).uniq)
     @channels = all_locs.reduce(Set.new) do |arr, loc|
       arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel)
     end
+    @regions = Region.find(all_locs.map(&:region_id).uniq)
+    @communes = filtered_communes(all_locs)
   end
 
   def all_campaign_locations
@@ -59,7 +62,24 @@ class CampaignsController < BaseController
                                  .pluck(:location_id).uniq
     all_locs_ids = measure_locs_ids | w_measure_locs_ids
 
-    all_locs_ids ? Location.find(all_locs_ids) : nil
+    all_locs_ids ? Location.where(id: all_locs_ids) : nil
+  end
+
+  def build_locations_filters_hash
+    filters = {}
+    filters[:brand_id] = @brand.id if @brand
+    filters[:region_id] = @region.id if @region
+    filters[:commune_id] = @commune.id if @commune
+    filters[:channel] = @channel if @channel
+    filters
+  end
+
+  def filtered_communes(all_locs)
+    if @region.nil?
+      Commune.find(all_locs.pluck(:commune_id).uniq)
+    else
+      Commune.find(all_locs.pluck(:commune_id).uniq & @region.communes.map(&:id))
+    end
   end
 
   def location
@@ -72,6 +92,14 @@ class CampaignsController < BaseController
 
   def channel
     @channel ||= params[:channel]
+  end
+
+  def commune
+    @commune ||= Commune.find_by(id: params[:commune].to_i) if params[:commune].present?
+  end
+
+  def region
+    @region ||= Region.find_by(id: params[:region].to_i) if params[:region].present?
   end
 
   def after_date

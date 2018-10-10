@@ -42,6 +42,8 @@ export default {
         locations: 'Locales',
         brands: 'Cadenas',
         channels: 'Canales',
+        communes: 'Comunas',
+        regions: 'Regiones',
       },
       stats: {
         contacts: 'Contactos',

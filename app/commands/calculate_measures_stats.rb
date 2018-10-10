@@ -1,6 +1,6 @@
 class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
   location: nil, brand: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil,
-  channel: nil)
+  channel: nil, commune: nil, region: nil)
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
 
@@ -20,13 +20,42 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
   end
 
   def build_must_definition
-    query = [{ term: { campaign_id: @campaign.id } }, { term: { device_active: true } }]
-    query.push(term: { location_id: @location.id }) if @location.present?
-    query.push(term: { brand_id: @brand.id }) if @brand.present?
-    query.push(term: { gender: @gender.to_s }) if @gender.present?
-    query.push(term: { channel: @channel.to_s }) if @channel.present?
-    query.push(range: { measured_at: check_date_range }) if should_check_date_range
+    add_gender_condition
+    add_date_condition
+    add_location_condition
+    add_brand_condition
+    add_channel_condition
+    add_commune_condition
+    add_region_condition
     query
+  end
+
+  def add_gender_condition
+    query.push(term: { gender: @gender.to_s }) if @gender.present?
+  end
+
+  def add_date_condition
+    query.push(range: { measured_at: check_date_range }) if @after_date || @before_date
+  end
+
+  def add_location_condition
+    query.push(term: { location_id: @location.id }) if @location.present?
+  end
+
+  def add_brand_condition
+    query.push(term: { brand_id: @brand.id }) if @brand.present?
+  end
+
+  def add_channel_condition
+    query.push(term: { channel: @channel.to_s }) if @channel.present?
+  end
+
+  def add_commune_condition
+    query.push(term: { commune_id: @commune.id }) if @commune.present?
+  end
+
+  def add_region_condition
+    query.push(term: { region_id: @region.id }) if @region.present?
   end
 
   def build_aggs_definitions
@@ -79,7 +108,7 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
     range_query
   end
 
-  def should_check_date_range
-    @after_date || @before_date
+  def query
+    @query ||= [{ term: { campaign_id: @campaign.id } }, { term: { device_active: true } }]
   end
 end

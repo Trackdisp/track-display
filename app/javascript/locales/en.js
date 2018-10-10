@@ -23,6 +23,8 @@ export default {
         locations: 'Locations',
         brands: 'Brands',
         channels: 'Channels',
+        communes: 'Communes',
+        regions: 'Regiones',
       },
       stats: {
         contacts: 'Contacts',

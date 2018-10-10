@@ -27,6 +27,8 @@ module Elastic
           indexes :items_max, type: 'integer'
           indexes :rotated_fraction, type: 'half_float'
           indexes :channel, type: 'text'
+          indexes :commune_id, type: 'integer'
+          indexes :region_id, type: 'integer'
         end
       end
 
@@ -35,7 +37,7 @@ module Elastic
                           :company_name, :location_name, :brand_name, :brand_id,
                           :measured_at, :item_weight, :shelf_weight, :current_weight,
                           :previous_weight, :items_count, :items_max, :rotated_fraction,
-                          :channel])
+                          :channel, :commune_id, :region_id])
       end
     end
   end
