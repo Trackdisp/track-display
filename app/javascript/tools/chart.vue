@@ -24,6 +24,7 @@ export default {
           formatter() {
             let date;
             let startDate = new Date(this.x);
+            startDate.setMinutes(startDate.getMinutes() + startDate.getTimezoneOffset());
             switch (that.groupBy) {
               case "week":
                 const endDate = new Date(startDate.getTime());
