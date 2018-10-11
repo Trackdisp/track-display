@@ -1,7 +1,9 @@
 export default {
   name: 'Name',
   conjunctions: {
-    and: 'y',
+    and: 'and',
+    of: 'of',
+    to: 'to',
   },
   graphs: {},
   groupDateSelector: {

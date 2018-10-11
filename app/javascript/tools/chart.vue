@@ -4,6 +4,7 @@
 
 <script>
 import format from 'date-fns/format';
+import es from 'date-fns/locale/es';
 
 export default {
   props: {
@@ -22,24 +23,41 @@ export default {
           shared: true,
           useHTML: true,
           formatter() {
-            let date;
-            let startDate = new Date(this.x);
+            const ofTranslation = that.$i18n.t('conjunctions.of');
+            const toTranslation = that.$i18n.t('conjunctions.to');
+            const daysToNextWeek = 6;
+            const startDate = new Date(this.x);
+            let dateFormat;
             startDate.setMinutes(startDate.getMinutes() + startDate.getTimezoneOffset());
-            switch (that.groupBy) {
-              case "week":
+
+            function formatDate() {
+              let date;
+
+              function weekFormat() {
                 const endDate = new Date(startDate.getTime());
-                endDate.setDate(endDate.getDate() + 6);
-                date = format(startDate, "D [de] MMMM");
-                date += ` al ${format(endDate, "D [de] MMMM")}`;
-                break;
-              case "day":
-                date = format(startDate, "D [de] MMMM [de] YYYY");
-                break;
-              case "hour":
-                date = format(startDate, "D [de] MMMM [de] YYYY, HH:mm");
-                break;
+                endDate.setDate(endDate.getDate() + daysToNextWeek);
+                dateFormat = `D [${ofTranslation}] MMMM`;
+
+                const formatedEndDate = format(endDate, dateFormat, { locale: es });
+
+                date = format(startDate, dateFormat, { locale: es });
+                date += ` ${toTranslation} ${formatedEndDate}`;
+              }
+
+              if (that.groupBy === 'week') {
+                weekFormat();
+              } else if (that.groupBy === 'day') {
+                dateFormat = `D [${ofTranslation}] MMMM [${ofTranslation}] YYYY`;
+                date = format(startDate, dateFormat, { locale: es });
+              } else if (that.groupBy === 'hour') {
+                dateFormat = `D [${ofTranslation}] MMMM [${ofTranslation}] YYYY, HH:mm`;
+                date = format(startDate, dateFormat, { locale: es });
+              }
+
+              return date;
             }
-            let pointFormat = `${date}<br/>`
+
+            let pointFormat = `${formatDate()}<br/>`;
 
             this.points.forEach(point => {
               pointFormat += `<span style="color:${point.color}">\u25CF</span>

@@ -2,6 +2,8 @@ export default {
   name: 'Nombre',
   conjunctions: {
     and: 'y',
+    of: 'de',
+    to: 'al',
   },
   graphs: {
     loading: 'Cargando...',
