@@ -1,5 +1,16 @@
 @import './base';
 
+.campaigns {
+  margin: 0 auto;
+  width: 1024px;
+
+  &__title {
+    color: $primary-font-color;
+    font-family: $main-font;
+    font-weight: bold;
+  }
+}
+
 .campaign-option {
   display: flex;
   flex-direction: column;
