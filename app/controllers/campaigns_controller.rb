@@ -13,7 +13,7 @@ class CampaignsController < BaseController
       campaign: campaign,
       date_group: date_group_by,
       gender: gender,
-      location: location,
+      locations: selected_locations,
       brand: brand,
       channel: channel,
       commune: commune,
@@ -82,8 +82,12 @@ class CampaignsController < BaseController
     end
   end
 
-  def location
-    @location ||= Location.find_by(id: params[:location].to_i) if params[:location].present?
+  def selected_locations
+    @selected_locations ||= Set.new
+    params[:locations]&.each do |location|
+      @selected_locations.add(Location.find_by(id: location.to_i))
+    end
+    @selected_locations
   end
 
   def brand

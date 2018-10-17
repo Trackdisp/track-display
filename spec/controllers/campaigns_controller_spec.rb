@@ -38,9 +38,9 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
         expect(response).to have_http_status(:success)
       end
 
-      it "filters values are nil" do
+      it "filters values are empty" do
         get :show, params: { slug: campaign.slug }
-        expect(assigns(:location)).to eq(nil)
+        expect(assigns(:selected_locations)).to eq(Set.new)
         expect(assigns(:brand)).to eq(nil)
         expect(assigns(:channel)).to eq(nil)
       end
@@ -92,10 +92,12 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
       end
     end
 
-    describe "with selected location" do
-      it "location filter value is the one sent" do
-        get :show, params: { slug: campaign.slug, location: measures[0].location_id }
-        expect(assigns(:location)).to eq(measures[0].location)
+    describe "with selected locations" do
+      it "location filter values are the ones sent" do
+        get :show, params: { slug: campaign.slug, locations: [measures[0].location_id,
+                                                              measures[2].location_id] }
+        expect(assigns(:selected_locations)).to eq(Set.new([measures[0].location,
+                                                            measures[2].location]))
       end
     end
 

@@ -1,5 +1,5 @@
 class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
-  location: nil, brand: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil,
+  locations: nil, brand: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil,
   channel: nil, commune: nil, region: nil)
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
@@ -22,7 +22,7 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
   def build_must_definition
     add_gender_condition
     add_date_condition
-    add_location_condition
+    add_location_conditions
     add_brand_condition
     add_channel_condition
     add_commune_condition
@@ -38,8 +38,11 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
     query.push(range: { measured_at: check_date_range }) if @after_date || @before_date
   end
 
-  def add_location_condition
-    query.push(term: { location_id: @location.id }) if @location.present?
+  def add_location_conditions
+    location_options = @locations&.reduce(Array.new) do |arr, location|
+      arr.push(term: { location_id: location.id })
+    end
+    query.push(bool: { should: location_options }) if location_options
   end
 
   def add_brand_condition

@@ -1,18 +1,18 @@
 <template>
-  <vue-multiselect :options="options" :class="selectClass" :label="label" :track-by="trackBy" v-model="filterValue" :placeholder="placeholder" :show-labels="false"></vue-multiselect>
+  <vue-multiselect :options="options" :multiple="true" :class="selectClass" :label="label" :track-by="trackBy" v-model="filterValue" :placeholder="placeholder" :show-labels="false"></vue-multiselect>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect';
-import { changeURLQueryParam, removeURLQueryParam } from '../helpers/url-helper';
+import changeURLQueryParam from '../helpers/url-helper';
 
 export default {
   props: ['options', 'label', 'initialSelected', 'trackBy', 'placeholder', 'queryParam'],
   data() {
-    const filterVal = this.options.find(opt => String(opt[this.trackBy]) === this.initialSelected);
-    if (this.initialSelected && filterVal === undefined) {
-      window.location.search = removeURLQueryParam(this.queryParam);
-    }
+    const filterVal = this.options.filter(opt => this.initialSelected.includes(opt[this.trackBy]));
+    // if (this.initialSelected && filterVal === undefined) {
+    //   window.location.search = removeURLQueryParam(this.queryParam);
+    // }
 
     return {
       filterValue: filterVal,
@@ -29,12 +29,8 @@ export default {
     },
   },
   watch: {
-    filterValue(val) {
-      if (val) {
-        window.location.search = changeURLQueryParam(this.queryParam, val[this.trackBy]);
-      } else {
-        window.location.search = removeURLQueryParam(this.queryParam);
-      }
+    filterValue(values) {
+      window.location.search = changeURLQueryParam(this.queryParam, values.map(val => val[this.trackBy]));
     },
   },
 };
