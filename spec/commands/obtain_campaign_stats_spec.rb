@@ -8,7 +8,7 @@ describe ObtainCampaignStats do
   describe '#perform' do
     let(:campaign) { create(:campaign) }
     let(:locations) { [create(:location), create(:location)] }
-    let(:brand) { create(:brand) }
+    let(:brands) { [create(:brand), create(:brand)] }
     let(:commune) { create(:commune) }
     let(:region) { create(:region) }
     let(:channel) { 'traditional' }
@@ -27,7 +27,7 @@ describe ObtainCampaignStats do
       {
         campaign: campaign,
         locations: locations,
-        brand: brand,
+        brands: brands,
         commune: commune,
         region: region,
         channel: channel,

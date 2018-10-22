@@ -17,7 +17,7 @@ class Location < ApplicationRecord
 
   def self.filtered(filters = {})
     q = all
-    q = q.where(brand_id: filters[:brand_id]) if filters.has_key? :brand_id
+    q = q.where(brand_id: filters[:brand_ids]) if filters.has_key? :brand_ids
     q = q.where(commune_id: filters[:commune_id]) if filters.has_key? :commune_id
     q = q.where(channel: filters[:channel]) if filters.has_key? :channel
     if filters.has_key? :region_id

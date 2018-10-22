@@ -9,10 +9,11 @@ import changeURLQueryParam from '../helpers/url-helper';
 export default {
   props: ['options', 'label', 'initialSelected', 'trackBy', 'placeholder', 'queryParam'],
   data() {
+    const initialSelectedInOptions = this.initialSelected.filter(selected => this.options.map(val => val[this.trackBy]).includes(selected));
+    if (this.initialSelected.length !== initialSelectedInOptions.length) {
+      window.location.search = changeURLQueryParam(this.queryParam, initialSelectedInOptions);
+    }
     const filterVal = this.options.filter(opt => this.initialSelected.includes(opt[this.trackBy]));
-    // if (this.initialSelected && filterVal === undefined) {
-    //   window.location.search = removeURLQueryParam(this.queryParam);
-    // }
 
     return {
       filterValue: filterVal,

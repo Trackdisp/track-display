@@ -1,5 +1,5 @@
 class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
-  locations: nil, brand: nil, date_group: :day, after_date: nil, before_date: nil, channel: nil,
+  locations: nil, brands: nil, date_group: :day, after_date: nil, before_date: nil, channel: nil,
   commune: nil, region: nil)
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
@@ -22,7 +22,7 @@ class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
   def build_must_definition
     add_date_condition
     add_location_conditions
-    add_brand_condition
+    add_brand_conditions
     add_channel_condition
     add_commune_condition
     add_region_condition
@@ -40,8 +40,11 @@ class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
     query.push(bool: { should: location_options }) if location_options
   end
 
-  def add_brand_condition
-    query.push(term: { brand_id: @brand.id }) if @brand.present?
+  def add_brand_conditions
+    brand_options = @brands&.reduce(Array.new) do |arr, brand|
+      arr.push(term: { brand_id: brand.id })
+    end
+    query.push(bool: { should: brand_options }) if brand_options
   end
 
   def add_channel_condition

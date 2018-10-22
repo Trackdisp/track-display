@@ -41,7 +41,7 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
       it "filters values are empty" do
         get :show, params: { slug: campaign.slug }
         expect(assigns(:selected_locations)).to eq(Set.new)
-        expect(assigns(:brand)).to eq(nil)
+        expect(assigns(:selected_brands)).to eq(Set.new)
         expect(assigns(:channel)).to eq(nil)
       end
 
@@ -101,15 +101,18 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
       end
     end
 
-    describe "with selected brand" do
-      it "location filter options are only of sent brand" do
-        get :show, params: { slug: campaign.slug, brand: measures[0].location.brand_id }
-        expect(assigns(:locations)).to eq([measures[0].location])
+    describe "with selected brands" do
+      it "location filter options are only of sent brands" do
+        get :show, params: { slug: campaign.slug, brands: [measures[0].location.brand_id,
+                                                           measures[2].location.brand_id] }
+        expect(assigns(:locations)).to eq([measures[0].location, measures[2].location])
       end
 
-      it "brand filter value is the one sent" do
-        get :show, params: { slug: campaign.slug, brand: measures[0].location.brand_id }
-        expect(assigns(:brand)).to eq(measures[0].location.brand)
+      it "brand filter values are the ones sent" do
+        get :show, params: { slug: campaign.slug, brands: [measures[0].location.brand_id,
+                                                           measures[2].location.brand_id] }
+        expect(assigns(:selected_brands)).to eq(Set.new([measures[0].location.brand,
+                                                         measures[2].location.brand]))
       end
     end
 

@@ -14,7 +14,7 @@ class CampaignsController < BaseController
       date_group: date_group_by,
       gender: gender,
       locations: selected_locations,
-      brand: brand,
+      brands: selected_brands,
       channel: channel,
       commune: commune,
       region: region
@@ -67,7 +67,7 @@ class CampaignsController < BaseController
 
   def build_locations_filters_hash
     filters = {}
-    filters[:brand_id] = @brand.id if @brand
+    filters[:brand_ids] = @selected_brands.map(&:id) unless @selected_brands&.empty?
     filters[:region_id] = @region.id if @region
     filters[:commune_id] = @commune.id if @commune
     filters[:channel] = @channel if @channel
@@ -90,8 +90,12 @@ class CampaignsController < BaseController
     @selected_locations
   end
 
-  def brand
-    @brand ||= Brand.find_by(id: params[:brand].to_i) if params[:brand].present?
+  def selected_brands
+    @selected_brands ||= Set.new
+    params[:brands]&.each do |brand|
+      @selected_brands.add(Brand.find_by(id: brand.to_i))
+    end
+    @selected_brands
   end
 
   def channel
