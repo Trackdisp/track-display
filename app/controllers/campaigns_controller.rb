@@ -15,7 +15,7 @@ class CampaignsController < BaseController
       gender: gender,
       locations: selected_locations,
       brands: selected_brands,
-      channel: channel,
+      channels: selected_channels,
       commune: commune,
       region: region
     )
@@ -70,7 +70,7 @@ class CampaignsController < BaseController
     filters[:brand_ids] = @selected_brands.map(&:id) unless @selected_brands&.empty?
     filters[:region_id] = @region.id if @region
     filters[:commune_id] = @commune.id if @commune
-    filters[:channel] = @channel if @channel
+    filters[:channels] = @selected_channels unless @selected_channels&.empty?
     filters
   end
 
@@ -98,8 +98,10 @@ class CampaignsController < BaseController
     @selected_brands
   end
 
-  def channel
-    @channel ||= params[:channel]
+  def selected_channels
+    @selected_channels ||= Set.new
+    @selected_channels.merge(params[:channels]) if params[:channels]
+    @selected_channels
   end
 
   def commune

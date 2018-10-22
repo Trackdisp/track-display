@@ -42,7 +42,7 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
         get :show, params: { slug: campaign.slug }
         expect(assigns(:selected_locations)).to eq(Set.new)
         expect(assigns(:selected_brands)).to eq(Set.new)
-        expect(assigns(:channel)).to eq(nil)
+        expect(assigns(:selected_channels)).to eq(Set.new)
       end
 
       it "sets locations filter options considering only active devices from campaign" do
@@ -118,13 +118,13 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
 
     describe "with selected channel" do
       it "location filter options are only of sent channel" do
-        get :show, params: { slug: campaign.slug, channel: "supermarket" }
-        expect(assigns(:locations)).to eq([measures[2].location])
+        get :show, params: { slug: campaign.slug, channels: ["supermarket", "traditional"] }
+        expect(assigns(:locations)).to eq([measures[0].location, measures[2].location])
       end
 
       it "channel filter value is the one sent" do
-        get :show, params: { slug: campaign.slug, channel: "supermarket" }
-        expect(assigns(:channel)).to eq("supermarket")
+        get :show, params: { slug: campaign.slug, channels: ["supermarket", "traditional"] }
+        expect(assigns(:selected_channels)).to eq(Set.new(["supermarket", "traditional"]))
       end
     end
 
