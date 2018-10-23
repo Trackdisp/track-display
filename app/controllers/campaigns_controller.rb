@@ -16,7 +16,7 @@ class CampaignsController < BaseController
       locations: selected_locations,
       brands: selected_brands,
       channels: selected_channels,
-      commune: commune,
+      communes: selected_communes,
       region: region
     )
     set_filters_options
@@ -69,7 +69,7 @@ class CampaignsController < BaseController
     filters = {}
     filters[:brand_ids] = @selected_brands.map(&:id) unless @selected_brands&.empty?
     filters[:region_id] = @region.id if @region
-    filters[:commune_id] = @commune.id if @commune
+    filters[:commune_ids] = @selected_communes.map(&:id) unless @selected_communes&.empty?
     filters[:channels] = @selected_channels unless @selected_channels&.empty?
     filters
   end
@@ -104,8 +104,12 @@ class CampaignsController < BaseController
     @selected_channels
   end
 
-  def commune
-    @commune ||= Commune.find_by(id: params[:commune].to_i) if params[:commune].present?
+  def selected_communes
+    @selected_communes ||= Set.new
+    params[:communes]&.each do |commune|
+      @selected_communes.add(Commune.find_by(id: commune.to_i))
+    end
+    @selected_communes
   end
 
   def region

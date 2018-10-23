@@ -43,6 +43,7 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
         expect(assigns(:selected_locations)).to eq(Set.new)
         expect(assigns(:selected_brands)).to eq(Set.new)
         expect(assigns(:selected_channels)).to eq(Set.new)
+        expect(assigns(:selected_communes)).to eq(Set.new)
       end
 
       it "sets locations filter options considering only active devices from campaign" do
@@ -116,27 +117,30 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
       end
     end
 
-    describe "with selected channel" do
-      it "location filter options are only of sent channel" do
+    describe "with selected channels" do
+      it "location filter options are only of sent channels" do
         get :show, params: { slug: campaign.slug, channels: ["supermarket", "traditional"] }
         expect(assigns(:locations)).to eq([measures[0].location, measures[2].location])
       end
 
-      it "channel filter value is the one sent" do
+      it "channel filter values are the ones sent" do
         get :show, params: { slug: campaign.slug, channels: ["supermarket", "traditional"] }
         expect(assigns(:selected_channels)).to eq(Set.new(["supermarket", "traditional"]))
       end
     end
 
-    describe "with selected commune" do
-      it "location filter options are only of sent commune" do
-        get :show, params: { slug: campaign.slug, commune: measures[0].location.commune_id }
-        expect(assigns(:locations)).to eq([measures[0].location])
+    describe "with selected communes" do
+      it "location filter options are only of sent communes" do
+        get :show, params: { slug: campaign.slug, communes: [measures[0].location.commune_id,
+                                                             measures[2].location.commune_id] }
+        expect(assigns(:locations)).to eq([measures[0].location, measures[2].location])
       end
 
-      it "commune filter value is the one sent" do
-        get :show, params: { slug: campaign.slug, commune: measures[0].location.commune_id }
-        expect(assigns(:commune)).to eq(measures[0].location.commune)
+      it "commune filter values are the ones sent" do
+        get :show, params: { slug: campaign.slug, communes: [measures[0].location.commune_id,
+                                                             measures[2].location.commune_id] }
+        expect(assigns(:selected_communes)).to eq(Set.new([measures[0].location.commune,
+                                                           measures[2].location.commune]))
       end
     end
 
