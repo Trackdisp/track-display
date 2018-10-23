@@ -20,8 +20,8 @@ class Location < ApplicationRecord
     q = q.where(brand_id: filters[:brand_ids]) if filters.has_key? :brand_ids
     q = q.where(channel: filters[:channels]) if filters.has_key? :channels
     q = q.where(commune_id: filters[:commune_ids]) if filters.has_key? :commune_ids
-    if filters.has_key? :region_id
-      q = q.where(commune_id: Commune.where(region_id: filters[:region_id]).pluck(:id))
+    if filters.has_key? :region_ids
+      q = q.where(commune_id: Commune.where(region_id: filters[:region_ids]).pluck(:id))
     end
     q
   end

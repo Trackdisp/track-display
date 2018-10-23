@@ -17,7 +17,7 @@ class CampaignsController < BaseController
       brands: selected_brands,
       channels: selected_channels,
       communes: selected_communes,
-      region: region
+      regions: selected_regions
     )
     set_filters_options
   end
@@ -68,17 +68,19 @@ class CampaignsController < BaseController
   def build_locations_filters_hash
     filters = {}
     filters[:brand_ids] = @selected_brands.map(&:id) unless @selected_brands&.empty?
-    filters[:region_id] = @region.id if @region
-    filters[:commune_ids] = @selected_communes.map(&:id) unless @selected_communes&.empty?
     filters[:channels] = @selected_channels unless @selected_channels&.empty?
+    filters[:commune_ids] = @selected_communes.map(&:id) unless @selected_communes&.empty?
+    filters[:region_ids] = @selected_regions.map(&:id) unless @selected_regions&.empty?
     filters
   end
 
   def filtered_communes(all_locs)
-    if @region.nil?
-      Commune.find(all_locs.pluck(:commune_id).uniq)
+    all_communes_ids = all_locs.pluck(:commune_id).uniq
+    if @selected_regions.empty?
+      Commune.find(all_communes_ids)
     else
-      Commune.find(all_locs.pluck(:commune_id).uniq & @region.communes.map(&:id))
+      selected_regions_communes_ids = @selected_regions.map(&:communes).flatten.map(&:id)
+      Commune.find(all_communes_ids & selected_regions_communes_ids)
     end
   end
 
@@ -112,8 +114,12 @@ class CampaignsController < BaseController
     @selected_communes
   end
 
-  def region
-    @region ||= Region.find_by(id: params[:region].to_i) if params[:region].present?
+  def selected_regions
+    @selected_regions ||= Set.new
+    params[:regions]&.each do |region|
+      @selected_regions.add(Region.find_by(id: region.to_i))
+    end
+    @selected_regions
   end
 
   def after_date
