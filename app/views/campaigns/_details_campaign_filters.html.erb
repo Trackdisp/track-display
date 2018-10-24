@@ -1,19 +1,19 @@
 <div class="campaign-details__filters-container">
   <div class="campaign-details__filter">
-    <select-filter :options="<%= @locations.to_json %>" label="name" initial-selected="<%= @location&.id %>" track-by="id" query-param="location" :placeholder="$t('messages.campaignDetails.filters.locations')"></select-filter>
+    <select-filter :options="<%= @locations.to_json %>" label="name" :initial-selected="<%= @selected_locations&.map(&:id) %>" track-by="id" query-param="locations[]" :placeholder="$t('messages.campaignDetails.filters.locations')" :multiple="true"></select-filter>
   </div>
   <div class="campaign-details__filter">
-    <select-filter :options="<%= @brands.to_json %>" label="name" initial-selected="<%= @brand&.id %>" track-by="id" query-param="brand" :placeholder="$t('messages.campaignDetails.filters.brands')"></select-filter>
+    <select-filter :options="<%= @brands.to_json %>" label="name" :initial-selected="<%= @selected_brands&.map(&:id) %>" track-by="id" query-param="brands[]" :placeholder="$t('messages.campaignDetails.filters.brands')" :multiple="true"></select-filter>
   </div>
   <div class="campaign-details__filter">
-    <select-filter :options="<%= @channels.to_json %>" label="name" initial-selected="<%= @channel %>" track-by="id" query-param="channel" :placeholder="$t('messages.campaignDetails.filters.channels')"></select-filter>
+    <select-filter :options="<%= @channels.to_json %>" label="name" :initial-selected="<%= @selected_channels.to_a %>" track-by="id" query-param="channels[]" :placeholder="$t('messages.campaignDetails.filters.channels')" :multiple="true"></select-filter>
   </div>
   <div class="campaign-details__filter-separator"></div>
   <div class="campaign-details__filter">
-    <select-filter :options="<%= @communes.to_json %>" label="name" initial-selected="<%= @commune&.id %>" track-by="id" query-param="commune" :placeholder="$t('messages.campaignDetails.filters.communes')"></select-filter>
+    <select-filter :options="<%= @communes.to_json %>" label="name" :initial-selected="<%= @selected_communes&.map(&:id) %>" track-by="id" query-param="communes[]" :placeholder="$t('messages.campaignDetails.filters.communes')" :multiple="true"></select-filter>
   </div>
   <div class="campaign-details__filter">
-    <select-filter :options="<%= @regions.to_json %>" label="name" initial-selected="<%= @region&.id %>" track-by="id" query-param="region" :placeholder="$t('messages.campaignDetails.filters.regions')"></select-filter>
+    <select-filter :options="<%= @regions.to_json %>" label="name" :initial-selected="<%= @selected_regions&.map(&:id) %>" track-by="id" query-param="regions[]" :placeholder="$t('messages.campaignDetails.filters.regions')" :multiple="true"></select-filter>
   </div>
   <div class="campaign-details__filter-separator"></div>
   <div class="campaign-details__filter">

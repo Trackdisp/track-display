@@ -1,6 +1,6 @@
 class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
-  location: nil, brand: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil,
-  channel: nil, commune: nil, region: nil)
+  locations: nil, brands: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil,
+  channels: nil, communes: nil, regions: nil)
   ES_SEARCH_SIZE = 10000
   TIME_FORMAT = '%Y-%m-%d'
 
@@ -22,11 +22,11 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
   def build_must_definition
     add_gender_condition
     add_date_condition
-    add_location_condition
-    add_brand_condition
-    add_channel_condition
-    add_commune_condition
-    add_region_condition
+    add_location_conditions
+    add_brand_conditions
+    add_channel_conditions
+    add_commune_conditions
+    add_region_conditions
     query
   end
 
@@ -38,24 +38,39 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
     query.push(range: { measured_at: check_date_range }) if @after_date || @before_date
   end
 
-  def add_location_condition
-    query.push(term: { location_id: @location.id }) if @location.present?
+  def add_location_conditions
+    location_options = @locations&.reduce(Array.new) do |arr, location|
+      arr.push(term: { location_id: location.id })
+    end
+    query.push(bool: { should: location_options }) if location_options
   end
 
-  def add_brand_condition
-    query.push(term: { brand_id: @brand.id }) if @brand.present?
+  def add_brand_conditions
+    brand_options = @brands&.reduce(Array.new) do |arr, brand|
+      arr.push(term: { brand_id: brand.id })
+    end
+    query.push(bool: { should: brand_options }) if brand_options
   end
 
-  def add_channel_condition
-    query.push(term: { channel: @channel.to_s }) if @channel.present?
+  def add_channel_conditions
+    channel_options = @channels&.reduce(Array.new) do |arr, channel|
+      arr.push(term: { channel: channel })
+    end
+    query.push(bool: { should: channel_options }) if channel_options
   end
 
-  def add_commune_condition
-    query.push(term: { commune_id: @commune.id }) if @commune.present?
+  def add_commune_conditions
+    commune_options = @communes&.reduce(Array.new) do |arr, commune|
+      arr.push(term: { commune_id: commune.id })
+    end
+    query.push(bool: { should: commune_options }) if commune_options
   end
 
-  def add_region_condition
-    query.push(term: { region_id: @region.id }) if @region.present?
+  def add_region_conditions
+    region_options = @regions&.reduce(Array.new) do |arr, region|
+      arr.push(term: { region_id: region.id })
+    end
+    query.push(bool: { should: region_options }) if region_options
   end
 
   def build_aggs_definitions

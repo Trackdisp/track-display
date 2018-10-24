@@ -7,11 +7,12 @@ describe ObtainCampaignStats do
 
   describe '#perform' do
     let(:campaign) { create(:campaign) }
-    let(:location) { create(:location) }
-    let(:brand) { create(:brand) }
-    let(:commune) { create(:commune) }
+    let(:locations) { [create(:location), create(:location)] }
+    let(:brands) { [create(:brand), create(:brand)] }
+    let(:communes) { [create(:commune), create(:commune)] }
+    let(:regions) { [create(:region), create(:region)] }
     let(:region) { create(:region) }
-    let(:channel) { 'traditional' }
+    let(:channels) { ['traditional', 'supermarket'] }
     let(:after_date) { Time.now - 11.days }
     let(:before_date) { Time.now }
     let(:contacts_date_01) { '2018-03-11T00:00:00.000-03:00' }
@@ -26,11 +27,11 @@ describe ObtainCampaignStats do
     let(:search_params) do
       {
         campaign: campaign,
-        location: location,
-        brand: brand,
-        commune: commune,
-        region: region,
-        channel: channel,
+        locations: locations,
+        brands: brands,
+        communes: communes,
+        regions: regions,
+        channels: channels,
         after_date: after_date,
         before_date: before_date,
         date_group: date_group

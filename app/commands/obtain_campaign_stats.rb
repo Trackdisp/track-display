@@ -1,6 +1,6 @@
 class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
-  location: nil, brand: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil,
-  channel: nil, commune: nil, region: nil)
+  locations: nil, brands: nil, date_group: :day, after_date: nil, before_date: nil, gender: nil,
+  channels: nil, communes: nil, regions: nil)
   def perform
     measures = parse_measures_stats(
       CalculateMeasuresStats.for(search_params.merge(gender: @gender))
@@ -105,11 +105,11 @@ class ObtainCampaignStats < PowerTypes::Command.new(:campaign,
   def search_params
     {
       campaign: @campaign,
-      location: @location,
-      channel: @channel,
-      brand: @brand,
-      commune: @commune,
-      region: @region,
+      locations: @locations,
+      channels: @channels,
+      brands: @brands,
+      communes: @communes,
+      regions: @regions,
       after_date: @after_date,
       before_date: @before_date,
       date_group: @date_group

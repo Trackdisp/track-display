@@ -5,7 +5,7 @@
 <script>
 import flatPickr from 'vue-flatpickr-component';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';
-import { changeURLQueryParam, removeURLQueryParam } from '../helpers/url-helper';
+import changeURLQueryParam from '../helpers/url-helper';
 
 export default {
   props: ['initialValue', 'placeholder', 'queryParam'],
@@ -29,11 +29,7 @@ export default {
   methods: {
     modifyParamFilter(selectedDates, dateStr) {
       if (this.date !== dateStr) {
-        if (dateStr) {
-          window.location.search = changeURLQueryParam(this.queryParam, dateStr);
-        } else {
-          window.location.search = removeURLQueryParam(this.queryParam);
-        }
+        window.location.search = changeURLQueryParam(this.queryParam, dateStr);
       }
     },
   },

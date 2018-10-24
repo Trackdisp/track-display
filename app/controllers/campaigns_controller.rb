@@ -13,11 +13,11 @@ class CampaignsController < BaseController
       campaign: campaign,
       date_group: date_group_by,
       gender: gender,
-      location: location,
-      brand: brand,
-      channel: channel,
-      commune: commune,
-      region: region
+      locations: selected_locations,
+      brands: selected_brands,
+      channels: selected_channels,
+      communes: selected_communes,
+      regions: selected_regions
     )
     set_filters_options
   end
@@ -67,39 +67,59 @@ class CampaignsController < BaseController
 
   def build_locations_filters_hash
     filters = {}
-    filters[:brand_id] = @brand.id if @brand
-    filters[:region_id] = @region.id if @region
-    filters[:commune_id] = @commune.id if @commune
-    filters[:channel] = @channel if @channel
+    filters[:brand_ids] = @selected_brands.map(&:id) unless @selected_brands&.empty?
+    filters[:channels] = @selected_channels unless @selected_channels&.empty?
+    filters[:commune_ids] = @selected_communes.map(&:id) unless @selected_communes&.empty?
+    filters[:region_ids] = @selected_regions.map(&:id) unless @selected_regions&.empty?
     filters
   end
 
   def filtered_communes(all_locs)
-    if @region.nil?
-      Commune.find(all_locs.pluck(:commune_id).uniq)
+    all_communes_ids = all_locs.pluck(:commune_id).uniq
+    if @selected_regions.empty?
+      Commune.find(all_communes_ids)
     else
-      Commune.find(all_locs.pluck(:commune_id).uniq & @region.communes.map(&:id))
+      selected_regions_communes_ids = @selected_regions.map(&:communes).flatten.map(&:id)
+      Commune.find(all_communes_ids & selected_regions_communes_ids)
     end
   end
 
-  def location
-    @location ||= Location.find_by(id: params[:location].to_i) if params[:location].present?
+  def selected_locations
+    @selected_locations ||= Set.new
+    params[:locations]&.each do |location|
+      @selected_locations.add(Location.find_by(id: location.to_i))
+    end
+    @selected_locations
   end
 
-  def brand
-    @brand ||= Brand.find_by(id: params[:brand].to_i) if params[:brand].present?
+  def selected_brands
+    @selected_brands ||= Set.new
+    params[:brands]&.each do |brand|
+      @selected_brands.add(Brand.find_by(id: brand.to_i))
+    end
+    @selected_brands
   end
 
-  def channel
-    @channel ||= params[:channel]
+  def selected_channels
+    @selected_channels ||= Set.new
+    @selected_channels.merge(params[:channels]) if params[:channels]
+    @selected_channels
   end
 
-  def commune
-    @commune ||= Commune.find_by(id: params[:commune].to_i) if params[:commune].present?
+  def selected_communes
+    @selected_communes ||= Set.new
+    params[:communes]&.each do |commune|
+      @selected_communes.add(Commune.find_by(id: commune.to_i))
+    end
+    @selected_communes
   end
 
-  def region
-    @region ||= Region.find_by(id: params[:region].to_i) if params[:region].present?
+  def selected_regions
+    @selected_regions ||= Set.new
+    params[:regions]&.each do |region|
+      @selected_regions.add(Region.find_by(id: region.to_i))
+    end
+    @selected_regions
   end
 
   def after_date

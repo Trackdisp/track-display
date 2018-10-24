@@ -1,17 +1,26 @@
 <template>
-  <vue-multiselect :options="options" :class="selectClass" :label="label" :track-by="trackBy" v-model="filterValue" :placeholder="placeholder" :show-labels="false"></vue-multiselect>
+  <vue-multiselect :options="options" :multiple="multiple" :class="selectClass" :label="label" :track-by="trackBy" v-model="filterValue" :placeholder="placeholder" :show-labels="false"></vue-multiselect>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect';
-import { changeURLQueryParam, removeURLQueryParam } from '../helpers/url-helper';
+import changeURLQueryParam from '../helpers/url-helper';
 
 export default {
-  props: ['options', 'label', 'initialSelected', 'trackBy', 'placeholder', 'queryParam'],
+  props: ['options', 'label', 'initialSelected', 'trackBy', 'placeholder', 'queryParam', 'multiple'],
   data() {
-    const filterVal = this.options.find(opt => String(opt[this.trackBy]) === this.initialSelected);
-    if (this.initialSelected && filterVal === undefined) {
-      window.location.search = removeURLQueryParam(this.queryParam);
+    let filterVal;
+    if (this.multiple) {
+      const initialSelectedInOptions = this.initialSelected.filter(selected => this.options.map(val => val[this.trackBy]).includes(selected));
+      if (this.initialSelected.length !== initialSelectedInOptions.length) {
+        window.location.search = changeURLQueryParam(this.queryParam, initialSelectedInOptions);
+      }
+      filterVal = this.options.filter(opt => this.initialSelected.includes(opt[this.trackBy]));
+    } else {
+      filterVal = this.options.find(opt => String(opt[this.trackBy]) === this.initialSelected);
+      if (this.initialSelected && filterVal === undefined) {
+        window.location.search = changeURLQueryParam(this.queryParam, filterVal);
+      }
     }
 
     return {
@@ -29,12 +38,14 @@ export default {
     },
   },
   watch: {
-    filterValue(val) {
-      if (val) {
-        window.location.search = changeURLQueryParam(this.queryParam, val[this.trackBy]);
+    filterValue(values) {
+      let paramValue;
+      if (this.multiple) {
+        paramValue = values.map(val => val[this.trackBy]);
       } else {
-        window.location.search = removeURLQueryParam(this.queryParam);
+        paramValue = values ? values[this.trackBy] : values;
       }
+      window.location.search = changeURLQueryParam(this.queryParam, paramValue);
     },
   },
 };
