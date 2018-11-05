@@ -43,10 +43,11 @@ class CampaignsController < BaseController
 
     @locations = all_locs.filtered(build_locations_filters_hash)
 
-    @brands = Brand.find(all_locs.pluck(:brand_id).uniq)
+    @brands = Brand.find(all_locs.pluck(:brand_id).compact.uniq) || []
     @channels = all_locs.reduce(Set.new) do |arr, loc|
-      arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel)
+      arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel) if loc.channel
     end
+    @channels ||= []
     @regions = Region.find(all_locs.map(&:region_id).uniq)
     @communes = filtered_communes(all_locs)
   end
