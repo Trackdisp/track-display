@@ -76,6 +76,11 @@ export default {
         legend: false,
         credits: false,
         colors: ['#11b0fc', '#00c46c', '#fe7b4f'],
+        plotOptions: {
+          series: {
+            turboThreshold: 0,
+          },
+        },
         series: this.series,
       },
     };
