@@ -59,14 +59,14 @@ export default {
 
             let pointFormat = `${formatDate()}<br/>`;
 
-            this.points.forEach(point => {
-              pointFormat += `<span style="color:${point.color}">\u25CF</span>
-                ${point.series.name}: <b>${point.y}</b> <br/>`;
+            this.points.forEach(pointExtended => {
+              pointFormat += `<span style="color:${pointExtended.color}">\u25CF</span>
+                ${pointExtended.series.name}: <b>${pointExtended.y}</b> <br/>`;
 
-              if (point.female > 0 || point.male > 0) {
-                pointFormat += `&emsp;\u25CF ${that.$i18n.t('chart.female')}: <b>${point.female}</b></span><br/>
-                  &emsp;\u25CF ${that.$i18n.t('chart.male')}: <b>${point.male}</b><br/>
-                  &emsp;\u25CF ${that.$i18n.t('chart.age')}: <b>${point.avg_age}</b><br/>`;
+              if (pointExtended.point.options.female > 0 || pointExtended.point.options.male > 0) {
+                pointFormat += `&emsp;\u25CF ${that.$i18n.t('chart.female')}: <b>${pointExtended.point.options.female}</b></span><br/>
+                  &emsp;\u25CF ${that.$i18n.t('chart.male')}: <b>${pointExtended.point.options.male}</b><br/>
+                  &emsp;\u25CF ${that.$i18n.t('chart.age')}: <b>${pointExtended.point.options.avg_age}</b><br/>`;
               }
             });
 
