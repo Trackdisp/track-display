@@ -14,6 +14,8 @@ export default {
     week: 'WEEK',
     day: 'DAY',
     hour: 'HOUR',
+    peopleTitle: 'n˚ of people',
+    unitsTitle: 'n˚ of units',
   },
   messages: {
     campaignDetails: {

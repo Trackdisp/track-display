@@ -27,6 +27,8 @@ export default {
     female: 'Mujeres',
     male: 'Hombres',
     age: 'Edad Promedio',
+    peopleTitle: 'n˚ de personas',
+    unitsTitle: 'n˚ de unidades',
   },
   groupDateSelector: {
     week: 'SEMANA',

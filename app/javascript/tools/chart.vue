@@ -13,12 +13,23 @@ export default {
   },
   data() {
     const that = this;
+    const unitsColor = '#fe7b4f';
 
     return {
       options: {
         title: { text: '' },
         chart: { type: 'spline', zoomType: 'x' },
         xAxis: { type: 'datetime' },
+        yAxis: [
+          { title: { text: this.$i18n.t('graphs.peopleTitle') } },
+          {
+            title: {
+              text: this.$i18n.t('graphs.unitsTitle'),
+              style: { color: unitsColor },
+            },
+            opposite: true,
+          },
+        ],
         tooltip: {
           shared: true,
           useHTML: true,
@@ -75,7 +86,7 @@ export default {
         },
         legend: false,
         credits: false,
-        colors: ['#11b0fc', '#00c46c', '#fe7b4f'],
+        colors: ['#11b0fc', '#00c46c', unitsColor],
         plotOptions: {
           series: {
             turboThreshold: 0,
