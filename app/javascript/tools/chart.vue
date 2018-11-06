@@ -64,9 +64,9 @@ export default {
                 ${pointExtended.series.name}: <b>${pointExtended.y}</b> <br/>`;
 
               if (pointExtended.point.options.female > 0 || pointExtended.point.options.male > 0) {
-                pointFormat += `&emsp;\u25CF ${that.$i18n.t('chart.female')}: <b>${pointExtended.point.options.female}</b></span><br/>
-                  &emsp;\u25CF ${that.$i18n.t('chart.male')}: <b>${pointExtended.point.options.male}</b><br/>
-                  &emsp;\u25CF ${that.$i18n.t('chart.age')}: <b>${pointExtended.point.options.avg_age}</b><br/>`;
+                pointFormat += `&emsp;\u25CF ${that.$i18n.t('graphs.female')}: <b>${pointExtended.point.options.female}</b></span><br/>
+                  &emsp;\u25CF ${that.$i18n.t('graphs.male')}: <b>${pointExtended.point.options.male}</b><br/>
+                  &emsp;\u25CF ${that.$i18n.t('graphs.age')}: <b>${pointExtended.point.options.avg_age}</b><br/>`;
               }
             });
 

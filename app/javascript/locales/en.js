@@ -5,16 +5,15 @@ export default {
     of: 'of',
     to: 'to',
   },
-  graphs: {},
+  graphs: {
+    female: 'Women',
+    male: 'Men',
+    age: 'Average Age',
+  },
   groupDateSelector: {
     week: 'WEEK',
     day: 'DAY',
     hour: 'HOUR',
-  },
-  chart: {
-    female: 'Women',
-    male: 'Men',
-    age: 'Average Age',
   },
   messages: {
     campaignDetails: {
