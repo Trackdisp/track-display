@@ -13,12 +13,23 @@ export default {
   },
   data() {
     const that = this;
+    const unitsColor = '#fe7b4f';
 
     return {
       options: {
         title: { text: '' },
         chart: { type: 'spline', zoomType: 'x' },
         xAxis: { type: 'datetime' },
+        yAxis: [
+          { title: { text: this.$i18n.t('graphs.peopleTitle') } },
+          {
+            title: {
+              text: this.$i18n.t('graphs.unitsTitle'),
+              style: { color: unitsColor },
+            },
+            opposite: true,
+          },
+        ],
         tooltip: {
           shared: true,
           useHTML: true,
@@ -64,9 +75,9 @@ export default {
                 ${pointExtended.series.name}: <b>${pointExtended.y}</b> <br/>`;
 
               if (pointExtended.point.options.female > 0 || pointExtended.point.options.male > 0) {
-                pointFormat += `&emsp;\u25CF ${that.$i18n.t('chart.female')}: <b>${pointExtended.point.options.female}</b></span><br/>
-                  &emsp;\u25CF ${that.$i18n.t('chart.male')}: <b>${pointExtended.point.options.male}</b><br/>
-                  &emsp;\u25CF ${that.$i18n.t('chart.age')}: <b>${pointExtended.point.options.avg_age}</b><br/>`;
+                pointFormat += `&emsp;\u25CF ${that.$i18n.t('graphs.female')}: <b>${pointExtended.point.options.female}</b></span><br/>
+                  &emsp;\u25CF ${that.$i18n.t('graphs.male')}: <b>${pointExtended.point.options.male}</b><br/>
+                  &emsp;\u25CF ${that.$i18n.t('graphs.age')}: <b>${pointExtended.point.options.avg_age}</b><br/>`;
               }
             });
 
@@ -75,7 +86,7 @@ export default {
         },
         legend: false,
         credits: false,
-        colors: ['#11b0fc', '#00c46c', '#fe7b4f'],
+        colors: ['#11b0fc', '#00c46c', unitsColor],
         plotOptions: {
           series: {
             turboThreshold: 0,

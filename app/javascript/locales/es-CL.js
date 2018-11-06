@@ -24,16 +24,16 @@ export default {
     resetZoomTitle: 'Reiniciar zoom',
     decimalPoint: '.',
     thousandsSep: ',',
+    female: 'Mujeres',
+    male: 'Hombres',
+    age: 'Edad Promedio',
+    peopleTitle: 'n˚ de personas',
+    unitsTitle: 'n˚ de unidades',
   },
   groupDateSelector: {
     week: 'SEMANA',
     day: 'DÍA',
     hour: 'HORA',
-  },
-  chart: {
-    female: 'Mujeres',
-    male: 'Hombres',
-    age: 'Edad Promedio',
   },
   messages: {
     campaignDetails: {

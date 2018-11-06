@@ -3,7 +3,11 @@ module CampaignsHelper
     [
       { name: I18n.t('messages.campaigns.people'), data: campaign_data.total_data },
       { name: I18n.t('messages.campaigns.contacts'), data: contacts_data_extended(campaign_data) },
-      { name: I18n.t('messages.campaigns.extracted'), data: campaign_data.units_extracted_data }
+      {
+        name: I18n.t('messages.campaigns.extracted'),
+        data: campaign_data.units_extracted_data,
+        yAxis: 1
+      }
     ]
   end
 
