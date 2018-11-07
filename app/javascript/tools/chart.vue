@@ -39,7 +39,6 @@ export default {
             const daysToNextWeek = 6;
             const startDate = new Date(this.x);
             let dateFormat;
-            startDate.setMinutes(startDate.getMinutes() + startDate.getTimezoneOffset());
 
             function formatDate() {
               let date;
@@ -87,6 +86,9 @@ export default {
         legend: false,
         credits: false,
         colors: ['#11b0fc', '#00c46c', unitsColor],
+        time: {
+          useUTC: false,
+        },
         plotOptions: {
           series: {
             turboThreshold: 0,

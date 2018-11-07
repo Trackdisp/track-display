@@ -2,7 +2,7 @@ class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
   locations: nil, brands: nil, date_group: :day, after_date: nil, before_date: nil, channels: nil,
   communes: nil, regions: nil)
   ES_SEARCH_SIZE = 10000
-  TIME_FORMAT = '%Y-%m-%d'
+  TIME_FORMAT = '%Y-%m-%dT%T'
 
   def perform
     WeightMeasure.es_search query_definition
@@ -104,8 +104,8 @@ class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
 
   def date_range_query
     range_query = {}
-    range_query[:lte] = @before_date.localtime.strftime(TIME_FORMAT) if @before_date.present?
-    range_query[:gte] = @after_date.localtime.strftime(TIME_FORMAT) if @after_date.present?
+    range_query[:lte] = @before_date.utc.strftime(TIME_FORMAT) if @before_date.present?
+    range_query[:gte] = @after_date.utc.strftime(TIME_FORMAT) if @after_date.present?
     range_query
   end
 
