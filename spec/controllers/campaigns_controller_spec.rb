@@ -36,19 +36,19 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
       expect(ObtainCampaignStats).to receive(:for).and_return([])
     end
 
-    describe "without selected filters" do
+    context "when no filters are selected" do
       it "returns http success" do
         get :show, params: { slug: campaign.slug }
         expect(response).to have_http_status(:success)
       end
 
-      it "filters values are empty" do
+      it "assigns empty arrays to all filter values" do
         get :show, params: { slug: campaign.slug }
-        expect(assigns(:selected_locations)).to match_array(Set.new)
-        expect(assigns(:selected_brands)).to match_array(Set.new)
-        expect(assigns(:selected_channels)).to match_array(Set.new)
-        expect(assigns(:selected_communes)).to match_array(Set.new)
-        expect(assigns(:selected_regions)).to match_array(Set.new)
+        expect(assigns(:selected_locations)).to match_array(Array.new)
+        expect(assigns(:selected_brands)).to match_array(Array.new)
+        expect(assigns(:selected_channels)).to match_array(Array.new)
+        expect(assigns(:selected_communes)).to match_array(Array.new)
+        expect(assigns(:selected_regions)).to match_array(Array.new)
       end
 
       it "sets locations filter options considering only active devices from campaign" do
@@ -96,76 +96,80 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
       end
     end
 
-    describe "with selected locations" do
-      it "location filter values are the ones sent" do
-        get :show, params: { slug: campaign.slug, locations: [measures[0].location_id,
-                                                              measures[2].location_id] }
-        expect(assigns(:selected_locations)).to match_array(Set.new([measures[0].location,
-                                                                     measures[2].location]))
+    context "when multiple locations are selected" do
+      let(:locations) { [measures[0].location_id, measures[2].location_id] }
+
+      it "assigns correct location values" do
+        get :show, params: { slug: campaign.slug, locations: locations }
+        expect(assigns(:selected_locations)).to match_array([measures[0].location,
+                                                             measures[2].location])
       end
     end
 
-    describe "with selected brands" do
-      it "location filter options are only of sent brands" do
-        get :show, params: { slug: campaign.slug, brands: [measures[0].location.brand_id,
-                                                           measures[2].location.brand_id] }
+    context "when multiple brands are selected" do
+      let(:brands) { [measures[0].location.brand_id, measures[2].location.brand_id] }
+
+      it "sets location filter options considering only those of selected brands" do
+        get :show, params: { slug: campaign.slug, brands: brands }
         expect(assigns(:locations)).to match_array([measures[0].location, measures[2].location])
       end
 
-      it "brand filter values are the ones sent" do
-        get :show, params: { slug: campaign.slug, brands: [measures[0].location.brand_id,
-                                                           measures[2].location.brand_id] }
-        expect(assigns(:selected_brands)).to match_array(Set.new([measures[0].location.brand,
-                                                                  measures[2].location.brand]))
+      it "assigns correct brand values" do
+        get :show, params: { slug: campaign.slug, brands: brands }
+        expect(assigns(:selected_brands)).to match_array([measures[0].location.brand,
+                                                          measures[2].location.brand])
       end
     end
 
-    describe "with selected channels" do
-      it "location filter options are only of sent channels" do
-        get :show, params: { slug: campaign.slug, channels: ["supermarket", "traditional"] }
+    context "when multiple channels are selected" do
+      let(:channels) { ["supermarket", "traditional"] }
+
+      it "sets location filter options considering only those of selected channels" do
+        get :show, params: { slug: campaign.slug, channels: channels }
         expect(assigns(:locations)).to match_array([measures[0].location, measures[2].location])
       end
 
-      it "channel filter values are the ones sent" do
-        get :show, params: { slug: campaign.slug, channels: ["supermarket", "traditional"] }
-        expect(assigns(:selected_channels)).to match_array(Set.new(["supermarket", "traditional"]))
+      it "assigns correct channel values" do
+        get :show, params: { slug: campaign.slug, channels: channels }
+        expect(assigns(:selected_channels)).to match_array(channels)
       end
     end
 
-    describe "with selected communes" do
-      it "location filter options are only of sent communes" do
-        get :show, params: { slug: campaign.slug, communes: [measures[0].location.commune_id,
-                                                             measures[2].location.commune_id] }
+    context "when multiple communes are selected" do
+      let(:communes) { [measures[0].location.commune_id, measures[2].location.commune_id] }
+
+      it "sets location filter options considering only those of selected communes" do
+        get :show, params: { slug: campaign.slug, communes: communes }
         expect(assigns(:locations)).to match_array([measures[0].location, measures[2].location])
       end
 
-      it "commune filter values are the ones sent" do
-        get :show, params: { slug: campaign.slug, communes: [measures[0].location.commune_id,
-                                                             measures[2].location.commune_id] }
-        expect(assigns(:selected_communes)).to match_array(Set.new([measures[0].location.commune,
-                                                                    measures[2].location.commune]))
+      it "assigns correct commune values" do
+        get :show, params: { slug: campaign.slug, communes: communes }
+        expect(assigns(:selected_communes)).to match_array([measures[0].location.commune,
+                                                            measures[2].location.commune])
       end
     end
 
-    describe "with selected regions" do
-      it "location filter options are only of sent regions" do
-        get :show, params: { slug: campaign.slug, regions:
-          [measures[0].location.commune.region_id, measures[2].location.commune.region_id] }
+    context "when multiple regions are selected" do
+      let(:regions) do
+        [measures[0].location.commune.region_id, measures[2].location.commune.region_id]
+      end
+
+      it "sets location filter options considering only those of selected regions" do
+        get :show, params: { slug: campaign.slug, regions: regions }
         expect(assigns(:locations)).to match_array([measures[0].location, measures[2].location])
       end
 
-      it "commune filter options are only of sent regions" do
-        get :show, params: { slug: campaign.slug, regions:
-          [measures[0].location.commune.region_id, measures[2].location.commune.region_id] }
+      it "sets commune filter options considering only those of selected regions" do
+        get :show, params: { slug: campaign.slug, regions: regions }
         expect(assigns(:communes)).to match_array([measures[0].location.commune,
                                                    measures[2].location.commune])
       end
 
-      it "region filter values are the ones sent" do
-        get :show, params: { slug: campaign.slug, regions:
-          [measures[0].location.commune.region_id, measures[2].location.commune.region_id] }
+      it "assigns correct region values" do
+        get :show, params: { slug: campaign.slug, regions: regions }
         expect(assigns(:selected_regions)).to match_array(
-          Set.new([measures[0].location.commune.region, measures[2].location.commune.region])
+          [measures[0].location.commune.region, measures[2].location.commune.region]
         )
       end
     end

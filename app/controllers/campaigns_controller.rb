@@ -43,12 +43,12 @@ class CampaignsController < BaseController
 
     @locations = all_locs.filtered(build_locations_filters_hash)
 
-    @brands = Brand.find(all_locs.pluck(:brand_id).compact.uniq) || []
+    @brands = Brand.where(id: all_locs.pluck(:brand_id).compact.uniq)
     @channels = all_locs.reduce(Set.new) do |arr, loc|
       arr.add(name: t("enumerize.channel.#{loc.channel}"), id: loc.channel) if loc.channel
     end
     @channels ||= []
-    @regions = Region.find(all_locs.map(&:region_id).uniq)
+    @regions = Region.where(id: all_locs.map(&:region_id).uniq)
     @communes = filtered_communes(all_locs)
   end
 
@@ -78,49 +78,31 @@ class CampaignsController < BaseController
   def filtered_communes(all_locs)
     all_communes_ids = all_locs.pluck(:commune_id).uniq
     if @selected_regions.empty?
-      Commune.find(all_communes_ids)
+      Commune.where(id: all_communes_ids)
     else
       selected_regions_communes_ids = @selected_regions.map(&:communes).flatten.map(&:id)
-      Commune.find(all_communes_ids & selected_regions_communes_ids)
+      Commune.where(id: all_communes_ids & selected_regions_communes_ids)
     end
   end
 
   def selected_locations
-    @selected_locations ||= Set.new
-    params[:locations]&.each do |location|
-      @selected_locations.add(Location.find_by(id: location.to_i))
-    end
-    @selected_locations
+    @selected_locations ||= Location.where(id: params[:locations]&.map(&:to_i))
   end
 
   def selected_brands
-    @selected_brands ||= Set.new
-    params[:brands]&.each do |brand|
-      @selected_brands.add(Brand.find_by(id: brand.to_i))
-    end
-    @selected_brands
+    @selected_brands ||= Brand.where(id: params[:brands]&.map(&:to_i))
   end
 
   def selected_channels
-    @selected_channels ||= Set.new
-    @selected_channels.merge(params[:channels]) if params[:channels]
-    @selected_channels
+    @selected_channels ||= params[:channels].to_a
   end
 
   def selected_communes
-    @selected_communes ||= Set.new
-    params[:communes]&.each do |commune|
-      @selected_communes.add(Commune.find_by(id: commune.to_i))
-    end
-    @selected_communes
+    @selected_communes ||= Commune.where(id: params[:communes]&.map(&:to_i))
   end
 
   def selected_regions
-    @selected_regions ||= Set.new
-    params[:regions]&.each do |region|
-      @selected_regions.add(Region.find_by(id: region.to_i))
-    end
-    @selected_regions
+    @selected_regions ||= Region.where(id: params[:regions]&.map(&:to_i))
   end
 
   def after_date
