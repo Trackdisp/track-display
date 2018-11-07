@@ -44,11 +44,11 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
 
       it "filters values are empty" do
         get :show, params: { slug: campaign.slug }
-        expect(assigns(:selected_locations)).to match_array(Set.new)
-        expect(assigns(:selected_brands)).to match_array(Set.new)
-        expect(assigns(:selected_channels)).to match_array(Set.new)
-        expect(assigns(:selected_communes)).to match_array(Set.new)
-        expect(assigns(:selected_regions)).to match_array(Set.new)
+        expect(assigns(:selected_locations)).to match_array(Array.new)
+        expect(assigns(:selected_brands)).to match_array(Array.new)
+        expect(assigns(:selected_channels)).to match_array(Array.new)
+        expect(assigns(:selected_communes)).to match_array(Array.new)
+        expect(assigns(:selected_regions)).to match_array(Array.new)
       end
 
       it "sets locations filter options considering only active devices from campaign" do
@@ -100,8 +100,8 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
       it "location filter values are the ones sent" do
         get :show, params: { slug: campaign.slug, locations: [measures[0].location_id,
                                                               measures[2].location_id] }
-        expect(assigns(:selected_locations)).to match_array(Set.new([measures[0].location,
-                                                                     measures[2].location]))
+        expect(assigns(:selected_locations)).to match_array([measures[0].location,
+                                                             measures[2].location])
       end
     end
 
@@ -115,8 +115,8 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
       it "brand filter values are the ones sent" do
         get :show, params: { slug: campaign.slug, brands: [measures[0].location.brand_id,
                                                            measures[2].location.brand_id] }
-        expect(assigns(:selected_brands)).to match_array(Set.new([measures[0].location.brand,
-                                                                  measures[2].location.brand]))
+        expect(assigns(:selected_brands)).to match_array([measures[0].location.brand,
+                                                          measures[2].location.brand])
       end
     end
 
@@ -128,7 +128,7 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
 
       it "channel filter values are the ones sent" do
         get :show, params: { slug: campaign.slug, channels: ["supermarket", "traditional"] }
-        expect(assigns(:selected_channels)).to match_array(Set.new(["supermarket", "traditional"]))
+        expect(assigns(:selected_channels)).to match_array(["supermarket", "traditional"])
       end
     end
 
@@ -142,8 +142,8 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
       it "commune filter values are the ones sent" do
         get :show, params: { slug: campaign.slug, communes: [measures[0].location.commune_id,
                                                              measures[2].location.commune_id] }
-        expect(assigns(:selected_communes)).to match_array(Set.new([measures[0].location.commune,
-                                                                    measures[2].location.commune]))
+        expect(assigns(:selected_communes)).to match_array([measures[0].location.commune,
+                                                            measures[2].location.commune])
       end
     end
 
@@ -165,7 +165,7 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
         get :show, params: { slug: campaign.slug, regions:
           [measures[0].location.commune.region_id, measures[2].location.commune.region_id] }
         expect(assigns(:selected_regions)).to match_array(
-          Set.new([measures[0].location.commune.region, measures[2].location.commune.region])
+          [measures[0].location.commune.region, measures[2].location.commune.region]
         )
       end
     end
