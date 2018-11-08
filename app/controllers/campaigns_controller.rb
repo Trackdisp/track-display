@@ -1,4 +1,6 @@
 class CampaignsController < BaseController
+  include CampaignFiltered
+
   def index
     @stats = {}
     current_user.company.campaigns.each do |campaign|
@@ -7,36 +9,11 @@ class CampaignsController < BaseController
   end
 
   def show
-    @campaign_stat = ObtainCampaignStats.for(
-      after_date: after_date&.to_time,
-      before_date: before_date&.to_time,
-      campaign: campaign,
-      date_group: date_group_by,
-      gender: gender,
-      locations: selected_locations,
-      brands: selected_brands,
-      channels: selected_channels,
-      communes: selected_communes,
-      regions: selected_regions
-    )
+    @campaign_stat = obtain_campaign_stat
     set_filters_options
   end
 
   private
-
-  def campaign
-    @campaign ||= Campaign.find_by(slug: params[:slug])
-  end
-
-  def date_group_by
-    @date_group_by ||= begin
-      if params[:group_by].present?
-        params[:group_by].to_sym
-      else
-        :day
-      end
-    end
-  end
 
   def set_filters_options
     all_locs = all_campaign_locations
@@ -83,37 +60,5 @@ class CampaignsController < BaseController
       selected_regions_communes_ids = @selected_regions.map(&:communes).flatten.map(&:id)
       Commune.where(id: all_communes_ids & selected_regions_communes_ids)
     end
-  end
-
-  def selected_locations
-    @selected_locations ||= Location.where(id: params[:locations]&.map(&:to_i))
-  end
-
-  def selected_brands
-    @selected_brands ||= Brand.where(id: params[:brands]&.map(&:to_i))
-  end
-
-  def selected_channels
-    @selected_channels ||= params[:channels].to_a
-  end
-
-  def selected_communes
-    @selected_communes ||= Commune.where(id: params[:communes]&.map(&:to_i))
-  end
-
-  def selected_regions
-    @selected_regions ||= Region.where(id: params[:regions]&.map(&:to_i))
-  end
-
-  def after_date
-    @after_date ||= params[:after]
-  end
-
-  def before_date
-    @before_date ||= params[:before]
-  end
-
-  def gender
-    @gender ||= params[:gender]
   end
 end
