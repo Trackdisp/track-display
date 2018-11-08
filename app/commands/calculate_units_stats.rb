@@ -81,7 +81,7 @@ class CalculateUnitsStats < PowerTypes::Command.new(:campaign,
       }
     }
     if Time.now.getlocal.zone != 'UTC'
-      aggs[:units_extracted][:date_histogram][:time_zone] = "#{Time.now.getlocal.zone}:00"
+      aggs[:units_extracted][:date_histogram][:time_zone] = "America/Santiago"
     end
     aggs.merge(rotation_aggs)
   end
