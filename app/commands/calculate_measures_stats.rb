@@ -111,7 +111,7 @@ class CalculateMeasuresStats < PowerTypes::Command.new(:campaign,
       }
     }
     if Time.now.getlocal.zone != 'UTC'
-      agg[:date_histogram][:time_zone] = "#{Time.now.getlocal.zone}:00"
+      agg[:date_histogram][:time_zone] = "America/Santiago"
     end
     agg
   end
