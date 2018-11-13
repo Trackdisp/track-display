@@ -5,11 +5,14 @@
 <script>
 import format from 'date-fns/format';
 import es from 'date-fns/locale/es';
+import api from '../api/stats';
 
 export default {
   props: {
-    series: Array,
-    groupBy: String,
+    filteredCampaign: Object,
+  },
+  beforeMount() {
+    this.getStats();
   },
   data() {
     const that = this;
@@ -97,6 +100,12 @@ export default {
         series: this.series,
       },
     };
+  },
+  methods: {
+    getStats() {
+      api.getStats(this.filteredCampaign)
+        .then((response) => { this.options.series = response.stats; });
+    },
   },
 };
 </script>

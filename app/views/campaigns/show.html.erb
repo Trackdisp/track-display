@@ -13,7 +13,7 @@
           <group-date-selector initial-group="<%= @date_group_by.to_s %>"></group-date-selector>
         </div>
         <div class="summary-graph__graph">
-          <chart v-bind:series="<%= campaign_graph_data(@campaign_stat).to_json %>" group-by="<%= @date_group_by.to_s %>" ></chart>
+          <chart :filtered-campaign="<%= params.to_json %>"></chart>
         </div>
       </div>
     </div>
