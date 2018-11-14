@@ -1,6 +1,45 @@
 shared_examples :campaign_filtered do
   subject { described_class.new }
 
+  let(:group_by) { :week }
+  let(:after) { '2018-04-14T12:00' }
+  let(:before) { '2018-07-14T12:00' }
+  let(:gender) { 'female' }
+  let(:obtain_campaign_stats_response) { ['some', 'result'] }
+
+  describe "#obtain_campaign_stat" do
+    before do
+      allow(subject).to receive(:params).and_return(
+        slug: campaign.slug,
+        locations: locations,
+        channels: channels,
+        communes: communes,
+        regions: regions,
+        group_by: group_by,
+        after: after,
+        before: before,
+        gender: gender
+      )
+      expect(ObtainCampaignStats).to receive(:for)
+        .with(
+          after_date: subject.after_date&.to_time,
+          before_date: subject.before_date&.to_time,
+          campaign: subject.campaign,
+          date_group: subject.date_group_by,
+          gender: subject.gender,
+          locations: subject.selected_locations,
+          brands: subject.selected_brands,
+          channels: subject.selected_channels,
+          communes: subject.selected_communes,
+          regions: subject.selected_regions
+        )
+        .and_return(obtain_campaign_stats_response)
+    end
+    it "calls ObtaignCampaignStats with filter values and returns it's value" do
+      expect(subject.obtain_campaign_stat).to eq(obtain_campaign_stats_response)
+    end
+  end
+
   describe "#campaign" do
     before { allow(subject).to receive(:params).and_return(slug: campaign.slug) }
 
