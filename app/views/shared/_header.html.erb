@@ -3,12 +3,12 @@
     <%= image_tag "alt-logo.svg", class: 'header__logo-image' %>
   </a>
   <% if user_signed_in? %>
-    <% if defined?(@campaign) %>
+    <% if campaign %>
       <div class="header__campaign-container">
         <p class="header__campaign-name">
-          <%= @campaign.name %>
+          <%= campaign.name %>
         </p>
-        <%= image_tag(@campaign.logo, class: 'header__campaign-logo') if @campaign.logo.attached? %>
+        <%= image_tag(campaign.logo, class: 'header__campaign-logo') if campaign.logo.attached? %>
       </div>
     <% end %>
     <div class="header__menu-section">

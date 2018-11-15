@@ -1,6 +1,11 @@
 module CampaignFiltered
   extend ActiveSupport::Concern
 
+  included do
+    helper_method :campaign, :selected_locations, :selected_brands, :selected_channels,
+      :selected_communes, :selected_regions, :date_group_by, :after_date, :before_date, :gender
+  end
+
   def obtain_campaign_stat
     ObtainCampaignStats.for(
       after_date: after_date&.to_time,
