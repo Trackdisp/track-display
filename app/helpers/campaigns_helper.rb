@@ -1,28 +1,4 @@
 module CampaignsHelper
-  def campaign_graph_data(campaign_data)
-    [
-      { name: I18n.t('messages.campaigns.people'), data: campaign_data.total_data },
-      { name: I18n.t('messages.campaigns.contacts'), data: contacts_data_extended(campaign_data) },
-      {
-        name: I18n.t('messages.campaigns.extracted'),
-        data: campaign_data.units_extracted_data,
-        yAxis: 1
-      }
-    ]
-  end
-
-  def contacts_data_extended(campaign_data)
-    Array.new(campaign_data.contacts_data.length) do |i|
-      {
-        x: campaign_data.contacts_data[i][0],
-        y: campaign_data.contacts_data[i][1],
-        female: campaign_data.contacts_female_data[i],
-        male: campaign_data.contacts_male_data[i],
-        avg_age: campaign_data.avg_age_data[i]
-      }
-    end
-  end
-
   def campaign_date_range(campaign)
     "#{I18n.localize(campaign.start_date, format: :long).upcase} -
       #{I18n.localize(campaign.end_date, format: :long).upcase}"
