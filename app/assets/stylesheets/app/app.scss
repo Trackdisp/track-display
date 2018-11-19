@@ -12,6 +12,7 @@
   flex-direction: column;
   min-height: 100vh;
   text-align: center;
+  min-width: fit-content;
 
   &__container {
     display: flex;

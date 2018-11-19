@@ -8,7 +8,7 @@
   </h5>
   <div class="campaign-option__stats-container">
     <% summary_stats_elements(stats).each do |element| %>
-      <div class="campaign-stat campaign-option__stat">
+      <div class="campaign-option__stat">
         <%= image_tag element[:icon], class: 'campaign-stat__icon' %>
         <div class="campaign-stat__content">
           <span class="campaign-stat__value"><%= element[:value] %></span>

@@ -28,6 +28,8 @@ $app-filter-border: 1px solid rgba(189, 212, 218, .65);
 $app-sidebar-shadow-color: rgba(160, 179, 184, .12);
 $active-filter-color: #00c46c;
 
+$mobile-breakpoint: 576px;
+
 @font-face {
   font-family: 'Qanelas';
   src: font-url('Qanelas-Regular.otf') format('opentype');

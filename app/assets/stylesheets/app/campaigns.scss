@@ -2,7 +2,12 @@
 
 .campaigns {
   margin: 0 auto;
-  width: 1024px;
+  padding: 0 16px;
+  width: 352px;
+
+  @media only screen and (min-width: #{$mobile-breakpoint}) {
+    width: 1024px;
+  }
 
   &__title {
     color: $primary-font-color;
@@ -52,19 +57,26 @@
   }
 
   &__stats-container {
-    display: flex;
-    flex-direction: row;
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      display: flex;
+    }
   }
 
   &__stat {
-    margin-right: 40px;
+    display: flex;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      margin-right: 24px;
+      width: calc(100% - 144px);
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
   }
 }
 
 .campaign-stat {
-  display: flex;
-  flex-direction: row;
-
   &__icon {
     margin: 10px 0;
     margin-right: 8px;
