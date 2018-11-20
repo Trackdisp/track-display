@@ -1,6 +1,7 @@
 <div class="header <%= 'header--signed-in' if user_signed_in? %>">
   <a class="header__logo-container" href="<%= root_path %>">
     <%= image_tag "alt-logo.svg", class: 'header__logo-image' %>
+    <%= image_tag "logo.svg", class: 'header__logo-image header__logo-image--small' %>
   </a>
   <% if user_signed_in? %>
     <% if campaign %>
@@ -12,13 +13,17 @@
       </div>
     <% end %>
     <div class="header__menu-section">
-      <p class="header__company-name">
         <% if current_user&.company.logo.attached? %>
-          <%= image_tag(current_user&.company.logo, class: 'header__company-logo') %>
+          <div>
+            <div class="header__company-logo-container">
+              <%= image_tag(current_user&.company.logo, class: 'header__company-logo') %>
+            </div>
+          </div>
         <% else %>
-          <%= current_user&.company.name %>
+          <p class="header__company-name">
+            <%= current_user&.company.name %>
+          </p>
         <% end %>
-      </p>
       <div class="header__logout-container">
         <%= link_to destroy_user_session_path, class: 'header__logout', title: t('messages.header.logout'), method: :delete do %>
           <%= image_tag 'logout.svg', class: 'header__logout-icon' %>

@@ -12,6 +12,7 @@
   flex-direction: column;
   min-height: 100vh;
   text-align: center;
+  min-width: fit-content;
 
   &__container {
     display: flex;
@@ -42,8 +43,29 @@
     flex-grow: 1;
   }
 
+  &__logo-image {
+    &--small {
+      display: none;
+    }
+  }
+
   &--signed-in &__logo-image {
-    margin-left: 64px;
+    display: none;
+    margin-left: 38px;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      display: block;
+    }
+
+    &--small {
+      display: block;
+      height: 24px;
+      margin-left: 16px;
+
+      @media only screen and (min-width: #{$mobile-breakpoint}) {
+        display: none;
+      }
+    }
   }
 
   &__menu-section {
@@ -51,8 +73,12 @@
     flex-grow: 1;
     display: flex;
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      justify-content: flex-end;
+    }
   }
 
   &__logout-container {
@@ -72,8 +98,19 @@
     letter-spacing: $app-spacing-letter;
   }
 
+  &__company-logo-container {
+    border-radius: 50%;
+    height: 50px;
+    margin-left: -50%;
+    overflow: hidden;
+    width: 50px;
+  }
+
   &__company-logo {
-    height: 60px;
+    height: 50px;
+    left: 100%;
+    margin-left: -200%;
+    position: relative;
   }
 
   &__campaign-container {
