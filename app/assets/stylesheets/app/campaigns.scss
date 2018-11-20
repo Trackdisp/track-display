@@ -46,9 +46,19 @@
     font-size: 24px;
   }
 
-  &__logo {
+  &__logo-container {
     border-radius: 5px;
     height: 42px;
+    overflow: hidden;
+    text-align: center;
+    width: 42px;
+  }
+
+  &__logo {
+    height: 42px;
+    left: 100%;
+    margin-left: -200%;
+    position: relative;
   }
 
   &__date-range {

@@ -15,7 +15,9 @@
     <div class="header__menu-section">
         <% if current_user&.company.logo.attached? %>
           <div>
-            <%= image_tag(current_user&.company.logo, class: 'header__company-logo') %>
+            <div class="header__company-logo-container">
+              <%= image_tag(current_user&.company.logo, class: 'header__company-logo') %>
+            </div>
           </div>
         <% else %>
           <p class="header__company-name">

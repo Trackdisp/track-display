@@ -8,7 +8,11 @@
         <%= campaign_date_range(campaign) %>
       </h5>
     </div>
-    <%= image_tag(campaign.logo, class: 'campaign-option__logo') if campaign.logo.attached? %>
+    <div>
+      <div class="campaign-option__logo-container">
+        <%= image_tag(campaign.logo, class: 'campaign-option__logo') if campaign.logo.attached? %>
+      </div>
+    </div>
   </div>
   <div class="campaign-option__stats-container">
     <% summary_stats_elements(stats).each do |element| %>

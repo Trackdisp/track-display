@@ -98,10 +98,19 @@
     letter-spacing: $app-spacing-letter;
   }
 
-  &__company-logo {
+  &__company-logo-container {
     border-radius: 50%;
     height: 50px;
     margin-left: -50%;
+    overflow: hidden;
+    width: 50px;
+  }
+
+  &__company-logo {
+    height: 50px;
+    left: 100%;
+    margin-left: -200%;
+    position: relative;
   }
 
   &__campaign-container {
