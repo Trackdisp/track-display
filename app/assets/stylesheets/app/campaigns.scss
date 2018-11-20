@@ -31,6 +31,11 @@
     border: $app-content-hover-border;
   }
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__title {
     margin: 0 0 6px;
     font-family: $main-font;
@@ -42,8 +47,8 @@
   }
 
   &__logo {
-    height: 50px;
-    vertical-align: bottom;
+    border-radius: 5px;
+    height: 42px;
   }
 
   &__date-range {
