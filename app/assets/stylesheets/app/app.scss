@@ -43,8 +43,29 @@
     flex-grow: 1;
   }
 
+  &__logo-image {
+    &--small {
+      display: none;
+    }
+  }
+
   &--signed-in &__logo-image {
-    margin-left: 64px;
+    display: none;
+    margin-left: 38px;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      display: block;
+    }
+
+    &--small {
+      display: block;
+      height: 24px;
+      margin-left: 16px;
+
+      @media only screen and (min-width: #{$mobile-breakpoint}) {
+        display: none;
+      }
+    }
   }
 
   &__menu-section {

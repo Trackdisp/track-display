@@ -1,6 +1,7 @@
 <div class="header <%= 'header--signed-in' if user_signed_in? %>">
   <a class="header__logo-container" href="<%= root_path %>">
     <%= image_tag "alt-logo.svg", class: 'header__logo-image' %>
+    <%= image_tag "logo.svg", class: 'header__logo-image header__logo-image--small' %>
   </a>
   <% if user_signed_in? %>
     <% if campaign %>
