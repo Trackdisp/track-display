@@ -13,13 +13,15 @@
       </div>
     <% end %>
     <div class="header__menu-section">
-      <p class="header__company-name">
         <% if current_user&.company.logo.attached? %>
-          <%= image_tag(current_user&.company.logo, class: 'header__company-logo') %>
+          <div>
+            <%= image_tag(current_user&.company.logo, class: 'header__company-logo') %>
+          </div>
         <% else %>
-          <%= current_user&.company.name %>
+          <p class="header__company-name">
+            <%= current_user&.company.name %>
+          </p>
         <% end %>
-      </p>
       <div class="header__logout-container">
         <%= link_to destroy_user_session_path, class: 'header__logout', title: t('messages.header.logout'), method: :delete do %>
           <%= image_tag 'logout.svg', class: 'header__logout-icon' %>
