@@ -7,12 +7,17 @@
 
   &__single,
   &__input,
-  &__element {
+  &__element,
+  &__tag {
     font-family: $main-font;
     font-size: 12px;
     font-weight: bold;
     letter-spacing: $app-spacing-letter;
     color: $app-filter-color;
+  }
+
+  &__tag {
+    color: $white;
   }
 
   &__input::placeholder {
