@@ -13,17 +13,17 @@
       </div>
     <% end %>
     <div class="header__menu-section">
+      <div class="header__company-branding-container<%= ' header__company-branding-container--in-show' if campaign && current_page?(campaign_path(campaign)) %>">
         <% if current_user&.company.logo.attached? %>
-          <div>
             <div class="header__company-logo-container">
               <%= image_tag(current_user&.company.logo, class: 'header__company-logo') %>
             </div>
-          </div>
         <% else %>
           <p class="header__company-name">
             <%= current_user&.company.name %>
           </p>
         <% end %>
+      </div>
       <div class="header__logout-container">
         <%= link_to destroy_user_session_path, class: 'header__logout', title: t('messages.header.logout'), method: :delete do %>
           <%= image_tag 'logout.svg', class: 'header__logout-icon' %>
