@@ -10,22 +10,30 @@
   &__icon-data-container {
     display: flex;
     flex-direction: row;
-    padding: 20px 10px;
-    min-height: 66px;
+    padding: 5px;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      min-height: 66px;
+      padding: 20px 10px;
+    }
   }
 
   &__icon {
     align-items: center;
     display: flex;
-    flex-basis: 52px;
     justify-content: center;
     margin-right: 5px;
+    width: 35%;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      width: 52px;
+    }
   }
 
   &__data-container {
     align-items: center;
     display: flex;
-    flex-basis: calc(100% - 52px);
+    flex: 1;
     flex-direction: column;
     justify-content: center;
   }
@@ -33,11 +41,16 @@
   &__data {
     color: $graph-primary-color;
     font-family: $main-font;
-    font-size: 28px;
+    font-size: 18px;
     font-weight: bold;
     letter-spacing: 0.75px;
-    line-height: 34px;
+    line-height: 24px;
     margin-bottom: 4px;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      font-size: 28px;
+      line-height: 34px;
+    }
   }
 
   &__data--total-people {
