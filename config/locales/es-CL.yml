@@ -138,11 +138,11 @@ es-CL:
         title: Campañas
       contacts: Contactos
       people: Personas
-      extracted: Unid. extraídas
+      extracted: Un. extraídas
       rotation: Rotación Total
-      effectiveness: De Efectividad
-      happiness: De Felicidad
-      age: Edad. Prom
+      effectiveness: Efectividad
+      happiness: Felicidad
+      age: años~~
       week: Semana desde
     campaign_dashboard:
       details_title: Detalles
