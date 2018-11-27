@@ -3,10 +3,10 @@
 .campaigns {
   margin: 0 auto;
   padding: 0 16px;
-  width: 352px;
+  min-width: 352px;
 
   @media only screen and (min-width: #{$mobile-breakpoint}) {
-    width: 1024px;
+    min-width: 1024px;
   }
 
   &__title {
@@ -153,7 +153,13 @@
   }
 
   &__main {
-    padding: 25px 55px;
+    margin: 0 auto;
+    padding: 0 16px;
+    min-width: 352px;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      padding: 25px 55px;
+    }
   }
 
   &__filters-container {
@@ -172,8 +178,12 @@
 
   &__summary {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     margin-bottom: 8px;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      flex-wrap: unset;
+    }
   }
 
   &__summary-stat {
