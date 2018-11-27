@@ -130,6 +130,7 @@
     font-weight: bold;
     line-height: 26px;
     margin: 25px 0 6px;
+    padding: 0 16px;
   }
 
   &__sidebar {
@@ -150,7 +151,6 @@
   &__main {
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 0 16px;
     width: 100%;
 
     @media only screen and (min-width: #{$mobile-breakpoint}) {
@@ -183,6 +183,7 @@
 
   &__summary-grid {
     margin-bottom: 8px;
+    padding: 0 16px;
 
     @media only screen and (min-width: #{$mobile-breakpoint}) {
       display: none;

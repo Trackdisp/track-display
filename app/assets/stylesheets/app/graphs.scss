@@ -4,7 +4,11 @@
   background-color: $white;
   border-radius: $app-content-border-radius;
   border: $app-content-border;
-  padding: 24px;
+  padding: 24px 0;
+
+  @media only screen and (min-width: #{$mobile-breakpoint}) {
+    padding: 24px;
+  }
 
   &__summary-container {
     display: flex;
