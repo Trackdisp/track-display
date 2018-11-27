@@ -50,10 +50,15 @@
 
   &__label {
     color: $primary-font-color;
+    display: none;
     font-family: $main-font;
     font-size: 12px;
     letter-spacing: 0.4px;
     line-height: 14px;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      display: block;
+    }
   }
 
   &__gender-breakdown {
