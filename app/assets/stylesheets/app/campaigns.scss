@@ -3,11 +3,6 @@
 .campaigns {
   margin: 0 auto;
   padding: 0 16px;
-  min-width: 352px;
-
-  @media only screen and (min-width: #{$mobile-breakpoint}) {
-    min-width: 1024px;
-  }
 
   &__title {
     color: $primary-font-color;
@@ -153,9 +148,10 @@
   }
 
   &__main {
+    box-sizing: border-box;
     margin: 0 auto;
     padding: 0 16px;
-    min-width: 352px;
+    width: 100%;
 
     @media only screen and (min-width: #{$mobile-breakpoint}) {
       padding: 25px 55px;
