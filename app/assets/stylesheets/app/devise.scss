@@ -11,7 +11,6 @@
   }
 
   &__container {
-    align-items: center;
     background-color: $white;
     background-image: image-url('login-corner-right.svg');
     background-position: right bottom;
@@ -35,6 +34,7 @@
   }
 
   &__form {
+    margin: auto;
     width: 70%;
   }
 
