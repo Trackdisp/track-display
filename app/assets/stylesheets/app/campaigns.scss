@@ -137,8 +137,9 @@
     background-color: $white;
     border: $app-content-border;
     box-shadow: 0 0 18px 0 $app-sidebar-shadow-color;
+    box-sizing: border-box;
     display: none;
-    flex: 15%;
+    flex: 0 0 226px;
     margin-top: 5px;
     opacity: .88;
     padding: 0 25px;
@@ -155,6 +156,7 @@
 
     @media only screen and (min-width: #{$mobile-breakpoint}) {
       padding: 25px 55px;
+      width: calc(100% - 226px);
     }
   }
 
@@ -197,16 +199,25 @@
 
   &__summary-stat {
     margin-right: 8px;
-    flex-basis: calc((100% - 16px)/3);
+    max-width: calc((100% - 16px)/3);
+    flex: 1;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      max-width: calc((100% - 48px)/7);
+    }
+  }
+
+  &__summary-stat:nth-child(3) {
+    margin-right: 0;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      margin-right: 8px;
+    }
   }
 
   &__summary-stat:last-child {
     @media only screen and (min-width: #{$mobile-breakpoint}) {
       margin-right: 0;
     }
-  }
-
-  &__summary-stat:nth-child(3) {
-    margin-right: 0;
   }
 }
