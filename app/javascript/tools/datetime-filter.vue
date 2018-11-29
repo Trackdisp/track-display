@@ -5,7 +5,7 @@
 <script>
 import flatPickr from 'vue-flatpickr-component';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';
-import changeURLQueryParam from '../helpers/url-helper';
+import { changeURLQueryParam } from '../helpers/url-helper';
 
 export default {
   props: ['initialValue', 'placeholder', 'queryParam'],

@@ -4,7 +4,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
-import changeURLQueryParam from '../helpers/url-helper';
+import { changeURLQueryParam } from '../helpers/url-helper';
 
 export default {
   props: ['options', 'label', 'initialSelected', 'trackBy', 'placeholder', 'queryParam', 'multiple'],
@@ -36,6 +36,9 @@ export default {
         'multiselect--active-filter': this.multiple ? this.filterValue.length > 0 : typeof this.filterValue !== 'undefined',
       };
     },
+    urlString() {
+      return this.$store.state.filtersQueryParams.toString();
+    },
   },
   watch: {
     filterValue(values) {
@@ -45,7 +48,7 @@ export default {
       } else {
         paramValue = values ? values[this.trackBy] : values;
       }
-      window.location.search = changeURLQueryParam(this.queryParam, paramValue);
+      this.$store.dispatch('changeFilter', { queryParam: this.queryParam, value: paramValue });
     },
   },
 };
