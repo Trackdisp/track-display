@@ -1,5 +1,5 @@
 class FetchMeasures < PowerTypes::Command.new(:from, :to)
-  TIME_FORMAT = '%Y-%m-%dT%H:%M'
+  TIME_FORMAT = '%Y-%m-%dT%H'
 
   def perform
     source_url = ENV.fetch('WOLKE_MEASURES_URL')
