@@ -2,7 +2,6 @@
 /* global document */
 
 import Vue from 'vue/dist/vue.esm';
-import Vuex from 'vuex';
 import Highcharts from 'highcharts';
 import VueI18n from 'vue-i18n';
 import Vuetify from 'vuetify';
@@ -20,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
   Highcharts.setOptions({
     lang: Locales.messages[document.documentElement.lang].graphs,
   });
-  Vue.use(Vuex);
   Vue.use(VueI18n);
   Vue.use(Vuetify);
   Vue.use(VueHighcharts, { Highcharts });
