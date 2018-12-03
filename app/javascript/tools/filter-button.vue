@@ -1,5 +1,8 @@
 <template>
-  <div @click="applyFilters">Aplicar</div>
+  <div>
+    <div @click="applyFilters">Aplicar</div>
+    <div @click="cleanFilters">Limpiar</div>
+  </div>
 </template>
 
 <script>
@@ -13,6 +16,9 @@ export default {
   methods: {
     applyFilters() {
       window.location.search = this.filtersQueryParamsString;
+    },
+    cleanFilters() {
+      this.$store.dispatch('cleanFilters');
     },
   },
 };

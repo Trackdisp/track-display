@@ -15,3 +15,9 @@ export function getURLQueryParams() {
 
   return searchParams.toString();
 }
+
+export function getURLQueryParamValues(searchParamsString, param) {
+  const searchParams = new URLSearchParams(searchParamsString);
+
+  return searchParams.getAll(param);
+}
