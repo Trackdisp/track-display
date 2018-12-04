@@ -16,8 +16,8 @@ describe MeasuresSyncService do
   end
 
   describe '#sync_since_last' do
-    context 'when last sincronization is nil' do
-      it 'syncronizes since SYNCHRONIZATION_INTERVAL minutes ago' do
+    context 'when last synchronization is nil' do
+      it 'synchronizes since SYNCHRONIZATION_INTERVAL minutes ago' do
         service = build
         expect(service).to receive(:sync_measures).with(
           from_date: sync_interval.minutes.ago,
@@ -28,21 +28,41 @@ describe MeasuresSyncService do
       end
     end
 
-    context 'when last sincronization exists' do
-      before do
-        last_sync = create(:measures_sync, to_date: Time.current)
-        last_sync.execute
-        last_sync.complete
+    context 'when last synchronization exists' do
+      context 'and to_date is before Time.current' do
+        before do
+          last_sync = create(:measures_sync, to_date: Time.current - 1.day)
+          last_sync.execute
+          last_sync.complete
+        end
+
+        it 'synchronizes since to_date of last synchronization' do
+          service = build
+          expect(service).to receive(:sync_measures).with(
+            from_date: Time.current - 1.day,
+            to_date: Time.current - 1.day + sync_interval.minutes
+          ).and_return(nil)
+
+          service.sync_since_last
+        end
       end
 
-      it 'sincronizes since to_date of last syncronization' do
-        service = build
-        expect(service).to receive(:sync_measures).with(
-          from_date: Time.current,
-          to_date: sync_interval.minutes.from_now
-        ).and_return(nil)
+      context 'and to_date is after or at Time.current' do
+        before do
+          last_sync = create(:measures_sync, to_date: Time.current + 1.minute)
+          last_sync.execute
+          last_sync.complete
+        end
 
-        service.sync_since_last
+        it 'synchronizes since created_at of last synchronization' do
+          service = build
+          expect(service).to receive(:sync_measures).with(
+            from_date: MeasuresSync.last.created_at,
+            to_date: MeasuresSync.last.created_at + sync_interval.minutes
+          ).and_return(nil)
+
+          service.sync_since_last
+        end
       end
     end
   end
@@ -67,7 +87,7 @@ describe MeasuresSyncService do
                                             .and_return(wolke_result)
     end
 
-    it 'creates syncronization correctly' do
+    it 'creates synchronization correctly' do
       perform
       expect(MeasuresSync.exists?(from_date: from_date, to_date: to_date)).to be(true)
     end
