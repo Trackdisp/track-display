@@ -3,7 +3,13 @@ class MeasuresSyncService < PowerTypes::Service.new
 
   def sync_since_last
     last_sync = MeasuresSync.completed.by_to_date.first
-    from_date = last_sync.nil? ? SYNCHRONIZATION_INTERVAL.minutes.ago : last_sync.to_date
+    from_date = if last_sync.nil?
+                  SYNCHRONIZATION_INTERVAL.minutes.ago
+                elsif last_sync.to_date > Time.current
+                  last_sync.created_at
+                else
+                  last_sync.to_date
+                end
     to_date = from_date + SYNCHRONIZATION_INTERVAL.minutes
     sync_measures(from_date: from_date, to_date: to_date)
   end
