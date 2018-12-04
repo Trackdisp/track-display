@@ -1,18 +1,15 @@
 <template>
-  <flat-pickr class="flat-pick" v-model="auxDate" :config="config" :placeholder="placeholder" @on-close="modifyParamFilter"></flat-pickr>
+  <flat-pickr class="flat-pick" v-model="selectedDate" :config="config" :placeholder="placeholder"></flat-pickr>
 </template>
 
 <script>
 import flatPickr from 'vue-flatpickr-component';
 import { Spanish } from 'flatpickr/dist/l10n/es.js';
-import { changeURLQueryParam } from '../helpers/url-helper';
 
 export default {
-  props: ['initialValue', 'placeholder', 'queryParam'],
+  props: ['placeholder', 'queryParam'],
   data() {
     return {
-      date: this.initialValue,
-      auxDate: this.initialValue,
       config: {
         enableTime: true,
         altInput: true,
@@ -26,11 +23,14 @@ export default {
   components: {
     flatPickr,
   },
-  methods: {
-    modifyParamFilter(selectedDates, dateStr) {
-      if (this.date !== dateStr) {
-        window.location.search = changeURLQueryParam(this.queryParam, dateStr);
-      }
+  computed: {
+    selectedDate: {
+      get() {
+        return this.$store.getters.selectedFilterValues(this.queryParam)[0];
+      },
+      set(newDate) {
+        this.$store.dispatch('changeFilter', { queryParam: this.queryParam, value: newDate });
+      },
     },
   },
 };
