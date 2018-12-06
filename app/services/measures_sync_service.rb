@@ -39,7 +39,7 @@ class MeasuresSyncService < PowerTypes::Service.new
   def create_or_find_measure(device, measure_data)
     measure = Measure.find_by(w_id: measure_data[:id])
     unless measure.present?
-      device.measures.create!(
+      device.measures.create(
         w_id: measure_data[:id],
         measured_at: measure_data[:timestamp].to_time,
         avg_age: measure_data[:average_age].to_f,
