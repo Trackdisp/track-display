@@ -1,6 +1,6 @@
 import Vue from 'vue/dist/vue.esm';
 import Vuex from 'vuex';
-import { getURLQueryParams } from '../helpers/url-helper';
+import { getURLFilterParams, getURLQueryParam } from '../helpers/url-helper';
 
 Vue.use(Vuex);
 
@@ -15,12 +15,13 @@ export default new Vuex.Store({
       'gender': [],
       'after': [],
       'before': [],
-      ...getURLQueryParams(),
+      ...getURLFilterParams(),
     },
+    groupBy: getURLQueryParam('group_by'),
   },
   getters: {
     filtersQueryString(state) {
-      let queryString = '';
+      let queryString = state.groupBy ? `group_by=${state.groupBy}&` : '';
       Object.entries(state.selectedFilters).forEach((pair) => {
         pair[1].forEach((value) => {
           queryString += `${pair[0]}=${value}&`;
