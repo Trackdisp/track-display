@@ -15,13 +15,13 @@
 
 export default {
   computed: {
-    filtersQueryParamsString() {
-      return this.$store.state.filtersQueryParamsString;
+    filtersQueryString() {
+      return this.$store.getters.filtersQueryString;
     },
   },
   methods: {
     applyFilters() {
-      window.location.search = this.filtersQueryParamsString;
+      window.location.search = this.filtersQueryString;
     },
     cleanFilters() {
       this.$store.dispatch('cleanFilters');

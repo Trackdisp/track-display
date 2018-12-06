@@ -1,24 +1,50 @@
 import Vue from 'vue/dist/vue.esm';
 import Vuex from 'vuex';
-import { changeURLQueryParam, getURLQueryParams, getURLQueryParamValues } from '../helpers/url-helper';
+import { getURLQueryParams } from '../helpers/url-helper';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    filtersQueryParamsString: getURLQueryParams(),
+    selectedFilters: {
+      'locations[]': [],
+      'brands[]': [],
+      'channels[]': [],
+      'communes[]': [],
+      'regions[]': [],
+      'gender': [],
+      'after': [],
+      'before': [],
+      ...getURLQueryParams(),
+    },
   },
   getters: {
-    selectedFilterValues: (state) => function (queryParam) {
-      return getURLQueryParamValues(state.filtersQueryParamsString, queryParam);
+    filtersQueryString(state) {
+      let queryString = '';
+      Object.entries(state.selectedFilters).forEach((pair) => {
+        pair[1].forEach((value) => {
+          queryString += `${pair[0]}=${value}&`;
+        });
+      });
+
+      return queryString;
     },
   },
   mutations: {
     changeFilter(state, payload) {
-      state.filtersQueryParamsString = changeURLQueryParam(state.filtersQueryParamsString, payload.queryParam, payload.value);
+      state.selectedFilters[payload.queryParam] = payload.value;
     },
     cleanFilters(state) {
-      state.filtersQueryParamsString = '';
+      state.selectedFilters = {
+        'locations[]': [],
+        'brands[]': [],
+        'channels[]': [],
+        'communes[]': [],
+        'regions[]': [],
+        'gender': [],
+        'after': [],
+        'before': [],
+      };
     },
   },
   actions: {

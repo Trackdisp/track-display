@@ -26,10 +26,10 @@ export default {
   computed: {
     selectedDate: {
       get() {
-        return this.$store.getters.selectedFilterValues(this.queryParam)[0];
+        return this.$store.state.selectedFilters[this.queryParam][0];
       },
       set(newDate) {
-        this.$store.dispatch('changeFilter', { queryParam: this.queryParam, value: newDate });
+        this.$store.dispatch('changeFilter', { queryParam: this.queryParam, value: newDate ? [newDate] : [] });
       },
     },
   },

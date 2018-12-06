@@ -18,12 +18,12 @@ export default {
     },
     selectedFilterValues: {
       get() {
-        const storeSelectedIds = this.$store.getters.selectedFilterValues(this.queryParam);
+        const storeSelectedIds = this.$store.state.selectedFilters[this.queryParam];
         let filterVal;
         if (this.multiple) {
           filterVal = this.options.filter(opt => storeSelectedIds.includes(String(opt[this.trackBy])));
         } else {
-          filterVal = this.options.find(opt => String(opt[this.trackBy]) === storeSelectedIds[0]);
+          filterVal = this.options.find(opt => storeSelectedIds.includes(String(opt[this.trackBy])));
         }
 
         return filterVal;
@@ -31,9 +31,9 @@ export default {
       set(values) {
         let paramValue;
         if (this.multiple) {
-          paramValue = values.map(val => val[this.trackBy]);
+          paramValue = values.map(val => String(val[this.trackBy]));
         } else {
-          paramValue = values ? values[this.trackBy] : values;
+          paramValue = values ? [String(values[this.trackBy])] : [];
         }
         this.$store.dispatch('changeFilter', { queryParam: this.queryParam, value: paramValue });
       },

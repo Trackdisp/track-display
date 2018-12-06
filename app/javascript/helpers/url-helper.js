@@ -6,18 +6,15 @@ export function changeURLQueryParam(searchParamsString, param, values) {
   } else if (values) {
     searchParams.append(param, values);
   }
-
-  return searchParams.toString();
 }
 
 export function getURLQueryParams() {
   const searchParams = new URLSearchParams(window.location.search);
+  const searchParamsObject = {};
 
-  return searchParams.toString();
-}
+  for (const key of searchParams.keys()) {
+    searchParamsObject[key] = searchParams.getAll(key).map((value) => value);
+  }
 
-export function getURLQueryParamValues(searchParamsString, param) {
-  const searchParams = new URLSearchParams(searchParamsString);
-
-  return searchParams.getAll(param);
+  return searchParamsObject;
 }
