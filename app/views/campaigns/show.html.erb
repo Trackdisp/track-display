@@ -1,10 +1,13 @@
 <div id="app" class="app">
   <%= render 'shared/header' %>
   <div class="campaign-details app__container">
-    <div class="campaign-details__sidebar">
-      <h3 class="campaign-details__title"><%= t('messages.campaign_dashboard.filters_title') %></h3>
-      <%= render 'details_campaign_filters' %>
-    </div>
+    <sidebar :locations="<%= @locations.to_json %>"
+             :brands="<%= @brands.to_json %>"
+             :channels="<%= @channels.to_json %>"
+             :communes="<%= @communes.to_json %>"
+             :regions="<%= @regions.to_json %>"
+             :genders="<%= gender_types_json %>">
+    </sidebar>
     <div class="campaign-details__main">
       <h3 class="campaign-details__title"><%= t('messages.campaign_dashboard.details_title') %></h3>
       <%= render 'details_summary_stats' %>
