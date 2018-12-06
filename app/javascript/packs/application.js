@@ -10,8 +10,10 @@ import GroupDateSelector from '../tools/group-date-selector.vue';
 import SelectFilter from '../tools/select-filter.vue';
 import DatetimePicker from '../tools/datetime-filter';
 import Stat from '../tools/stat';
+import FilterButton from '../tools/filter-button';
 import Chart from '../tools/chart.vue';
 import Locales from '../locales/locales';
+import store from '../store';
 
 document.addEventListener('DOMContentLoaded', () => {
   Highcharts.setOptions({
@@ -28,12 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
         locale: document.documentElement.lang,
         messages: Locales.messages,
       }),
+      store,
       components: {
         GroupDateSelector,
         SelectFilter,
         DatetimePicker,
         Chart,
         Stat,
+        FilterButton,
       },
     });
   }

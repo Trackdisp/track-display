@@ -1,51 +1,42 @@
 <template>
-  <vue-multiselect :options="options" :multiple="multiple" :class="selectClass" :label="label" :track-by="trackBy" v-model="filterValue" :placeholder="placeholder" :show-labels="false"></vue-multiselect>
+  <vue-multiselect :options="options" :multiple="multiple" :class="selectClass" :label="label" :track-by="trackBy" v-model="selectedFilterValues" :placeholder="placeholder" :show-labels="false"></vue-multiselect>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect';
-import changeURLQueryParam from '../helpers/url-helper';
 
 export default {
-  props: ['options', 'label', 'initialSelected', 'trackBy', 'placeholder', 'queryParam', 'multiple'],
-  data() {
-    let filterVal;
-    if (this.multiple) {
-      const initialSelectedInOptions = this.initialSelected.filter(selected => this.options.map(val => val[this.trackBy]).includes(selected));
-      if (this.initialSelected.length !== initialSelectedInOptions.length) {
-        window.location.search = changeURLQueryParam(this.queryParam, initialSelectedInOptions);
-      }
-      filterVal = this.options.filter(opt => this.initialSelected.includes(opt[this.trackBy]));
-    } else {
-      filterVal = this.options.find(opt => String(opt[this.trackBy]) === this.initialSelected);
-      if (this.initialSelected && filterVal === undefined) {
-        window.location.search = changeURLQueryParam(this.queryParam, filterVal);
-      }
-    }
-
-    return {
-      filterValue: filterVal,
-    };
-  },
+  props: ['options', 'label', 'trackBy', 'placeholder', 'queryParam', 'multiple'],
   components: {
     'vue-multiselect': Multiselect,
   },
   computed: {
     selectClass() {
       return {
-        'multiselect--active-filter': this.multiple ? this.filterValue.length > 0 : typeof this.filterValue !== 'undefined',
+        'multiselect--active-filter': this.multiple ? this.selectedFilterValues.length > 0 : typeof this.selectedFilterValues !== 'undefined',
       };
     },
-  },
-  watch: {
-    filterValue(values) {
-      let paramValue;
-      if (this.multiple) {
-        paramValue = values.map(val => val[this.trackBy]);
-      } else {
-        paramValue = values ? values[this.trackBy] : values;
-      }
-      window.location.search = changeURLQueryParam(this.queryParam, paramValue);
+    selectedFilterValues: {
+      get() {
+        const storeSelectedIds = this.$store.state.selectedFilters[this.queryParam];
+        let filterVal;
+        if (this.multiple) {
+          filterVal = this.options.filter(opt => storeSelectedIds.includes(String(opt[this.trackBy])));
+        } else {
+          filterVal = this.options.find(opt => storeSelectedIds.includes(String(opt[this.trackBy])));
+        }
+
+        return filterVal;
+      },
+      set(values) {
+        let paramValue;
+        if (this.multiple) {
+          paramValue = values.map(val => String(val[this.trackBy]));
+        } else {
+          paramValue = values ? [String(values[this.trackBy])] : [];
+        }
+        this.$store.dispatch('changeFilter', { queryParam: this.queryParam, value: paramValue });
+      },
     },
   },
 };

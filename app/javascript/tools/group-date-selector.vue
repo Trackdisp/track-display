@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import changeURLQueryParam from '../helpers/url-helper';
+import { changeURLQueryParam } from '../helpers/url-helper';
 
 export default {
   props: ['initialGroup'],
