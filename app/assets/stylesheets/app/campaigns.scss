@@ -133,7 +133,7 @@
     padding: 0 25px;
   }
 
-  &__sidebar {
+  &__filters-container {
     background-color: $white;
     border: $app-content-border;
     box-shadow: 0 0 18px 0 $app-sidebar-shadow-color;
@@ -160,7 +160,7 @@
     }
   }
 
-  &__filters-container {
+  &__filters {
     flex: 1;
     padding: 0 25px;
   }

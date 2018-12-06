@@ -8,7 +8,7 @@ import Vuetify from 'vuetify';
 import VueHighcharts from 'vue-highcharts';
 import GroupDateSelector from '../tools/group-date-selector.vue';
 import Stat from '../tools/stat';
-import Sidebar from '../tools/sidebar';
+import FiltersContainer from '../tools/filters-container';
 import Chart from '../tools/chart.vue';
 import Locales from '../locales/locales';
 import store from '../store';
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         GroupDateSelector,
         Chart,
         Stat,
-        Sidebar,
+        FiltersContainer,
       },
     });
   }

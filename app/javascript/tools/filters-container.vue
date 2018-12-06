@@ -1,7 +1,7 @@
 <template>
-  <div class="campaign-details__sidebar">
+  <div class="campaign-details__filters-container">
     <h3 class="campaign-details__title">{{ $t('messages.campaignDetails.filters.title') }}</h3>
-    <div class="campaign-details__filters-container">
+    <div class="campaign-details__filters">
       <div class="campaign-details__filter">
         <select-filter :options="locations" label="name" track-by="id" query-param="locations[]" :placeholder="$t('messages.campaignDetails.filters.locations')" :multiple="true"></select-filter>
       </div>
