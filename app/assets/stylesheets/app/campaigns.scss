@@ -134,9 +134,21 @@
   }
 
   &__display_filters_button {
+    background: $white;
+    border-top: $app-content-border;
+    bottom: 0;
+    color: $primary-font-color;
     cursor: pointer;
-    padding: 0 10px;
+    font-family: $main-font;
+    font-weight: bold;
+    left: 0;
+    padding: 16px 0;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    top: auto;
     width: 100%;
+    z-index: 200;
 
     @media only screen and (min-width: #{$mobile-breakpoint}) {
       display: none;
