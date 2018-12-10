@@ -6,7 +6,7 @@
     <div class="filters-container__content" :class="{ 'filters-container__content--open': showingFilters }">
       <div class="filters-container__header-container">
         <h3 class="filters-container__title">{{ $t('messages.campaignDetails.filters.title') }}</h3>
-        <img src="~/close.svg" @click="showingFilters = false">
+        <img class="filters-container__close-button" src="~/close-grey.svg" @click="showingFilters = false">
       </div>
       <div class="filters-container__filters">
         <div class="filters-container__filter">

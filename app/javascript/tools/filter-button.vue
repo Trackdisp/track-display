@@ -1,7 +1,7 @@
 <template>
   <div class="filter-button__container">
     <div class="filter-button__button" @click="cleanFilters">
-      <img src="~/close.svg">
+      <img src="~/close-red.svg">
       Limpiar
     </div>
     <div class="filter-button__button" @click="applyFilters">
