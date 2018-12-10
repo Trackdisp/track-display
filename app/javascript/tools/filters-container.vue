@@ -4,7 +4,10 @@
       Filtros
     </div>
     <div class="campaign-details__filters-container" :class="{ 'campaign-details__filters-container--open': showingFilters }">
-      <h3 class="campaign-details__title">{{ $t('messages.campaignDetails.filters.title') }}</h3>
+      <div class="campaign-details__filters-header-container">
+        <h3 class="campaign-details__title">{{ $t('messages.campaignDetails.filters.title') }}</h3>
+        <img src="~/close.svg" @click="showingFilters = false">
+      </div>
       <div class="campaign-details__filters">
         <div class="campaign-details__filter">
           <select-filter :options="locations" label="name" track-by="id" query-param="locations[]" :placeholder="$t('messages.campaignDetails.filters.locations')" :multiple="true"></select-filter>
