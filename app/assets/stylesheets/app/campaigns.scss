@@ -190,4 +190,22 @@
       margin-right: 0;
     }
   }
+
+  &__filters-container {
+    display: none;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      display: block;
+    }
+
+    &--mobile {
+      display: block;
+      margin-top: 52px;
+
+      @media only screen and (min-width: #{$mobile-breakpoint}) {
+        display: none;
+        margin: 0;
+      }
+    }
+  }
 }

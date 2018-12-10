@@ -1,12 +1,13 @@
 <div id="app" class="app">
   <%= render 'shared/header' %>
   <div class="campaign-details app__container">
-    <filters-container :locations="<%= @locations.to_json %>"
-             :brands="<%= @brands.to_json %>"
-             :channels="<%= @channels.to_json %>"
-             :communes="<%= @communes.to_json %>"
-             :regions="<%= @regions.to_json %>"
-             :genders="<%= gender_types_json %>">
+    <filters-container class="campaign-details__filters-container"
+                       :locations="<%= @locations.to_json %>"
+                       :brands="<%= @brands.to_json %>"
+                       :channels="<%= @channels.to_json %>"
+                       :communes="<%= @communes.to_json %>"
+                       :regions="<%= @regions.to_json %>"
+                       :genders="<%= gender_types_json %>">
     </filters-container>
     <div class="campaign-details__main">
       <h3 class="campaign-details__title"><%= t('messages.campaign_dashboard.details_title') %></h3>
@@ -21,4 +22,12 @@
       </div>
     </div>
   </div>
+  <filters-container class="campaign-details__filters-container campaign-details__filters-container--mobile"
+                      :locations="<%= @locations.to_json %>"
+                      :brands="<%= @brands.to_json %>"
+                      :channels="<%= @channels.to_json %>"
+                      :communes="<%= @communes.to_json %>"
+                      :regions="<%= @regions.to_json %>"
+                      :genders="<%= gender_types_json %>">
+  </filters-container>
 </div>
