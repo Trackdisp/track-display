@@ -58,3 +58,6 @@ en:
     campaign_dashboard:
       details_title: Details
       filters_title: Filters
+  date:
+    formats:
+      short: "%a %d/%m/%Y"

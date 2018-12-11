@@ -146,3 +146,6 @@ es-CL:
       week: Semana desde
     campaign_dashboard:
       details_title: Detalles
+  date:
+    formats:
+      short: "%a %d/%m/%Y"
