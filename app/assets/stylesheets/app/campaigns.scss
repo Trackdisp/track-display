@@ -130,23 +130,7 @@
     font-weight: bold;
     line-height: 26px;
     margin: 25px 0;
-    padding: 0 25px;
-  }
-
-  &__sidebar {
-    background-color: $white;
-    border: $app-content-border;
-    box-shadow: 0 0 18px 0 $app-sidebar-shadow-color;
-    box-sizing: border-box;
-    display: none;
-    flex: 0 0 226px;
-    margin-top: 5px;
-    opacity: .88;
-
-    @media only screen and (min-width: #{$mobile-breakpoint}) {
-      display: flex;
-      flex-direction: column;
-    }
+    padding: 0 16px;
   }
 
   &__main {
@@ -158,40 +142,6 @@
       padding: 25px 55px;
       width: calc(100% - 226px);
     }
-  }
-
-  &__filters-container {
-    flex: 1;
-    padding: 0 25px;
-  }
-
-  &__filter {
-    margin: 10px 0;
-  }
-
-  &__filter-separator {
-    border: $app-filter-border;
-    margin: 15px 0;
-    opacity: .3;
-  }
-
-  &__filter-buttons-container {
-    background-color: $white;
-    border-bottom: $app-content-border;
-    border-top: $app-content-border;
-    bottom: 0;
-    display: flex;
-    justify-content: space-between;
-    padding: 19px;
-    position: sticky;
-  }
-
-  &__filter-button {
-    color: $app-filter-color;
-    cursor: pointer;
-    font-family: $main-font;
-    font-size: 14px;
-    font-weight: bold;
   }
 
   &__summary {
@@ -238,6 +188,24 @@
   &__summary-stat:last-child {
     @media only screen and (min-width: #{$mobile-breakpoint}) {
       margin-right: 0;
+    }
+  }
+
+  &__filters-container {
+    display: none;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      display: block;
+    }
+
+    &--mobile {
+      display: block;
+      margin-top: 52px;
+
+      @media only screen and (min-width: #{$mobile-breakpoint}) {
+        display: none;
+        margin: 0;
+      }
     }
   }
 }

@@ -9,5 +9,5 @@ tslint:
   enabled: true
   config_file: tslint.json
 scss:
-  enabled: true
+  enabled: false
   config_file: ".scss-lint.yml"

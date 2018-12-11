@@ -7,10 +7,8 @@ import VueI18n from 'vue-i18n';
 import Vuetify from 'vuetify';
 import VueHighcharts from 'vue-highcharts';
 import GroupDateSelector from '../tools/group-date-selector.vue';
-import SelectFilter from '../tools/select-filter.vue';
-import DatetimePicker from '../tools/datetime-filter';
 import Stat from '../tools/stat';
-import FilterButton from '../tools/filter-button';
+import FiltersContainer from '../tools/filters-container';
 import Chart from '../tools/chart.vue';
 import Locales from '../locales/locales';
 import store from '../store';
@@ -33,11 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
       store,
       components: {
         GroupDateSelector,
-        SelectFilter,
-        DatetimePicker,
         Chart,
         Stat,
-        FilterButton,
+        FiltersContainer,
       },
     });
   }

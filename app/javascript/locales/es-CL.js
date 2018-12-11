@@ -38,6 +38,7 @@ export default {
   messages: {
     campaignDetails: {
       filters: {
+        title: 'Filtros',
         afterDate: 'Después de',
         beforeDate: 'Antes de',
         gender: 'Género',

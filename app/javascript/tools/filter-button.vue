@@ -1,10 +1,10 @@
 <template>
-  <div class="campaign-details__filter-buttons-container">
-    <div class="campaign-details__filter-button" @click="cleanFilters">
-      <img src="~/close.svg">
+  <div class="filter-button__container">
+    <div class="filter-button__button" @click="cleanFilters">
+      <img src="~/close-red.svg">
       Limpiar
     </div>
-    <div class="campaign-details__filter-button" @click="applyFilters">
+    <div class="filter-button__button" @click="applyFilters">
       <img src="~/check.svg">
       Aplicar
     </div>

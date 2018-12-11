@@ -1,0 +1,23 @@
+@import '../base';
+
+.filter-button {
+  &__container {
+    background-color: $white;
+    border-bottom: $app-content-border;
+    border-top: $app-content-border;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    min-height: 18px;
+    padding: 19px;
+    position: sticky;
+  }
+
+  &__button {
+    color: $app-filter-color;
+    cursor: pointer;
+    font-family: $main-font;
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
