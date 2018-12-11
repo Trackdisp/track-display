@@ -24,8 +24,8 @@ module CampaignsHelper
   end
 
   def campaign_date_range(campaign)
-    "#{I18n.localize(campaign.start_date, format: :long).upcase} -
-      #{I18n.localize(campaign.end_date, format: :long).upcase}"
+    "#{I18n.localize(campaign.start_date, format: :short).upcase} -
+      #{I18n.localize(campaign.end_date, format: :short).upcase}"
   end
 
   def gender_types_json
