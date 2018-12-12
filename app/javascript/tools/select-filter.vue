@@ -6,15 +6,21 @@
 import Multiselect from 'vue-multiselect';
 
 export default {
-  props: ['options', 'label', 'trackBy', 'placeholder', 'queryParam', 'multiple'],
+  props: ['initialOptions', 'label', 'trackBy', 'placeholder', 'queryParam', 'multiple'],
   components: {
     'vue-multiselect': Multiselect,
+  },
+  beforeMount() {
+    this.$store.dispatch('setFilterOptions', { queryParam: this.queryParam, value: this.initialOptions });
   },
   computed: {
     selectClass() {
       return {
         'multiselect--active-filter': this.multiple ? this.selectedFilterValues.length > 0 : typeof this.selectedFilterValues !== 'undefined',
       };
+    },
+    options() {
+      return this.$store.state.filtersOptions[this.queryParam];
     },
     selectedFilterValues: {
       get() {

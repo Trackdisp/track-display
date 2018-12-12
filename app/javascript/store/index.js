@@ -17,6 +17,14 @@ export default new Vuex.Store({
       'before': [],
       ...getURLFilterParams(),
     },
+    filtersOptions: {
+      'locations[]': [],
+      'brands[]': [],
+      'channels[]': [],
+      'communes[]': [],
+      'regions[]': [],
+      'gender': [],
+    },
     groupBy: getURLQueryParam('group_by'),
   },
   getters: {
@@ -47,6 +55,9 @@ export default new Vuex.Store({
         'before': [],
       };
     },
+    setFilterOptions(state, payload) {
+      state.filtersOptions[payload.queryParam] = payload.value;
+    },
   },
   actions: {
     changeFilter({ commit }, payload) {
@@ -54,6 +65,9 @@ export default new Vuex.Store({
     },
     cleanFilters({ commit }) {
       commit('cleanFilters');
+    },
+    setFilterOptions({ commit }, payload) {
+      commit('setFilterOptions', payload);
     },
   },
 });
