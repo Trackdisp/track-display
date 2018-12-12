@@ -1,6 +1,7 @@
 import Vue from 'vue/dist/vue.esm';
 import Vuex from 'vuex';
 import { getURLFilterParams, getURLQueryParam } from '../helpers/url-helper';
+import api from './api';
 
 Vue.use(Vuex);
 
@@ -60,8 +61,14 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    changeFilter({ commit }, payload) {
-      commit('changeFilter', payload);
+    changeFilter(context, payload) {
+      context.commit('changeFilter', payload);
+      api.getDependantFiltersOptions(context.getters.filtersQueryString)
+        .then((filtersOptions) => {
+          Object.entries(filtersOptions).forEach((pair) => {
+            context.commit('setFilterOptions', { queryParam: pair[0], value: pair[1] });
+          });
+        });
     },
     cleanFilters({ commit }) {
       commit('cleanFilters');
