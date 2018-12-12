@@ -27,10 +27,11 @@ module CampaignFiltered
 
   def commune_options
     all_communes_ids = all_campaign_locations.pluck(:commune_id).uniq
-    @communes ||= if @selected_regions.empty?
+    @communes ||= if selected_regions.empty?
                     Commune.where(id: all_communes_ids)
                   else
-                    selected_regions_communes_ids = @selected_regions.map(&:communes).flatten.map(&:id)
+                    selected_regions_communes_ids = selected_regions.map(&:communes)
+                                                                    .flatten.map(&:id)
                     Commune.where(id: all_communes_ids & selected_regions_communes_ids)
                   end
   end
@@ -103,10 +104,10 @@ module CampaignFiltered
 
   def build_locations_filters_hash
     filters = {}
-    filters[:brand_ids] = @selected_brands.map(&:id) unless @selected_brands&.empty?
-    filters[:channels] = @selected_channels unless @selected_channels&.empty?
-    filters[:commune_ids] = @selected_communes.map(&:id) unless @selected_communes&.empty?
-    filters[:region_ids] = @selected_regions.map(&:id) unless @selected_regions&.empty?
+    filters[:brand_ids] = selected_brands.map(&:id) unless selected_brands&.empty?
+    filters[:channels] = selected_channels unless selected_channels&.empty?
+    filters[:commune_ids] = selected_communes.map(&:id) unless selected_communes&.empty?
+    filters[:region_ids] = selected_regions.map(&:id) unless selected_regions&.empty?
     filters
   end
 end
