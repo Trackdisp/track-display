@@ -1,5 +1,6 @@
 import Vue from 'vue/dist/vue.esm';
 import Vuex from 'vuex';
+import differenceInDays from 'date-fns/difference_in_days';
 import { getURLFilterParams, getURLQueryParam } from '../helpers/url-helper';
 import api from './api';
 
@@ -40,6 +41,12 @@ export default new Vuex.Store({
       });
 
       return queryString;
+    },
+    chartDatesDiffInDays(state) {
+      const start = state.selectedFilters.after[0] || state.chartStartDate;
+      const end = state.selectedFilters.before[0] || state.chartEndDate;
+
+      return differenceInDays(new Date(end), new Date(start));
     },
   },
   mutations: {
