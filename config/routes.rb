@@ -3,8 +3,10 @@ Rails.application.routes.draw do
 
   scope path: '/api' do
     api_version(module: "Api::V1", path: { value: "v1" }, defaults: { format: 'json' }) do
-      resources :campaigns, only: [] do
-        resources :campaign_stats, path: 'stats', only: [:index]
+      resources :campaigns, only: [], param: :slug do
+        member do
+          get 'dependant_filters_options', to: 'campaigns#dependant_filters_options'
+        end
       end
     end
   end

@@ -10,20 +10,20 @@
       </div>
       <div class="filters-container__filters">
         <div class="filters-container__filter">
-          <select-filter :options="locations" label="name" track-by="id" query-param="locations[]" :placeholder="$t('messages.campaignDetails.filters.locations')" :multiple="true"></select-filter>
+          <select-filter :initial-options="locations" label="name" track-by="id" query-param="locations[]" :placeholder="$t('messages.campaignDetails.filters.locations')" :multiple="true"></select-filter>
         </div>
         <div class="filters-container__filter">
-          <select-filter :options="brands" label="name" track-by="id" query-param="brands[]" :placeholder="$t('messages.campaignDetails.filters.brands')" :multiple="true"></select-filter>
+          <select-filter :initial-options="brands" label="name" track-by="id" query-param="brands[]" :placeholder="$t('messages.campaignDetails.filters.brands')" :multiple="true"></select-filter>
         </div>
         <div class="filters-container__filter">
-          <select-filter :options="channels" label="name" track-by="id" query-param="channels[]" :placeholder="$t('messages.campaignDetails.filters.channels')" :multiple="true"></select-filter>
+          <select-filter :initial-options="channels" label="name" track-by="id" query-param="channels[]" :placeholder="$t('messages.campaignDetails.filters.channels')" :multiple="true"></select-filter>
         </div>
         <div class="filters-container__filter-separator"></div>
         <div class="filters-container__filter">
-          <select-filter :options="communes" label="name" track-by="id" query-param="communes[]" :placeholder="$t('messages.campaignDetails.filters.communes')" :multiple="true"></select-filter>
+          <select-filter :initial-options="communes" label="name" track-by="id" query-param="communes[]" :placeholder="$t('messages.campaignDetails.filters.communes')" :multiple="true"></select-filter>
         </div>
         <div class="filters-container__filter">
-          <select-filter :options="regions" label="name" track-by="id" query-param="regions[]" :placeholder="$t('messages.campaignDetails.filters.regions')" :multiple="true"></select-filter>
+          <select-filter :initial-options="regions" label="name" track-by="id" query-param="regions[]" :placeholder="$t('messages.campaignDetails.filters.regions')" :multiple="true"></select-filter>
         </div>
         <div class="filters-container__filter-separator"></div>
         <div class="filters-container__filter">
@@ -34,7 +34,7 @@
         </div>
         <div class="filters-container__filter-separator"></div>
         <div class="filters-container__filter">
-          <select-filter :options="genders" label="name" track-by="id" query-param="gender" :placeholder="$t('messages.campaignDetails.filters.gender')"></select-filter>
+          <select-filter :initial-options="genders" label="name" track-by="id" query-param="gender" :placeholder="$t('messages.campaignDetails.filters.gender')"></select-filter>
         </div>
       </div>
       <filter-button></filter-button>
