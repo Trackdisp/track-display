@@ -9,7 +9,11 @@ import es from 'date-fns/locale/es';
 export default {
   props: {
     series: Array,
-    groupBy: String,
+    startDate: [String, Number],
+    endDate: [String, Number],
+  },
+  beforeMount() {
+    this.$store.dispatch('setDateRange', { start: this.startDate, end: this.endDate });
   },
   data() {
     const that = this;

@@ -26,6 +26,8 @@ export default new Vuex.Store({
       'regions[]': [],
       'gender': [],
     },
+    chartStartDate: null,
+    chartEndDate: null,
     groupBy: getURLQueryParam('group_by'),
   },
   getters: {
@@ -59,6 +61,10 @@ export default new Vuex.Store({
     setFilterOptions(state, payload) {
       state.filtersOptions[payload.queryParam] = payload.value;
     },
+    setDateRange(state, payload) {
+      state.chartStartDate = payload.start;
+      state.chartEndDate = payload.end;
+    },
   },
   actions: {
     changeFilter(context, payload) {
@@ -75,6 +81,9 @@ export default new Vuex.Store({
     },
     setFilterOptions({ commit }, payload) {
       commit('setFilterOptions', payload);
+    },
+    setDateRange({ commit }, payload) {
+      commit('setDateRange', payload);
     },
   },
 });
