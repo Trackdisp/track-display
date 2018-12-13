@@ -19,13 +19,17 @@ const HOUR_LIMIT = 4;
 const DAY_LIMIT = 30;
 
 export default {
-  props: ['initialGroup'],
-  data() {
-    return {
-      groupBy: this.initialGroup,
-    };
-  },
   computed: {
+    groupBy: {
+      get() {
+        return this.$store.state.groupBy;
+      },
+      set(val) {
+        if (val) {
+          window.location.search = changeURLQueryParam('group_by', val);
+        }
+      },
+    },
     chartDatesDiffInDays() {
       return this.$store.getters.chartDatesDiffInDays;
     },
@@ -34,13 +38,6 @@ export default {
     },
     shouldDisableDay() {
       return this.chartDatesDiffInDays > DAY_LIMIT;
-    },
-  },
-  watch: {
-    groupBy(val) {
-      if (val) {
-        window.location.search = changeURLQueryParam('group_by', val);
-      }
     },
   },
 };

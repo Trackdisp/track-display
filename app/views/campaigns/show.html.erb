@@ -14,13 +14,12 @@
       <%= render 'details_summary_stats' %>
       <div class="summary-graph campaign-details__graph">
         <div class="summary-graph__selector">
-          <group-date-selector initial-group="<%= date_group_by.to_s %>"></group-date-selector>
+          <group-date-selector></group-date-selector>
         </div>
         <div class="summary-graph__graph">
           <chart :series="<%= campaign_graph_data(@campaign_stat).to_json %>"
                  :start-date="<%= start_date(@campaign_stat).to_json %>"
-                 :end-date="<%= end_date(@campaign_stat).to_json %>"
-                 group-by="<%= @date_group_by.to_s %>">
+                 :end-date="<%= end_date(@campaign_stat).to_json %>">
           </chart>
         </div>
       </div>

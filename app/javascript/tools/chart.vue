@@ -16,6 +16,9 @@ export default {
     this.$store.dispatch('setDateRange', { start: this.startDate, end: this.endDate });
   },
   computed: {
+    groupBy() {
+      return this.$store.state.groupBy;
+    },
     tooltipOptions() {
       const that = this;
 
@@ -71,7 +74,7 @@ export default {
 
           return pointFormat;
         },
-      }
+      };
     },
     options() {
       const unitsColor = '#fe7b4f';
