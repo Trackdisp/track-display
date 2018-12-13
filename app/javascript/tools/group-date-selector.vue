@@ -19,6 +19,13 @@ const HOUR_LIMIT = 4;
 const DAY_LIMIT = 30;
 
 export default {
+  mounted() {
+    if (this.shouldDisableDay && ['day', 'hour'].includes(this.groupBy)) {
+      window.location.search = changeURLQueryParam('group_by', 'week');
+    } else if (this.shouldDisableHour && this.groupBy === 'hour') {
+      window.location.search = changeURLQueryParam('group_by', 'day');
+    }
+  },
   computed: {
     groupBy: {
       get() {
