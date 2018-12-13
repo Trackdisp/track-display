@@ -40,6 +40,89 @@ shared_examples :campaign_filtered do
     end
   end
 
+  describe "#locations_options" do
+    it { expect(subject).to respond_to(:location_options) }
+
+    context "when no filters are selected" do
+      before { allow(subject).to receive(:params).and_return(slug: campaign.slug) }
+
+      it "sets locations filter options considering only active devices from campaign" do
+        expect(subject.location_options).to match_array([measures[0].location, measures[2].location,
+                                                         measures[3].location])
+      end
+    end
+
+    context "when multiple brands are selected" do
+      before do
+        allow(subject).to receive(:params).and_return(slug: campaign.slug, brands: brands)
+      end
+
+      it "sets location filter options considering only those of selected brands" do
+        expect(subject.location_options).to match_array([measures[0].location,
+                                                         measures[2].location])
+      end
+    end
+
+    context "when multiple channels are selected" do
+      before do
+        allow(subject).to receive(:params).and_return(slug: campaign.slug, channels: channels)
+      end
+
+      it "sets location filter options considering only those of selected channels" do
+        expect(subject.location_options).to match_array([measures[0].location,
+                                                         measures[2].location])
+      end
+    end
+
+    context "when multiple communes are selected" do
+      before do
+        allow(subject).to receive(:params).and_return(slug: campaign.slug, communes: communes)
+      end
+
+      it "sets location filter options considering only those of selected communes" do
+        expect(subject.location_options).to match_array([measures[0].location,
+                                                         measures[2].location])
+      end
+    end
+
+    context "when multiple regions are selected" do
+      before do
+        allow(subject).to receive(:params).and_return(slug: campaign.slug, regions: regions)
+      end
+
+      it "sets location filter options considering only those of selected regions" do
+        expect(subject.location_options).to match_array([measures[0].location,
+                                                         measures[2].location])
+      end
+    end
+  end
+
+  describe "#commune_options" do
+    it { expect(subject).to respond_to(:location_options) }
+
+    context "when no regions are selected" do
+      before { allow(subject).to receive(:params).and_return(slug: campaign.slug) }
+
+      it "sets communes filter options considering only those with an associated location in "\
+         "the locations filter options" do
+        expect(subject.commune_options).to match_array([measures[0].location.commune,
+                                                        measures[2].location.commune,
+                                                        measures[3].location.commune])
+      end
+    end
+
+    context "when multiple regions are selected" do
+      before do
+        allow(subject).to receive(:params).and_return(slug: campaign.slug, regions: regions)
+      end
+
+      it "sets commune filter options considering only those of selected regions" do
+        expect(subject.commune_options).to match_array([measures[0].location.commune,
+                                                        measures[2].location.commune])
+      end
+    end
+  end
+
   describe "#campaign" do
     before { allow(subject).to receive(:params).and_return(slug: campaign.slug) }
 
