@@ -43,8 +43,8 @@ export default new Vuex.Store({
       return queryString;
     },
     chartDatesDiffInDays(state) {
-      const start = state.selectedFilters.after[0] || state.chartStartDate;
-      const end = state.selectedFilters.before[0] || state.chartEndDate;
+      const start = state.chartStartDate;
+      const end = state.chartEndDate;
 
       return differenceInDays(new Date(end), new Date(start));
     },

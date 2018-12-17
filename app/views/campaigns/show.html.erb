@@ -18,8 +18,8 @@
         </div>
         <div class="summary-graph__graph">
           <chart :series="<%= campaign_graph_data(@campaign_stat).to_json %>"
-                 :start-date="<%= start_date(@campaign_stat).to_json %>"
-                 :end-date="<%= end_date(@campaign_stat).to_json %>">
+                 :start-date="<%= start_date(@campaign_stat, @after_date).to_json %>"
+                 :end-date="<%= end_date(@campaign_stat, @before_date).to_json %>">
           </chart>
         </div>
       </div>
