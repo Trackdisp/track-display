@@ -1,5 +1,6 @@
 import Vue from 'vue/dist/vue.esm';
 import Vuex from 'vuex';
+import differenceInDays from 'date-fns/difference_in_days';
 import { getURLFilterParams, getURLQueryParam } from '../helpers/url-helper';
 import api from './api';
 
@@ -26,7 +27,9 @@ export default new Vuex.Store({
       'regions[]': [],
       'gender': [],
     },
-    groupBy: getURLQueryParam('group_by'),
+    chartStartDate: null,
+    chartEndDate: null,
+    groupBy: getURLQueryParam('group_by') || 'day',
   },
   getters: {
     filtersQueryString(state) {
@@ -38,6 +41,12 @@ export default new Vuex.Store({
       });
 
       return queryString;
+    },
+    chartDatesDiffInDays(state) {
+      const start = state.chartStartDate;
+      const end = state.chartEndDate;
+
+      return differenceInDays(new Date(end), new Date(start));
     },
   },
   mutations: {
@@ -59,6 +68,10 @@ export default new Vuex.Store({
     setFilterOptions(state, payload) {
       state.filtersOptions[payload.queryParam] = payload.value;
     },
+    setDateRange(state, payload) {
+      state.chartStartDate = payload.start;
+      state.chartEndDate = payload.end;
+    },
   },
   actions: {
     changeFilter(context, payload) {
@@ -75,6 +88,9 @@ export default new Vuex.Store({
     },
     setFilterOptions({ commit }, payload) {
       commit('setFilterOptions', payload);
+    },
+    setDateRange({ commit }, payload) {
+      commit('setDateRange', payload);
     },
   },
 });

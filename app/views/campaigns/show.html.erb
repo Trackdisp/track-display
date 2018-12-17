@@ -14,20 +14,23 @@
       <%= render 'details_summary_stats' %>
       <div class="summary-graph campaign-details__graph">
         <div class="summary-graph__selector">
-          <group-date-selector initial-group="<%= date_group_by.to_s %>"></group-date-selector>
+          <group-date-selector></group-date-selector>
         </div>
         <div class="summary-graph__graph">
-          <chart v-bind:series="<%= campaign_graph_data(@campaign_stat).to_json %>" group-by="<%= @date_group_by.to_s %>" ></chart>
+          <chart :series="<%= campaign_graph_data(@campaign_stat).to_json %>"
+                 :start-date="<%= start_date(@campaign_stat, @after_date).to_json %>"
+                 :end-date="<%= end_date(@campaign_stat, @before_date).to_json %>">
+          </chart>
         </div>
       </div>
     </div>
   </div>
   <filters-container class="campaign-details__filters-container campaign-details__filters-container--mobile"
-                      :locations="<%= @locations.to_json %>"
-                      :brands="<%= @brands.to_json %>"
-                      :channels="<%= @channels.to_json %>"
-                      :communes="<%= @communes.to_json %>"
-                      :regions="<%= @regions.to_json %>"
-                      :genders="<%= gender_types_json %>">
+                     :locations="<%= @locations.to_json %>"
+                     :brands="<%= @brands.to_json %>"
+                     :channels="<%= @channels.to_json %>"
+                     :communes="<%= @communes.to_json %>"
+                     :regions="<%= @regions.to_json %>"
+                     :genders="<%= gender_types_json %>">
   </filters-container>
 </div>

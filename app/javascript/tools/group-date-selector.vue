@@ -3,10 +3,10 @@
     <v-btn flat value="week">
       {{ $t('groupDateSelector.week')}}
     </v-btn>
-    <v-btn flat value="day">
+    <v-btn flat value="day" :disabled="shouldDisableDay">
       {{ $t('groupDateSelector.day')}}
     </v-btn>
-    <v-btn flat value="hour">
+    <v-btn flat value="hour" :disabled="shouldDisableHour">
       {{ $t('groupDateSelector.hour')}}
     </v-btn>
   </v-btn-toggle>
@@ -15,18 +15,36 @@
 <script>
 import { changeURLQueryParam } from '../helpers/url-helper';
 
+const HOUR_LIMIT = 4;
+const DAY_LIMIT = 30;
+
 export default {
-  props: ['initialGroup'],
-  data() {
-    return {
-      groupBy: this.initialGroup,
-    };
+  mounted() {
+    if (this.shouldDisableDay && ['day', 'hour'].includes(this.groupBy)) {
+      window.location.search = changeURLQueryParam('group_by', 'week');
+    } else if (this.shouldDisableHour && this.groupBy === 'hour') {
+      window.location.search = changeURLQueryParam('group_by', 'day');
+    }
   },
-  watch: {
-    groupBy(val) {
-      if (val) {
-        window.location.search = changeURLQueryParam('group_by', val);
-      }
+  computed: {
+    groupBy: {
+      get() {
+        return this.$store.state.groupBy;
+      },
+      set(val) {
+        if (val) {
+          window.location.search = changeURLQueryParam('group_by', val);
+        }
+      },
+    },
+    chartDatesDiffInDays() {
+      return this.$store.getters.chartDatesDiffInDays;
+    },
+    shouldDisableHour() {
+      return this.chartDatesDiffInDays > HOUR_LIMIT;
+    },
+    shouldDisableDay() {
+      return this.chartDatesDiffInDays > DAY_LIMIT;
     },
   },
 };
