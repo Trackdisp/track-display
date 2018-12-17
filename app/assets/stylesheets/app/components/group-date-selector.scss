@@ -39,6 +39,14 @@
       }
     }
 
+    &--disabled {
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: $content-bg-color;
+      }
+    }
+
     &__content {
       font-family: $main-font;
       font-size: 12px;
