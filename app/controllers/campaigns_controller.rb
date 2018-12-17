@@ -9,8 +9,12 @@ class CampaignsController < BaseController
   end
 
   def show
-    @campaign_stat = obtain_campaign_stat
-    set_filters_options
+    if current_user.company.campaigns.exists?(campaign.id)
+      @campaign_stat = obtain_campaign_stat
+      set_filters_options
+    else
+      redirect_to root_path
+    end
   end
 
   private
