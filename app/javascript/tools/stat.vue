@@ -1,16 +1,14 @@
 <template>
-  <div class="campaign-details__summary-stat" v-on-clickaway="hide">
-    <div class="campaign-detail-data">
-      <div @click="toggleShow" :class="statClass">
-        <img class="campaign-detail-data__icon" :src="image">
-        <div class="campaign-detail-data__data-container">
-          <span :class="valueClass">{{ value }}</span>
-          <span class="campaign-detail-data__label">{{ translation }}</span>
-        </div>
+  <div class="campaign-details__summary-stat campaign-detail-data" v-on-clickaway="hide">
+    <div @click="toggleShow" :class="statClass">
+      <img class="campaign-detail-data__icon" :src="image">
+      <div class="campaign-detail-data__data-container">
+        <span :class="valueClass">{{ value }}</span>
+        <span class="campaign-detail-data__label">{{ translation }}</span>
       </div>
-      <div class="campaign-detail-data campaign-detail-data__gender-breakdown" v-if="isClickable" v-show="show">
-        Hombres: {{ maleValue }} <br>Mujeres: {{ femaleValue }}
-      </div>
+    </div>
+    <div class="campaign-detail-data campaign-detail-data__gender-breakdown" v-if="isClickable" v-show="show">
+      Hombres: {{ maleValue }} <br>Mujeres: {{ femaleValue }}
     </div>
   </div>
 </template>
