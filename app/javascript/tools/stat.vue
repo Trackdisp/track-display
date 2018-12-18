@@ -1,13 +1,13 @@
 <template>
-  <div class="campaign-details__summary-stat campaign-detail-data" v-on-clickaway="hide">
-    <div @click="toggleShow" :class="statClass">
+  <div @click="toggleShowBreakdown" class="campaign-details__summary-stat campaign-detail-data" v-on-clickaway="hide">
+    <div :class="statClass" v-if="!showBreakdown">
       <img class="campaign-detail-data__icon" :src="image">
       <div class="campaign-detail-data__data-container">
         <span :class="valueClass">{{ value }}</span>
         <span class="campaign-detail-data__label">{{ translation }}</span>
       </div>
     </div>
-    <div class="campaign-detail-data campaign-detail-data__gender-breakdown" v-if="isClickable" v-show="show">
+    <div class="campaign-detail-data campaign-detail-data__gender-breakdown" v-else>
       Hombres: {{ maleValue }} <br>Mujeres: {{ femaleValue }}
     </div>
   </div>
@@ -33,16 +33,18 @@ export default {
       maleValue: elementParsed.male_value,
       femaleValue: elementParsed.female_value,
       translation: this.$i18n.t(`messages.campaignDetails.stats.${elementParsed.translation}`),
-      show: false,
+      showBreakdown: false,
       isClickable: elementParsed.female_value !== undefined && elementParsed.male_value !== undefined,
     };
   },
   methods: {
-    toggleShow() {
-      this.show = !this.show;
+    toggleShowBreakdown() {
+      if (this.isClickable) {
+        this.showBreakdown = !this.showBreakdown;
+      }
     },
     hide() {
-      this.show = false;
+      this.showBreakdown = false;
     },
   },
 };
