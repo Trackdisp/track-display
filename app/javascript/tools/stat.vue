@@ -8,7 +8,8 @@
       </div>
     </div>
     <div class="campaign-detail-data campaign-detail-data__gender-breakdown" v-else>
-      Hombres: {{ maleValue }} <br>Mujeres: {{ femaleValue }}
+      <img src="~/male.svg"> {{ maleValue }} <br>
+      <img src="~/female.svg"> {{ femaleValue }}
     </div>
   </div>
 </template>
