@@ -74,13 +74,13 @@ module CampaignsHelper
     return after if after.present?
     min_date_total_data = campaign_data.total_data.map(&:first).min
     min_date_units_extracted_data = campaign_data.units_extracted_data.map(&:first).min
-    [min_date_total_data, min_date_units_extracted_data].min
+    [min_date_total_data, min_date_units_extracted_data].compact.min
   end
 
   def end_date(campaign_data, before)
     return before if before.present?
     max_date_total_data = campaign_data.total_data.map(&:first).max
     max_date_units_extracted_data = campaign_data.units_extracted_data.map(&:first).max
-    [max_date_total_data, max_date_units_extracted_data].max
+    [max_date_total_data, max_date_units_extracted_data].compact.max
   end
 end
