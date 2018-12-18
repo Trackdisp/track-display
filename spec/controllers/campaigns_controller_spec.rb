@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
   login_user
-  let!(:campaign) { create(:campaign) }
+  let!(:campaign) { create(:campaign, company: @user.company) }
   let!(:other_campaign) { create(:campaign) }
   let!(:measures) do
     [
@@ -39,43 +39,52 @@ RSpec.describe CampaignsController, elasticsearch: true, type: :controller do
   end
 
   describe "GET #campaign" do
-    before do
-      expect(ObtainCampaignStats).to receive(:for).and_return([])
+    describe "when user's company is not the same as campaign's company" do
+      it "redirects to root" do
+        get :show, params: { slug: other_campaign.slug }
+        subject.should redirect_to(root_path)
+      end
     end
 
-    it "returns http success" do
-      get :show, params: { slug: campaign.slug }
-      expect(response).to have_http_status(:success)
-    end
+    describe "when user's company is the same as campaign's company" do
+      before do
+        expect(ObtainCampaignStats).to receive(:for).and_return([])
+      end
 
-    it "sets brands filter options considering only those with an associated location in "\
-        "the locations filter options" do
-      get :show, params: { slug: campaign.slug }
-      expect(assigns(:brands)).to match_array(
-        [measures[0].location.brand, measures[2].location.brand, measures[3].location.brand]
-      )
-    end
+      it "returns http success" do
+        get :show, params: { slug: campaign.slug }
+        expect(response).to have_http_status(:success)
+      end
 
-    it "sets channel filter options considering only those present in a location in "\
-        "the locations filter options" do
-      get :show, params: { slug: campaign.slug }
-      expect(assigns(:channels)).to match_array(
-        Set.new(
-          [
-            { id: "supermarket", name: I18n.t("enumerize.channel.supermarket") },
-            { id: "traditional", name: I18n.t("enumerize.channel.traditional") },
-            { id: "local_consumption", name: I18n.t("enumerize.channel.local_consumption") }
-          ]
+      it "sets brands filter options considering only those with an associated location in "\
+          "the locations filter options" do
+        get :show, params: { slug: campaign.slug }
+        expect(assigns(:brands)).to match_array(
+          [measures[0].location.brand, measures[2].location.brand, measures[3].location.brand]
         )
-      )
-    end
+      end
 
-    it "sets regions filter options considering only those with an associated location in "\
-        "the locations filter options" do
-      get :show, params: { slug: campaign.slug }
-      expect(assigns(:regions)).to match_array([measures[0].location.commune.region,
-                                                measures[2].location.commune.region,
-                                                measures[3].location.commune.region])
+      it "sets channel filter options considering only those present in a location in "\
+          "the locations filter options" do
+        get :show, params: { slug: campaign.slug }
+        expect(assigns(:channels)).to match_array(
+          Set.new(
+            [
+              { id: "supermarket", name: I18n.t("enumerize.channel.supermarket") },
+              { id: "traditional", name: I18n.t("enumerize.channel.traditional") },
+              { id: "local_consumption", name: I18n.t("enumerize.channel.local_consumption") }
+            ]
+          )
+        )
+      end
+
+      it "sets regions filter options considering only those with an associated location in "\
+          "the locations filter options" do
+        get :show, params: { slug: campaign.slug }
+        expect(assigns(:regions)).to match_array([measures[0].location.commune.region,
+                                                  measures[2].location.commune.region,
+                                                  measures[3].location.commune.region])
+      end
     end
   end
 
