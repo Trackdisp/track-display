@@ -1,5 +1,8 @@
 <template>
-  <div @click="toggleShowBreakdown" class="campaign-details__summary-stat campaign-detail-data" :class="{ 'campaign-detail-data--clickable': clickable }" v-on-clickaway="hide">
+  <div @click="toggleShowBreakdown"
+       class="campaign-details__summary-stat campaign-detail-data"
+       :class="{ 'campaign-detail-data--clickable': clickable, 'campaign-detail-data--breakdown': showBreakdown }"
+       v-on-clickaway="hide">
     <template v-if="!showBreakdown">
       <img class="campaign-detail-data__icon" :src="image">
       <div class="campaign-detail-data__data-container">
@@ -8,8 +11,14 @@
       </div>
     </template>
     <template v-else>
-      <img src="~/male.svg"> {{ maleValue }} <br>
-      <img src="~/female.svg"> {{ femaleValue }}
+      <div>
+        <img class="campaign-detail-data__gender-icon" src="~/male.svg">
+        {{ maleValue }}
+      </div>
+      <div>
+        <img class="campaign-detail-data__gender-icon" src="~/female.svg">
+        {{ femaleValue }}
+      </div>
     </template>
   </div>
 </template>

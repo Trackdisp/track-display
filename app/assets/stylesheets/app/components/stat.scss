@@ -4,19 +4,25 @@
   background-color: $content-bg-color;
   border: $app-content-border;
   border-radius: $app-content-border-radius;
+  box-sizing: border-box;
   font-family: $main-font;
   position: relative;
   display: flex;
   padding: 5px;
 
   @media only screen and (min-width: #{$mobile-breakpoint}) {
-    display: block;
+    flex-direction: column;
     min-height: 66px;
     padding: 12px 10px;
   }
 
   &--clickable {
     cursor: pointer;
+  }
+
+  &--breakdown {
+    justify-content: space-between;
+    padding: 18px;
   }
 
   &__icon {
@@ -68,13 +74,9 @@
     }
   }
 
-  &__gender-breakdown {
-    border: $app-content-border;
-    left: 0;
-    padding: 5px;
-    position: absolute;
-    right: 0;
-    text-align: center;
+  &__gender-icon {
+    vertical-align: bottom;
+    margin-right: 14px;
   }
 }
 
