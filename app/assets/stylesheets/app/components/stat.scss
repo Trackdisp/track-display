@@ -21,8 +21,30 @@
   }
 
   &--breakdown {
-    justify-content: space-between;
-    padding: 18px;
+    align-items: center;
+    font-size: 14px;
+    padding: 5px 0;
+
+    &::before {
+      border-left: $app-content-border;
+      content: '';
+      height: 100%;
+      left: 50%;
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+    }
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      align-items: start;
+      font-size: 16px;
+      justify-content: space-between;
+      padding: 18px;
+
+      &::before {
+        content: none;
+      }
+    }
   }
 
   &__icon {
@@ -75,8 +97,25 @@
   }
 
   &__gender-icon {
-    vertical-align: bottom;
-    margin-right: 14px;
+    height: 12px;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      height: auto;
+      margin-right: 14px;
+      vertical-align: bottom;
+    }
+  }
+
+  &__gender-container {
+    align-items: center;
+    color: $primary-font-color;
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      width: auto;
+    }
   }
 }
 

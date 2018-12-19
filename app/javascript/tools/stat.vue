@@ -11,11 +11,11 @@
       </div>
     </template>
     <template v-else>
-      <div>
+      <div class="campaign-detail-data__gender-container">
         <img class="campaign-detail-data__gender-icon" src="~/male.svg">
         {{ maleValue }}
       </div>
-      <div>
+      <div class="campaign-detail-data__gender-container">
         <img class="campaign-detail-data__gender-icon" src="~/female.svg">
         {{ femaleValue }}
       </div>
