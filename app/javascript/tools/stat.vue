@@ -1,16 +1,16 @@
 <template>
-  <div @click="toggleShowBreakdown" class="campaign-details__summary-stat campaign-detail-data" v-on-clickaway="hide">
-    <div :class="statClass" v-if="!showBreakdown">
+  <div @click="toggleShowBreakdown" class="campaign-details__summary-stat campaign-detail-data" :class="{ 'campaign-detail-data--clickable': clickable }" v-on-clickaway="hide">
+    <template v-if="!showBreakdown">
       <img class="campaign-detail-data__icon" :src="image">
       <div class="campaign-detail-data__data-container">
         <span :class="valueClass">{{ value }}</span>
         <span class="campaign-detail-data__label">{{ translation }}</span>
       </div>
-    </div>
-    <div class="campaign-detail-data campaign-detail-data__gender-breakdown" v-else>
+    </template>
+    <template v-else>
       <img src="~/male.svg"> {{ maleValue }} <br>
       <img src="~/female.svg"> {{ femaleValue }}
-    </div>
+    </template>
   </div>
 </template>
 
@@ -23,13 +23,10 @@ export default {
   data() {
     const elementParsed = JSON.parse(this.element);
     const optionalValuesClass = elementParsed.class ? `campaign-detail-data__data--${elementParsed.class}` : '';
-    const optionalDataClass = elementParsed.female_value !== undefined && elementParsed.male_value !== undefined ?
-      'campaign-detail-data--clickable' :
-      '';
 
     return {
       valueClass: `campaign-detail-data__data ${optionalValuesClass}`,
-      statClass: `campaign-detail-data__icon-data-container ${optionalDataClass}`,
+      clickable: elementParsed.female_value !== undefined && elementParsed.male_value !== undefined,
       value: elementParsed.value,
       maleValue: elementParsed.male_value,
       femaleValue: elementParsed.female_value,

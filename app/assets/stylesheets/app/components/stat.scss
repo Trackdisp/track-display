@@ -6,17 +6,17 @@
   border-radius: $app-content-border-radius;
   font-family: $main-font;
   position: relative;
+  display: flex;
+  padding: 5px;
 
-  &__icon-data-container {
-    display: flex;
-    flex-direction: row;
-    padding: 5px;
+  @media only screen and (min-width: #{$mobile-breakpoint}) {
+    display: block;
+    min-height: 66px;
+    padding: 12px 10px;
+  }
 
-    @media only screen and (min-width: #{$mobile-breakpoint}) {
-      display: block;
-      min-height: 66px;
-      padding: 12px 10px;
-    }
+  &--clickable {
+    cursor: pointer;
   }
 
   &__icon {
@@ -75,10 +75,6 @@
     position: absolute;
     right: 0;
     text-align: center;
-  }
-
-  &--clickable {
-    cursor: pointer;
   }
 }
 
