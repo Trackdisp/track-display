@@ -24,7 +24,7 @@
     background-color: $white;
     border: $app-content-border;
     bottom: 0;
-    box-shadow: 0 0 18px 0 $app-sidebar-shadow-color;
+    box-shadow: $app-content-shadow;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;

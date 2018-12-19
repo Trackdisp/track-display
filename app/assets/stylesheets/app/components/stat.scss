@@ -18,6 +18,13 @@
 
   &--clickable {
     cursor: pointer;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      &:hover {
+        border: $app-content-hover-border;
+        box-shadow: $app-content-shadow;
+      }
+    }
   }
 
   &--breakdown {
