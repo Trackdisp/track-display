@@ -25,6 +25,16 @@
         border: $app-content-hover-border;
         box-shadow: $app-content-shadow;
       }
+
+      &:hover .campaign-detail-data__icon,
+      &:hover .campaign-detail-data__gender-icon, {
+        display: none;
+      }
+
+      &:hover .campaign-detail-data__icon--hover,
+      &:hover .campaign-detail-data__gender-icon--hover, {
+        display: block;
+      }
     }
   }
 
@@ -61,6 +71,10 @@
     justify-content: center;
     margin-right: 5px;
     width: 35%;
+
+    &--hover {
+      display: none;
+    }
 
     @media only screen and (min-width: #{$mobile-breakpoint}) {
       margin: auto;
@@ -106,6 +120,10 @@
 
   &__gender-icon {
     height: 12px;
+
+    &--hover {
+      display: none;
+    }
 
     @media only screen and (min-width: #{$mobile-breakpoint}) {
       height: auto;

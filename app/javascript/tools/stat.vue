@@ -1,12 +1,11 @@
 <template>
   <div @click="toggleShowBreakdown"
-       @mouseover="hover = true"
-       @mouseleave="hover = false"
        class="campaign-details__summary-stat campaign-detail-data"
        :class="{ 'campaign-detail-data--clickable': clickable, 'campaign-detail-data--breakdown': showBreakdown }"
        v-on-clickaway="hide">
     <template v-if="!showBreakdown">
-      <img class="campaign-detail-data__icon" :src="hover && clickable ? imageHover : image">
+      <img class="campaign-detail-data__icon" :src="image">
+      <img class="campaign-detail-data__icon campaign-detail-data__icon--hover" :src="imageHover">
       <div class="campaign-detail-data__data-container">
         <span :class="valueClass">{{ value }}</span>
         <span class="campaign-detail-data__label">{{ translation }}</span>
@@ -14,13 +13,13 @@
     </template>
     <template v-else>
       <div class="campaign-detail-data__gender-container">
-        <img v-if="hover" class="campaign-detail-data__gender-icon" src="~/male-green.svg">
-        <img v-else class="campaign-detail-data__gender-icon" src="~/male.svg">
+        <img class="campaign-detail-data__gender-icon" src="~/male.svg">
+        <img class="campaign-detail-data__gender-icon campaign-detail-data__gender-icon--hover" src="~/male-green.svg">
         {{ maleValue }}
       </div>
       <div class="campaign-detail-data__gender-container">
-        <img v-if="hover" class="campaign-detail-data__gender-icon" src="~/female-green.svg">
-        <img v-else class="campaign-detail-data__gender-icon" src="~/female.svg">
+        <img class="campaign-detail-data__gender-icon" src="~/female.svg">
+        <img class="campaign-detail-data__gender-icon campaign-detail-data__gender-icon--hover" src="~/female-green.svg">
         {{ femaleValue }}
       </div>
     </template>
@@ -38,7 +37,6 @@ export default {
     const optionalValuesClass = elementParsed.class ? `campaign-detail-data__data--${elementParsed.class}` : '';
 
     return {
-      hover: false,
       valueClass: `campaign-detail-data__data ${optionalValuesClass}`,
       clickable: elementParsed.female_value !== undefined && elementParsed.male_value !== undefined,
       value: elementParsed.value,
