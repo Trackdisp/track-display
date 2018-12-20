@@ -16,6 +16,10 @@ export default {
     groupBy() {
       return this.$store.state.groupBy;
     },
+    minRange() {
+      // eslint-disable-next-line no-magic-numbers
+      return ['day', 'week'].includes(this.groupBy) ? 1000 * 3600 * 24 * 3 : undefined;
+    },
     tooltipOptions() {
       const that = this;
 
@@ -89,6 +93,10 @@ export default {
               that.$store.dispatch('setDateRange', { start: min, end: max });
             },
           },
+        },
+        xAxis: {
+          type: 'datetime',
+          minRange: that.minRange,
         },
         yAxis: [
           { title: { text: this.$i18n.t('graphs.peopleTitle') } },
