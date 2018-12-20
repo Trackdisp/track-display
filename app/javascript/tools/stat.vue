@@ -1,10 +1,12 @@
 <template>
   <div @click="toggleShowBreakdown"
+       @mouseover="hover = true"
+       @mouseleave="hover = false"
        class="campaign-details__summary-stat campaign-detail-data"
        :class="{ 'campaign-detail-data--clickable': clickable, 'campaign-detail-data--breakdown': showBreakdown }"
        v-on-clickaway="hide">
     <template v-if="!showBreakdown">
-      <img class="campaign-detail-data__icon" :src="image">
+      <img class="campaign-detail-data__icon" :src="hover && clickable ? imageHover : image">
       <div class="campaign-detail-data__data-container">
         <span :class="valueClass">{{ value }}</span>
         <span class="campaign-detail-data__label">{{ translation }}</span>
@@ -27,13 +29,14 @@
 import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
-  props: ['element', 'image'],
+  props: ['element', 'image', 'imageHover'],
   mixins: [clickaway],
   data() {
     const elementParsed = JSON.parse(this.element);
     const optionalValuesClass = elementParsed.class ? `campaign-detail-data__data--${elementParsed.class}` : '';
 
     return {
+      hover: false,
       valueClass: `campaign-detail-data__data ${optionalValuesClass}`,
       clickable: elementParsed.female_value !== undefined && elementParsed.male_value !== undefined,
       value: elementParsed.value,
