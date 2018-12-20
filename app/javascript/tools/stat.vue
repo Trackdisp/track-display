@@ -1,17 +1,28 @@
 <template>
-  <div class="campaign-details__summary-stat" v-on-clickaway="hide">
-    <div class="campaign-detail-data">
-      <div @click="toggleShow" :class="statClass">
-        <img class="campaign-detail-data__icon" :src="image">
-        <div class="campaign-detail-data__data-container">
-          <span :class="valueClass">{{ value }}</span>
-          <span class="campaign-detail-data__label">{{ translation }}</span>
-        </div>
+  <div @click="toggleShowBreakdown"
+       class="campaign-details__summary-stat campaign-detail-data"
+       :class="{ 'campaign-detail-data--clickable': clickable, 'campaign-detail-data--breakdown': showBreakdown }"
+       v-on-clickaway="hide">
+    <template v-if="!showBreakdown">
+      <img class="campaign-detail-data__icon" :src="image">
+      <img class="campaign-detail-data__icon campaign-detail-data__icon--hover" :src="imageHover">
+      <div class="campaign-detail-data__data-container">
+        <span :class="valueClass">{{ value }}</span>
+        <span class="campaign-detail-data__label">{{ translation }}</span>
       </div>
-      <div class="campaign-detail-data campaign-detail-data__gender-breakdown" v-if="isClickable" v-show="show">
-        Hombres: {{ maleValue }} <br>Mujeres: {{ femaleValue }}
+    </template>
+    <template v-else>
+      <div class="campaign-detail-data__gender-container">
+        <img class="campaign-detail-data__gender-icon" src="~/male.svg">
+        <img class="campaign-detail-data__gender-icon campaign-detail-data__gender-icon--hover" src="~/male-green.svg">
+        {{ maleValue }}
       </div>
-    </div>
+      <div class="campaign-detail-data__gender-container">
+        <img class="campaign-detail-data__gender-icon" src="~/female.svg">
+        <img class="campaign-detail-data__gender-icon campaign-detail-data__gender-icon--hover" src="~/female-green.svg">
+        {{ femaleValue }}
+      </div>
+    </template>
   </div>
 </template>
 
@@ -19,32 +30,31 @@
 import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
-  props: ['element', 'image'],
+  props: ['element', 'image', 'imageHover'],
   mixins: [clickaway],
   data() {
     const elementParsed = JSON.parse(this.element);
     const optionalValuesClass = elementParsed.class ? `campaign-detail-data__data--${elementParsed.class}` : '';
-    const optionalDataClass = elementParsed.female_value !== undefined && elementParsed.male_value !== undefined ?
-      'campaign-detail-data--clickable' :
-      '';
 
     return {
       valueClass: `campaign-detail-data__data ${optionalValuesClass}`,
-      statClass: `campaign-detail-data__icon-data-container ${optionalDataClass}`,
+      clickable: elementParsed.female_value !== undefined && elementParsed.male_value !== undefined,
       value: elementParsed.value,
       maleValue: elementParsed.male_value,
       femaleValue: elementParsed.female_value,
       translation: this.$i18n.t(`messages.campaignDetails.stats.${elementParsed.translation}`),
-      show: false,
+      showBreakdown: false,
       isClickable: elementParsed.female_value !== undefined && elementParsed.male_value !== undefined,
     };
   },
   methods: {
-    toggleShow() {
-      this.show = !this.show;
+    toggleShowBreakdown() {
+      if (this.isClickable) {
+        this.showBreakdown = !this.showBreakdown;
+      }
     },
     hide() {
-      this.show = false;
+      this.showBreakdown = false;
     },
   },
 };

@@ -39,13 +39,16 @@ module CampaignsHelper
   def summary_stats_elements(stat)
     summary_people_stats(stat).concat(
       [
-        { icon: 'effectiveness.svg', value: "#{stat.effectiveness}%", translation: 'effectiveness',
+        { icon: 'effectiveness.svg', icon_hover: 'effectiveness-green.svg',
+          value: "#{stat.effectiveness}%", translation: 'effectiveness',
           female_value: "#{stat.female_effectiveness}%",
           male_value: "#{stat.male_effectiveness}%" },
-        { icon: 'happiness.svg', value: "#{stat.total_happiness}%", translation: 'happiness',
+        { icon: 'happiness.svg', icon_hover: 'happiness-green.svg',
+          value: "#{stat.total_happiness}%", translation: 'happiness',
           female_value: "#{stat.total_female_happiness}%",
           male_value: "#{stat.total_male_happiness}%" },
-        { icon: 'age.svg', value: stat.total_avg_age, translation: 'age',
+        { icon: 'age.svg', icon_hover: 'age-green.svg',
+          value: stat.total_avg_age, translation: 'age',
           female_value: stat.total_female_avg_age, male_value: stat.total_male_avg_age }
       ]
     ).concat(summary_units_stats(stat))
@@ -53,9 +56,11 @@ module CampaignsHelper
 
   def summary_people_stats(stat)
     [
-      { icon: 'contacts.svg', value: stat.contacts_sum, translation: 'contacts',
+      { icon: 'contacts.svg', icon_hover: 'contacts-green.svg',
+        value: stat.contacts_sum, translation: 'contacts',
         female_value: stat.contacts_female_sum, male_value: stat.contacts_male_sum },
-      { icon: 'people.svg', value: stat.total_sum, translation: 'people',
+      { icon: 'people.svg', icon_hover: 'people-green.svg',
+        value: stat.total_sum, translation: 'people',
         female_value: stat.total_female_sum, male_value: stat.total_male_sum,
         class: 'total-people' }
     ]
@@ -63,9 +68,11 @@ module CampaignsHelper
 
   def summary_units_stats(stat)
     [
-      { icon: 'extracted.svg', value: stat.units_extracted_sum, translation: 'extracted',
+      { icon: 'extracted.svg',
+        value: stat.units_extracted_sum, translation: 'extracted',
         class: 'units-extracted' },
-      { icon: 'rotation.svg', value: stat.sum_rotation, translation: 'rotation',
+      { icon: 'rotation.svg',
+        value: stat.sum_rotation, translation: 'rotation',
         class: 'sum-rotation' }
     ]
   end

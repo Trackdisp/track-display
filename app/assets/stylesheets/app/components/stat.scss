@@ -4,18 +4,64 @@
   background-color: $content-bg-color;
   border: $app-content-border;
   border-radius: $app-content-border-radius;
+  box-sizing: border-box;
   font-family: $main-font;
   position: relative;
+  display: flex;
+  padding: 5px;
+  height: 50px;
 
-  &__icon-data-container {
-    display: flex;
-    flex-direction: row;
-    padding: 5px;
+  @media only screen and (min-width: #{$mobile-breakpoint}) {
+    flex-direction: column;
+    height: 100px;
+    padding: 12px 10px;
+  }
+
+  &--clickable {
+    cursor: pointer;
 
     @media only screen and (min-width: #{$mobile-breakpoint}) {
-      display: block;
-      min-height: 66px;
-      padding: 12px 10px;
+      &:hover {
+        border: $app-content-hover-border;
+        box-shadow: $app-content-shadow;
+      }
+
+      &:hover .campaign-detail-data__icon,
+      &:hover .campaign-detail-data__gender-icon, {
+        display: none;
+      }
+
+      &:hover .campaign-detail-data__icon--hover,
+      &:hover .campaign-detail-data__gender-icon--hover, {
+        display: block;
+      }
+    }
+  }
+
+  &--breakdown {
+    align-items: center;
+    font-size: 14px;
+    padding: 5px 0;
+
+    &::before {
+      border-left: $app-content-border;
+      content: '';
+      height: 100%;
+      left: 50%;
+      position: absolute;
+      top: 0;
+      transform: translateX(-50%);
+    }
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      align-items: start;
+      font-size: 16px;
+      justify-content: space-between;
+      padding: 18px;
+
+      &::before {
+        content: none;
+      }
     }
   }
 
@@ -25,6 +71,10 @@
     justify-content: center;
     margin-right: 5px;
     width: 35%;
+
+    &--hover {
+      display: none;
+    }
 
     @media only screen and (min-width: #{$mobile-breakpoint}) {
       margin: auto;
@@ -68,17 +118,30 @@
     }
   }
 
-  &__gender-breakdown {
-    border: $app-content-border;
-    left: 0;
-    padding: 5px;
-    position: absolute;
-    right: 0;
-    text-align: center;
+  &__gender-icon {
+    height: 12px;
+
+    &--hover {
+      display: none;
+    }
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      height: auto;
+      margin-right: 14px;
+      vertical-align: bottom;
+    }
   }
 
-  &--clickable {
-    cursor: pointer;
+  &__gender-container {
+    align-items: center;
+    color: $primary-font-color;
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+
+    @media only screen and (min-width: #{$mobile-breakpoint}) {
+      width: auto;
+    }
   }
 }
 

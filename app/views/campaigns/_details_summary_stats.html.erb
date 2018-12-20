@@ -1,20 +1,25 @@
 <div class="campaign-details__summary">
   <% summary_stats_elements(@campaign_stat).each do |element| %>
-    <stat element="<%= element.to_json %>" image="<%= image_path(element[:icon]) %>"></stat>
+    <stat element="<%= element.to_json %>"
+          image="<%= image_path(element[:icon]) %>"
+          image-hover="<%= image_path(element[:icon_hover]) if element[:icon_hover] %>"></stat>
   <% end %>
 </div>
 <div class="campaign-details__summary-grid">
   <div class="campaign-details__summary-row">
     <% summary_stats_elements(@campaign_stat)[0..2].each do |element| %>
-      <stat element="<%= element.to_json %>" image="<%= image_path(element[:icon]) %>"></stat>
+      <stat element="<%= element.to_json %>"
+            image="<%= image_path(element[:icon]) %>"></stat>
     <% end %>
   </div>
   <div class="campaign-details__summary-row">
     <% summary_stats_elements(@campaign_stat)[3..5].each do |element| %>
-      <stat element="<%= element.to_json %>" image="<%= image_path(element[:icon]) %>"></stat>
+      <stat element="<%= element.to_json %>"
+            image="<%= image_path(element[:icon]) %>"></stat>
     <% end %>
   </div>
   <div class="campaign-details__summary-row">
-    <stat element="<%= summary_stats_elements(@campaign_stat)[6].to_json %>" image="<%= image_path(summary_stats_elements(@campaign_stat)[6][:icon]) %>"></stat>
+    <stat element="<%= summary_stats_elements(@campaign_stat)[6].to_json %>"
+          image="<%= image_path(summary_stats_elements(@campaign_stat)[6][:icon]) %>"></stat>
   </div>
 </div>
