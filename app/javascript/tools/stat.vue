@@ -14,11 +14,13 @@
     </template>
     <template v-else>
       <div class="campaign-detail-data__gender-container">
-        <img class="campaign-detail-data__gender-icon" src="~/male.svg">
+        <img v-if="hover" class="campaign-detail-data__gender-icon" src="~/male-green.svg">
+        <img v-else class="campaign-detail-data__gender-icon" src="~/male.svg">
         {{ maleValue }}
       </div>
       <div class="campaign-detail-data__gender-container">
-        <img class="campaign-detail-data__gender-icon" src="~/female.svg">
+        <img v-if="hover" class="campaign-detail-data__gender-icon" src="~/female-green.svg">
+        <img v-else class="campaign-detail-data__gender-icon" src="~/female.svg">
         {{ femaleValue }}
       </div>
     </template>
