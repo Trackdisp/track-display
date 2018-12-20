@@ -12,9 +12,6 @@ export default {
     startDate: [String, Number],
     endDate: [String, Number],
   },
-  beforeMount() {
-    this.$store.dispatch('setDateRange', { start: this.startDate, end: this.endDate });
-  },
   computed: {
     groupBy() {
       return this.$store.state.groupBy;
@@ -77,12 +74,22 @@ export default {
       };
     },
     options() {
+      const that = this;
       const unitsColor = '#fe7b4f';
 
       return {
         title: { text: '' },
-        chart: { type: 'spline', zoomType: 'x' },
-        xAxis: { type: 'datetime' },
+        chart: {
+          type: 'spline',
+          zoomType: 'x',
+          events: {
+            render() {
+              const min = this.xAxis[0].min;
+              const max = this.xAxis[0].max;
+              that.$store.dispatch('setDateRange', { start: min, end: max });
+            },
+          },
+        },
         yAxis: [
           { title: { text: this.$i18n.t('graphs.peopleTitle') } },
           {
