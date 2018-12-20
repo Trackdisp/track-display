@@ -9,10 +9,11 @@
   position: relative;
   display: flex;
   padding: 5px;
+  height: 50px;
 
   @media only screen and (min-width: #{$mobile-breakpoint}) {
     flex-direction: column;
-    min-height: 66px;
+    height: 100px;
     padding: 12px 10px;
   }
 
