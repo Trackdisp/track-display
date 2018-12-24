@@ -1,23 +1,6 @@
 @import '../base';
 
 .flatpickr {
-  &-input {
-    width: calc(100% - 12px);
-    line-height: 36px;
-    border: $app-filter-border;
-    border-radius: 5px;
-    padding-left: 10px;
-    font-size: 12px;
-    font-family: $main-font;
-    font-weight: bold;
-    letter-spacing: $app-spacing-letter;
-    color: $primary-font-color;
-
-    &::placeholder {
-      color: $app-filter-color;
-    }
-  }
-
   &-weekdays,
   &-weekdays &-weekday,
   &-months,
@@ -35,5 +18,32 @@
       background-color: $primary-btn-color;
       font-family: $main-font;
     }
+  }
+}
+
+.datetime-filter {
+  border: $app-filter-border;
+  border-radius: 5px;
+  overflow: hidden;
+
+  &__input {
+    border: 0;
+    border-radius: 0;
+    color: $primary-font-color;
+    font-family: $main-font;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 36px;
+    letter-spacing: $app-spacing-letter;
+    padding-left: 10px;
+
+    &::placeholder {
+      color: $app-filter-color;
+    }
+  }
+
+  &__clear-btn {
+    display: inline;
+    cursor: pointer;
   }
 }

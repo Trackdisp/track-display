@@ -1,7 +1,7 @@
 <template>
-  <div class="flat-pick">
-    <flat-pickr v-model="selectedDate" :config="config" :placeholder="placeholder"></flat-pickr>
-    <div @click="clear">X</div>
+  <div class="datetime-filter">
+    <flat-pickr class="datetime-filter__input" v-model="selectedDate" :config="config" :placeholder="placeholder"></flat-pickr>
+    <div class="datetime-filter__clear-btn" @click="clear">X</div>
   </div>
 </template>
 
