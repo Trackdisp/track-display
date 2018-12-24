@@ -6,6 +6,9 @@ import api from './api';
 
 Vue.use(Vuex);
 
+const HOUR_LIMIT = 4;
+const DAY_LIMIT = 30;
+
 export default new Vuex.Store({
   state: {
     selectedFilters: {
@@ -42,11 +45,17 @@ export default new Vuex.Store({
 
       return queryString;
     },
-    chartDatesDiffInDays(state) {
+    shouldDisableHour(state) {
       const start = state.chartStartDate;
       const end = state.chartEndDate;
 
-      return differenceInDays(new Date(end), new Date(start));
+      return differenceInDays(new Date(end), new Date(start)) > HOUR_LIMIT;
+    },
+    shouldDisableDay(state) {
+      const start = state.chartStartDate;
+      const end = state.chartEndDate;
+
+      return differenceInDays(new Date(end), new Date(start)) > DAY_LIMIT;
     },
   },
   mutations: {
