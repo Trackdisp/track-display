@@ -9,8 +9,6 @@ import es from 'date-fns/locale/es';
 export default {
   props: {
     series: Array,
-    startDate: [String, Number],
-    endDate: [String, Number],
   },
   mounted() {
     this.$store.dispatch('setInitialDateRange');

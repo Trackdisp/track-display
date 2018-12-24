@@ -13,8 +13,6 @@
 </template>
 
 <script>
-import { changeURLQueryParam } from '../helpers/url-helper';
-
 export default {
   methods: {
     groupByFiltersQueryString(grouping) {
