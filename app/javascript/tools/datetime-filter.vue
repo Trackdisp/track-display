@@ -1,5 +1,8 @@
 <template>
-  <flat-pickr class="flat-pick" v-model="selectedDate" :config="config" :placeholder="placeholder"></flat-pickr>
+  <div class="flat-pick">
+    <flat-pickr v-model="selectedDate" :config="config" :placeholder="placeholder"></flat-pickr>
+    <div @click="clear">X</div>
+  </div>
 </template>
 
 <script>
@@ -31,6 +34,11 @@ export default {
       set(newDate) {
         this.$store.dispatch('changeFilter', { queryParam: this.queryParam, value: newDate ? [newDate] : [] });
       },
+    },
+  },
+  methods: {
+    clear() {
+      this.selectedDate = null;
     },
   },
 };
