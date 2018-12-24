@@ -1,7 +1,9 @@
 <template>
   <div class="datetime-filter">
-    <flat-pickr class="datetime-filter__input" v-model="selectedDate" :config="config" :placeholder="placeholder"></flat-pickr>
-    <div class="datetime-filter__clear-btn" @click="clear">X</div>
+    <div :class="['datetime-filter__input-container', { 'datetime-filter__input-container--empty': isEmpty }]">
+      <flat-pickr class="datetime-filter__input" v-model="selectedDate" :config="config" :placeholder="placeholder"></flat-pickr>
+    </div>
+    <div v-if="!isEmpty" class="datetime-filter__clear-btn" @click="clear">X</div>
   </div>
 </template>
 
@@ -34,6 +36,9 @@ export default {
       set(newDate) {
         this.$store.dispatch('changeFilter', { queryParam: this.queryParam, value: newDate ? [newDate] : [] });
       },
+    },
+    isEmpty() {
+      return !this.selectedDate;
     },
   },
   methods: {

@@ -24,11 +24,19 @@
 .datetime-filter {
   border: $app-filter-border;
   border-radius: 5px;
+  display: flex;
   overflow: hidden;
+
+  &__input-container {
+    &--empty {
+      width: 100%;
+    }
+  }
 
   &__input {
     border: 0;
     border-radius: 0;
+    box-sizing: border-box;
     color: $primary-font-color;
     font-family: $main-font;
     font-size: 12px;
@@ -36,6 +44,7 @@
     line-height: 36px;
     letter-spacing: $app-spacing-letter;
     padding-left: 10px;
+    width: 100%;
 
     &::placeholder {
       color: $app-filter-color;
@@ -43,7 +52,7 @@
   }
 
   &__clear-btn {
-    display: inline;
     cursor: pointer;
+    flex: 1;
   }
 }
