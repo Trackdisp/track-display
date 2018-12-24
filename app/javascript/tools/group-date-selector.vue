@@ -16,14 +16,19 @@
 import { changeURLQueryParam } from '../helpers/url-helper';
 
 export default {
+  methods: {
+    groupByFiltersQueryString(grouping) {
+      return this.$store.getters.filtersQueryString(grouping);
+    },
+  },
   computed: {
     groupBy: {
       get() {
         return this.$store.state.groupBy;
       },
-      set(val) {
-        if (val) {
-          window.location.search = changeURLQueryParam('group_by', val);
+      set(grouping) {
+        if (grouping) {
+          window.location.search = this.groupByFiltersQueryString(grouping);
         }
       },
     },

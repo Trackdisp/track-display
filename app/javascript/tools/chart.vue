@@ -12,6 +12,9 @@ export default {
     startDate: [String, Number],
     endDate: [String, Number],
   },
+  mounted() {
+    this.$store.dispatch('setInitialDateRange');
+  },
   computed: {
     groupBy() {
       return this.$store.state.groupBy;
@@ -88,8 +91,9 @@ export default {
           zoomType: 'x',
           events: {
             render() {
-              const min = this.xAxis[0].min;
-              const max = this.xAxis[0].max;
+              const datetimeFormat = 'YYYY-MM-DDTHH:mm';
+              const min = format(new Date(this.xAxis[0].min), datetimeFormat, { locale: es });
+              const max = format(new Date(this.xAxis[0].max), datetimeFormat, { locale: es });
               that.$store.dispatch('setDateRange', { start: min, end: max });
             },
           },
