@@ -13,7 +13,7 @@ export default {
       config: {
         enableTime: true,
         altInput: true,
-        altFormat: 'j F Y, H:i',
+        altFormat: 'j M Y, H:i',
         dateFormat: 'Y-m-dTH:i',
         firstDayOfWeek: 1,
         locale: Spanish,
