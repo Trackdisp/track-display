@@ -72,7 +72,7 @@ export default new Vuex.Store({
   },
   mutations: {
     changeFilter(state, payload) {
-      state.selectedFilters[payload.queryParam] = payload.value;
+      state.selectedFilters[payload.queryParam] = payload.value.sort();
     },
     cleanFilters(state) {
       state.selectedFilters = {
