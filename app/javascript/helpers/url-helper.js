@@ -1,10 +1,3 @@
-export function changeURLQueryParam(param, value) {
-  const searchParams = new URLSearchParams(window.location.search);
-  searchParams.set(param, value);
-
-  return searchParams.toString();
-}
-
 export function getURLFilterParams() {
   const searchParams = new URLSearchParams(window.location.search);
   const searchParamsObject = {};

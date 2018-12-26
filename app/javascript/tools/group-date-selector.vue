@@ -13,38 +13,40 @@
 </template>
 
 <script>
-import { changeURLQueryParam } from '../helpers/url-helper';
-
-const HOUR_LIMIT = 4;
-const DAY_LIMIT = 30;
-
 export default {
-  mounted() {
-    if (this.shouldDisableDay && ['day', 'hour'].includes(this.groupBy)) {
-      window.location.search = changeURLQueryParam('group_by', 'week');
-    } else if (this.shouldDisableHour && this.groupBy === 'hour') {
-      window.location.search = changeURLQueryParam('group_by', 'day');
-    }
+  methods: {
+    groupByFiltersQueryString(grouping) {
+      return this.$store.getters.filtersQueryString(grouping);
+    },
   },
   computed: {
     groupBy: {
       get() {
         return this.$store.state.groupBy;
       },
-      set(val) {
-        if (val) {
-          window.location.search = changeURLQueryParam('group_by', val);
+      set(grouping) {
+        if (grouping) {
+          window.location.search = this.groupByFiltersQueryString(grouping);
         }
       },
     },
-    chartDatesDiffInDays() {
-      return this.$store.getters.chartDatesDiffInDays;
-    },
     shouldDisableHour() {
-      return this.chartDatesDiffInDays > HOUR_LIMIT;
+      return this.$store.getters.shouldDisableHour;
     },
     shouldDisableDay() {
-      return this.chartDatesDiffInDays > DAY_LIMIT;
+      return this.$store.getters.shouldDisableDay;
+    },
+  },
+  watch: {
+    shouldDisableDay(value) {
+      if (value && ['day', 'hour'].includes(this.groupBy)) {
+        this.groupBy = 'week';
+      }
+    },
+    shouldDisableHour(value) {
+      if (value && this.groupBy === 'hour') {
+        this.groupBy = 'day';
+      }
     },
   },
 };

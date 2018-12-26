@@ -16,7 +16,7 @@
 export default {
   computed: {
     filtersQueryString() {
-      return this.$store.getters.filtersQueryString;
+      return this.$store.getters.filtersQueryString();
     },
   },
   methods: {

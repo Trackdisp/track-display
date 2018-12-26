@@ -9,15 +9,17 @@ import es from 'date-fns/locale/es';
 export default {
   props: {
     series: Array,
-    startDate: [String, Number],
-    endDate: [String, Number],
   },
-  beforeMount() {
-    this.$store.dispatch('setDateRange', { start: this.startDate, end: this.endDate });
+  mounted() {
+    this.$store.dispatch('setInitialDateRange');
   },
   computed: {
     groupBy() {
       return this.$store.state.groupBy;
+    },
+    minRange() {
+      // eslint-disable-next-line no-magic-numbers
+      return ['day', 'week'].includes(this.groupBy) ? 1000 * 3600 * 24 * 3 : undefined;
     },
     tooltipOptions() {
       const that = this;
@@ -77,12 +79,27 @@ export default {
       };
     },
     options() {
+      const that = this;
       const unitsColor = '#fe7b4f';
 
       return {
         title: { text: '' },
-        chart: { type: 'spline', zoomType: 'x' },
-        xAxis: { type: 'datetime' },
+        chart: {
+          type: 'spline',
+          zoomType: 'x',
+          events: {
+            render() {
+              const datetimeFormat = 'YYYY-MM-DDTHH:mm';
+              const min = format(new Date(this.xAxis[0].min), datetimeFormat, { locale: es });
+              const max = format(new Date(this.xAxis[0].max), datetimeFormat, { locale: es });
+              that.$store.dispatch('setDateRange', { start: min, end: max });
+            },
+          },
+        },
+        xAxis: {
+          type: 'datetime',
+          minRange: that.minRange,
+        },
         yAxis: [
           { title: { text: this.$i18n.t('graphs.peopleTitle') } },
           {

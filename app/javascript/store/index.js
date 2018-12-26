@@ -6,6 +6,9 @@ import api from './api';
 
 Vue.use(Vuex);
 
+const HOUR_LIMIT = 4;
+const DAY_LIMIT = 30;
+
 export default new Vuex.Store({
   state: {
     selectedFilters: {
@@ -29,12 +32,24 @@ export default new Vuex.Store({
     },
     chartStartDate: null,
     chartEndDate: null,
+    chartInitialStartDate: null,
+    chartInitialEndDate: null,
     groupBy: getURLQueryParam('group_by') || 'day',
   },
   getters: {
-    filtersQueryString(state) {
-      let queryString = state.groupBy ? `group_by=${state.groupBy}&` : '';
-      Object.entries(state.selectedFilters).forEach((pair) => {
+    filtersQueryString: (state) => (groupBy) => {
+      let queryString = groupBy || state.groupBy ? `group_by=${groupBy || state.groupBy}&` : '';
+      const selectedFiltersCopy = { ...state.selectedFilters };
+
+      if (state.chartInitialStartDate !== state.chartStartDate) {
+        selectedFiltersCopy.after = [state.chartStartDate];
+      }
+
+      if (state.chartInitialEndDate !== state.chartEndDate) {
+        selectedFiltersCopy.before = [state.chartEndDate];
+      }
+
+      Object.entries(selectedFiltersCopy).forEach((pair) => {
         pair[1].forEach((value) => {
           queryString += `${pair[0]}=${value}&`;
         });
@@ -42,11 +57,17 @@ export default new Vuex.Store({
 
       return queryString;
     },
-    chartDatesDiffInDays(state) {
+    shouldDisableHour(state) {
       const start = state.chartStartDate;
       const end = state.chartEndDate;
 
-      return differenceInDays(new Date(end), new Date(start));
+      return differenceInDays(new Date(end), new Date(start)) > HOUR_LIMIT;
+    },
+    shouldDisableDay(state) {
+      const start = state.chartStartDate;
+      const end = state.chartEndDate;
+
+      return differenceInDays(new Date(end), new Date(start)) > DAY_LIMIT;
     },
   },
   mutations: {
@@ -72,6 +93,10 @@ export default new Vuex.Store({
       state.chartStartDate = payload.start;
       state.chartEndDate = payload.end;
     },
+    setInitialDateRange(state) {
+      state.chartInitialStartDate = state.chartStartDate;
+      state.chartInitialEndDate = state.chartEndDate;
+    },
   },
   actions: {
     changeFilter(context, payload) {
@@ -91,6 +116,9 @@ export default new Vuex.Store({
     },
     setDateRange({ commit }, payload) {
       commit('setDateRange', payload);
+    },
+    setInitialDateRange({ commit }) {
+      commit('setInitialDateRange');
     },
   },
 });
