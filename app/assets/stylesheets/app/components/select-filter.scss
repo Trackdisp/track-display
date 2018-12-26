@@ -50,6 +50,15 @@
     border-top-color: $active-filter-color;
   }
 
+  &__clear {
+    position: absolute;
+    width: 40px;
+    right: 1px;
+    top: 1px;
+    line-height: 38px;
+    text-align: center;
+  }
+
   &--active-filter &__single {
     color: $primary-font-color;
   }
