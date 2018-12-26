@@ -22,6 +22,7 @@ export default new Vuex.Store({
       'before': [],
       ...getURLFilterParams(),
     },
+    initialSelectedFiltersString: window.location.search.substring(1),
     filtersOptions: {
       'locations[]': [],
       'brands[]': [],
@@ -68,6 +69,9 @@ export default new Vuex.Store({
       const end = state.chartEndDate;
 
       return differenceInDays(new Date(end), new Date(start)) > DAY_LIMIT;
+    },
+    selectedFiltersChanged(state, getters) {
+      return state.initialSelectedFiltersString !== getters.filtersQueryString();
     },
   },
   mutations: {
