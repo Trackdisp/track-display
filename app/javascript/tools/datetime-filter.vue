@@ -3,7 +3,9 @@
     <div :class="['datetime-filter__input-container', { 'datetime-filter__input-container--empty': isEmpty }]">
       <flat-pickr class="datetime-filter__input" v-model="selectedDate" :config="config" :placeholder="placeholder"></flat-pickr>
     </div>
-    <div v-if="!isEmpty" class="datetime-filter__clear-btn" @click="clear">X</div>
+    <div v-if="!isEmpty" class="datetime-filter__clear-btn" @click="clear">
+      <img src="~/close-green.svg">
+    </div>
   </div>
 </template>
 

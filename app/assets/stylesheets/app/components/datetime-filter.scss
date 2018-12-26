@@ -26,6 +26,7 @@
   border-radius: 5px;
   display: flex;
   overflow: hidden;
+  line-height: 36px;
 
   &__input-container {
     &--empty {
@@ -41,7 +42,6 @@
     font-family: $main-font;
     font-size: 12px;
     font-weight: bold;
-    line-height: 36px;
     letter-spacing: $app-spacing-letter;
     padding-left: 10px;
     width: 100%;
@@ -54,5 +54,6 @@
   &__clear-btn {
     cursor: pointer;
     flex: 1;
+    text-align: center;
   }
 }
