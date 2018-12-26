@@ -55,7 +55,7 @@ export default new Vuex.Store({
         });
       });
 
-      return queryString;
+      return queryString.substring(0, queryString.length - 1);
     },
     shouldDisableHour(state) {
       const start = state.chartStartDate;
