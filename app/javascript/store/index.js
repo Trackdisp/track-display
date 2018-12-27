@@ -22,6 +22,7 @@ export default new Vuex.Store({
       'before': [],
       ...getURLFilterParams(),
     },
+    initialSelectedFiltersString: window.location.search.substring(1),
     filtersOptions: {
       'locations[]': [],
       'brands[]': [],
@@ -37,8 +38,8 @@ export default new Vuex.Store({
     groupBy: getURLQueryParam('group_by') || 'day',
   },
   getters: {
-    filtersQueryString: (state) => (groupBy) => {
-      let queryString = groupBy || state.groupBy ? `group_by=${groupBy || state.groupBy}&` : '';
+    filtersQueryString(state) {
+      let queryString = '';
       const selectedFiltersCopy = { ...state.selectedFilters };
 
       if (state.chartInitialStartDate !== state.chartStartDate) {
@@ -57,6 +58,12 @@ export default new Vuex.Store({
 
       return queryString;
     },
+    finalQueryString: (state, getters) => (groupBy = state.groupBy) => {
+      let queryString = groupBy ? `group_by=${groupBy}&` : '';
+      queryString += getters.filtersQueryString;
+
+      return queryString.substring(0, queryString.length - 1);
+    },
     shouldDisableHour(state) {
       const start = state.chartStartDate;
       const end = state.chartEndDate;
@@ -69,10 +76,16 @@ export default new Vuex.Store({
 
       return differenceInDays(new Date(end), new Date(start)) > DAY_LIMIT;
     },
+    selectedFiltersChanged(state, getters) {
+      return state.initialSelectedFiltersString !== getters.finalQueryString();
+    },
+    selectedFiltersEmpty(_state, getters) {
+      return getters.filtersQueryString === '';
+    },
   },
   mutations: {
     changeFilter(state, payload) {
-      state.selectedFilters[payload.queryParam] = payload.value;
+      state.selectedFilters[payload.queryParam] = payload.value.sort();
     },
     cleanFilters(state) {
       state.selectedFilters = {
@@ -101,7 +114,7 @@ export default new Vuex.Store({
   actions: {
     changeFilter(context, payload) {
       context.commit('changeFilter', payload);
-      api.getDependantFiltersOptions(context.getters.filtersQueryString)
+      api.getDependantFiltersOptions(context.getters.finalQueryString)
         .then((filtersOptions) => {
           Object.entries(filtersOptions).forEach((pair) => {
             context.commit('setFilterOptions', { queryParam: pair[0], value: pair[1] });

@@ -16,7 +16,7 @@
 export default {
   methods: {
     groupByFiltersQueryString(grouping) {
-      return this.$store.getters.filtersQueryString(grouping);
+      return this.$store.getters.finalQueryString(grouping);
     },
   },
   computed: {
