@@ -35,7 +35,7 @@ export default new Vuex.Store({
     chartEndDate: null,
     chartInitialStartDate: null,
     chartInitialEndDate: null,
-    groupBy: getURLQueryParam('group_by') || 'day',
+    groupBy: getURLQueryParam('group_by'),
   },
   getters: {
     filtersQueryString(state) {
