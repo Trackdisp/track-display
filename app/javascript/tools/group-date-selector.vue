@@ -22,7 +22,7 @@ export default {
   computed: {
     groupBy: {
       get() {
-        return this.$store.state.groupBy;
+        return this.$store.state.groupBy || 'day';
       },
       set(grouping) {
         if (grouping) {

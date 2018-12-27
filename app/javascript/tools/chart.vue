@@ -15,7 +15,7 @@ export default {
   },
   computed: {
     groupBy() {
-      return this.$store.state.groupBy;
+      return this.$store.state.groupBy || 'day';
     },
     minRange() {
       // eslint-disable-next-line no-magic-numbers
