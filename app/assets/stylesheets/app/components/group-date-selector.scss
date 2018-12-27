@@ -41,15 +41,19 @@
 
     &--disabled {
       cursor: not-allowed;
+      background-color: $disabled-btn-color;
+      color: $disabled-font-color;
+      border: 0;
 
       &:hover {
-        background-color: $content-bg-color;
+        background-color: $disabled-btn-color;
       }
     }
 
     &__content {
       font-family: $main-font;
       font-size: 12px;
+      font-weight: bold;
     }
   }
 }
