@@ -1,7 +1,10 @@
 <template>
   <div class="filter-button__container">
-    <div class="filter-button__button" @click="cleanFilters">
-      <img src="~/close-red.svg">
+    <div class="filter-button__button"
+         :class="{'filter-button__button--disabled': selectedFiltersEmpty}"
+         @click="cleanFilters">
+      <img src="~/close-red.svg" v-if="!selectedFiltersEmpty">
+      <img src="~/close-disabled.svg" v-else>
       Limpiar
     </div>
     <div class="filter-button__button"
@@ -24,6 +27,9 @@ export default {
     selectedFiltersChanged() {
       return this.$store.getters.selectedFiltersChanged;
     },
+    selectedFiltersEmpty() {
+      return this.$store.getters.selectedFiltersEmpty;
+    },
   },
   methods: {
     applyFilters() {
@@ -32,7 +38,9 @@ export default {
       }
     },
     cleanFilters() {
-      this.$store.dispatch('cleanFilters');
+      if (!this.selectedFiltersEmpty) {
+        this.$store.dispatch('cleanFilters');
+      }
     },
   },
 };
