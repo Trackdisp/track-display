@@ -79,6 +79,9 @@ export default new Vuex.Store({
     selectedFiltersChanged(state, getters) {
       return state.initialSelectedFiltersString !== getters.finalQueryString();
     },
+    selectedFiltersEmpty(_state, getters) {
+      return getters.filtersQueryString === '';
+    },
   },
   mutations: {
     changeFilter(state, payload) {
