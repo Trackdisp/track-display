@@ -1,5 +1,11 @@
 <template>
-  <vue-multiselect :options="options" :multiple="multiple" :class="selectClass" :label="label" :track-by="trackBy" v-model="selectedFilterValues" :placeholder="placeholder" :show-labels="false"></vue-multiselect>
+  <vue-multiselect @open="setOpen" @close="setClosed" :options="options" :multiple="multiple" :class="selectClass" :label="label" :track-by="trackBy" v-model="selectedFilterValues" :placeholder="placeholder" :show-labels="false">
+    <template slot="caret" v-if="isSingleAndSelectedAndClosed">
+      <div @mousedown.prevent.stop="clear" class="multiselect__clear">
+        <img src="~/close-green.svg">
+      </div>
+    </template>
+  </vue-multiselect>
 </template>
 
 <script>
@@ -12,6 +18,22 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch('setFilterOptions', { queryParam: this.queryParam, value: this.initialOptions });
+  },
+  data() {
+    return {
+      open: false,
+    };
+  },
+  methods: {
+    clear() {
+      this.selectedFilterValues = null;
+    },
+    setOpen() {
+      this.open = true;
+    },
+    setClosed() {
+      this.open = false;
+    },
   },
   computed: {
     selectClass() {
@@ -43,6 +65,9 @@ export default {
         }
         this.$store.dispatch('changeFilter', { queryParam: this.queryParam, value: paramValue });
       },
+    },
+    isSingleAndSelectedAndClosed() {
+      return !this.multiple && this.selectedFilterValues && !this.open;
     },
   },
 };
