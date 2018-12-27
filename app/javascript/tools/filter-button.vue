@@ -18,8 +18,8 @@
 
 export default {
   computed: {
-    filtersQueryString() {
-      return this.$store.getters.filtersQueryString();
+    finalQueryString() {
+      return this.$store.getters.finalQueryString();
     },
     selectedFiltersChanged() {
       return this.$store.getters.selectedFiltersChanged;
@@ -28,7 +28,7 @@ export default {
   methods: {
     applyFilters() {
       if (this.selectedFiltersChanged) {
-        window.location.search = this.filtersQueryString;
+        window.location.search = this.finalQueryString;
       }
     },
     cleanFilters() {
