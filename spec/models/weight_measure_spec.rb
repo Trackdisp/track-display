@@ -9,7 +9,7 @@ RSpec.describe WeightMeasure, type: :model do
 
   describe '#Validations' do
     it { should validate_numericality_of(:item_weight).is_greater_than_or_equal_to(0) }
-    it { should validate_numericality_of(:shelf_weight).is_greater_than_or_equal_to(0) }
+    # it { should validate_numericality_of(:shelf_weight).is_greater_than_or_equal_to(0) }
     it { should validate_numericality_of(:current_weight).is_greater_than_or_equal_to(0) }
     it { should validate_numericality_of(:previous_weight).is_greater_than_or_equal_to(0) }
 
