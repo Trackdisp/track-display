@@ -20,7 +20,7 @@ class WeightMeasure < ApplicationRecord
   validates(
     :item_weight,
     :items_max,
-    :shelf_weight,
+    # :shelf_weight,
     :current_weight,
     :previous_weight,
     numericality: {
@@ -42,11 +42,11 @@ class WeightMeasure < ApplicationRecord
   end
 
   def set_items_count
-    self.items_count = (previous_weight - current_weight) / item_weight
+    self.items_count = (previous_weight - current_weight) / (item_weight / 1000.0)
   end
 
   def set_rotated_fraction
-    self.rotated_fraction = items_count.to_f / items_max.to_f
+    self.rotated_fraction = items_count.to_f / items_max.to_f if items_max.positive?
   end
 end
 
