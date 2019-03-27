@@ -61,8 +61,8 @@ end
 #  measured_at             :datetime
 #  item_weight             :integer
 #  shelf_weight            :integer
-#  current_weight          :integer
-#  previous_weight         :integer
+#  current_weight          :decimal(, )
+#  previous_weight         :decimal(, )
 #  items_count             :integer
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null

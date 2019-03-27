@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_26_133649) do
+ActiveRecord::Schema.define(version: 2019_03_27_122621) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,8 +198,8 @@ ActiveRecord::Schema.define(version: 2018_09_26_133649) do
     t.datetime "measured_at"
     t.integer "item_weight"
     t.integer "shelf_weight"
-    t.integer "current_weight"
-    t.integer "previous_weight"
+    t.decimal "current_weight"
+    t.decimal "previous_weight"
     t.integer "items_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

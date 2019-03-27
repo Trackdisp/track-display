@@ -46,8 +46,8 @@ class WeightMeasuresSyncService < PowerTypes::Service.new
         item_weight: measure_data[:item_weight].to_i,
         items_max: measure_data[:items_max].to_i,
         # shelf_weight: measure_data[:shelf_weight].to_i,
-        current_weight: measure_data[:current_weight].to_i,
-        previous_weight: measure_data[:previous_weight].to_i,
+        current_weight: measure_data[:current_weight].to_f,
+        previous_weight: measure_data[:previous_weight].to_f,
         weight_measures_sync: @sync
       )
     end
