@@ -42,7 +42,7 @@ class WeightMeasure < ApplicationRecord
   end
 
   def set_items_count
-    self.items_count = (previous_weight - current_weight) / (item_weight / 1000.0)
+    self.items_count = ((previous_weight - current_weight) / (item_weight / 1000.0)).round
   end
 
   def set_rotated_fraction
