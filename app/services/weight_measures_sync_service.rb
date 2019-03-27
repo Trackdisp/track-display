@@ -38,16 +38,16 @@ class WeightMeasuresSyncService < PowerTypes::Service.new
 
   def create_or_find_measure(device, measure_data)
     measure = WeightMeasure.find_by(
-      device_id: device.id, measured_at: measure_data[:time].to_time
+      device_id: device.id, measured_at: measure_data[:timestamp].to_time
     )
     unless measure.present?
-      device.weight_measures.create!(
-        measured_at: measure_data[:time].to_time,
+      device.weight_measures.create(
+        measured_at: measure_data[:timestamp].to_time,
         item_weight: measure_data[:item_weight].to_i,
         items_max: measure_data[:items_max].to_i,
-        shelf_weight: measure_data[:shelf_weight].to_i,
-        current_weight: measure_data[:current_weight].to_i,
-        previous_weight: measure_data[:previous_weight].to_i,
+        # shelf_weight: measure_data[:shelf_weight].to_i,
+        current_weight: measure_data[:current_weight].to_f,
+        previous_weight: measure_data[:previous_weight].to_f,
         weight_measures_sync: @sync
       )
     end

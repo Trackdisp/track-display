@@ -20,9 +20,9 @@ module Elastic
           indexes :brand_id, type: 'integer'
           indexes :measured_at, type: 'date'
           indexes :item_weight, type: 'integer'
-          indexes :shelf_weight, type: 'integer'
-          indexes :current_weight, type: 'integer'
-          indexes :previous_weight, type: 'integer'
+          # indexes :shelf_weight, type: 'integer'
+          indexes :current_weight, type: 'half_float'
+          indexes :previous_weight, type: 'half_float'
           indexes :items_count, type: 'integer'
           indexes :items_max, type: 'integer'
           indexes :rotated_fraction, type: 'half_float'
@@ -35,7 +35,7 @@ module Elastic
       def as_indexed_json(_options = {})
         as_json(methods: [:device_name, :device_serial, :device_active, :campaign_name,
                           :company_name, :location_name, :brand_name, :brand_id,
-                          :measured_at, :item_weight, :shelf_weight, :current_weight,
+                          :measured_at, :item_weight, :current_weight,
                           :previous_weight, :items_count, :items_max, :rotated_fraction,
                           :channel, :commune_id, :region_id])
       end
