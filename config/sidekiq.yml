@@ -4,8 +4,8 @@ production:
   - default
   - es_index
 :limits:
-  default: 3
-  es_index: 2
+  default: 4
+  es_index: 1
 :schedule:
   measures_sync:
     cron: <%= ENV.fetch("SYNCHRONIZATION_CRON_INTERVAL", '0 */15 * * * *') %> # runs every 15 minutes
