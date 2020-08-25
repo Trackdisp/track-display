@@ -5,7 +5,7 @@
     "@rails/webpacker": "3.4",
     "axios": "^0.18.0",
     "date-fns": "^1.29.0",
-    "highcharts": "^6.1.0",
+    "highcharts": "^7.2.2",
     "vue": "^2.5.16",
     "vue-chartkick": "^0.4.0",
     "vue-clickaway": "^2.2.2",
